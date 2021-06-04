@@ -18,7 +18,41 @@ typedef	struct	s_level_select
 	SDLX_Sprite			background;
 	SDLX_RenderQueue	*queue;
 
+	SDLX_button			play;
 }				t_level_select;
+
+void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
+{
+	t_level_select *scene;
+
+	scene = SDL_malloc(sizeof(*scene));
+	context->meta = scene;
+	context->scene = SDL_TRUE;
+
+	scene->background = SDLX_Sprite_Static(ASSETS"level_one.png");
+	SDLX_set_background(&(scene->background));
+	scene->queue = &(context->queue);
+
+	context->close_fn = level_select_close;
+	context->update_fn = level_select_update;
+
+	return (NULL);
+}
+
+void	*button_level_trigger(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t length)
+{
+	t_context *context;
+
+	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+	{
+		context = self->meta;
+
+		context->init_fn = first_level_init;
+		context->scene = SDL_FALSE;
+	}
+
+	return (NULL);
+}
 
 void	*level_select_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
 {
@@ -26,20 +60,28 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED i
 
 	scene = SDL_malloc(sizeof(*scene));
 	context->meta = scene;
+	context->scene = SDL_TRUE;
 	scene->background = SDLX_Sprite_Static(ASSETS"p8_level_select.png");
 	SDLX_set_background(&(scene->background));
 	scene->queue = &(context->queue);
 
+	SDLX_Button_Init(&(scene->play), fetch_ui_sprite, PLAY_NORM, (SDL_Rect){50, 10, 23 * 2, 11 * 2}, scene->queue);
+
+	SDLX_Style_Button(&(scene->play), PLAY_NORM, PLAY_HOVER);
+	SDLX_Button_Set_fn(&(scene->play), SDLX_Button_onHoverFocus, SDLX_Button_NULL_fn, SDLX_Button_NULL_fn, button_level_trigger, SDLX_Button_NULL_fn);
+
 	context->close_fn = level_select_close;
 	context->update_fn = level_select_update;
+
+	scene->play.meta = context;
 	return (NULL);
 }
 
-void	*level_select_close(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
+void	*level_select_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
 {
 	t_level_select *scene;
 
-	scene = context->meta;
+	scene = level;
 	SDLX_RenderQueue_flush(scene->queue, SDLX_GetDisplay()->renderer);
 
 	SDL_free(scene);
@@ -47,10 +89,12 @@ void	*level_select_close(t_context *context, SDL_UNUSED void *level, SDL_UNUSED 
 	return (NULL);
 }
 
-void	*level_select_update(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
+void	*level_select_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
 {
 	t_level_select *scene;
 
-	scene = context->meta;
+	scene = level;
+
+	SDLX_Button_Update(&(scene->play));
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/04 02:01:06 by home             ###   ########.fr       */
+/*   Updated: 2021/06/04 03:21:33 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	blaster_start(t_context *context)
 {
 	context->exit = SDL_FALSE;
+	context->scene = SDL_FALSE;
 
 	context->meta = NULL;
 	context->meta_catch = NULL;
@@ -37,7 +38,7 @@ int	main(void)
 
 		context.init_fn(&context, context.meta, context.ticks);
 
-		while (context.exit == SDL_FALSE)
+		while (context.scene == SDL_TRUE && context.exit == SDL_FALSE)
 		{
 			context.exit = SDLX_poll();
 

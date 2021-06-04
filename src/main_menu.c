@@ -32,7 +32,7 @@ void	*button_play_trigger(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED s
 		context = self->meta;
 
 		context->init_fn = level_select_init;
-		context->exit = SDL_TRUE;
+		context->scene = SDL_FALSE;
 	}
 
 	return (NULL);
@@ -46,6 +46,7 @@ void	*main_menu_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int 
 
 	scene = SDL_malloc(sizeof(*scene));
 	context->meta = scene;
+	context->scene = SDL_TRUE;
 	scene->background = SDLX_Sprite_Static(ASSETS"p8_main_menu_background.png");
 	SDLX_set_background(&(scene->background));
 	scene->queue = &(context->queue);
@@ -63,17 +64,17 @@ void	*main_menu_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int 
 	return (NULL);
 }
 
-void	*main_menu_close(t_context *context, void *level, SDL_UNUSED int tick)
+void	*main_menu_close(SDL_UNUSED t_context *context, void *level, SDL_UNUSED int tick)
 {
 	t_main_menu_scene *scene;
 
 	scene = level;
 
 	SDLX_RenderQueue_flush(scene->queue, SDLX_GetDisplay()->renderer);
+
 	SDL_free(scene->background.sprite_data);
 	SDL_free(scene);
 
-	context->exit = SDL_FALSE;
 	return (NULL);
 }
 

@@ -22,6 +22,7 @@
 typedef struct	s_context
 {
 	SDL_bool	exit;
+	SDL_bool	scene;
 
 	void		*meta;
 	void		*meta_catch;
