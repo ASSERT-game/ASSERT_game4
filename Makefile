@@ -1,4 +1,4 @@
-NAME = app
+NAME = blaster
 FLAGS = -Wall -Wextra -Werror
 INCLUDES = -I includes/ -I ~/.brew/include/SDL2/
 SDL_LIB = -L ~/.brew/lib -l SDL2 -l sdl2_image -l SDL2_ttf
@@ -22,7 +22,10 @@ SDLX_NAMES = 			\
 SRC_NAMES = \
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	input \
+	level_select \
+	main_menu \
 	main \
+	ui_sprites \
 
 # List of all the source files, folders are to be added by
 # including a $(addprefix, DIR_NAME, $(DIR_FILES))

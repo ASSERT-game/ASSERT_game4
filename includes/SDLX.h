@@ -88,5 +88,7 @@ void			SDLX_Button_Set_fn(SDLX_button *button,
 */
 
 SDLX_direction	SDLX_reverse_dir(SDLX_direction direction);
+SDL_Texture		*SDLX_LoadTexture(char *path);
+SDLX_Sprite		SDLX_Sprite_Static(char *path);
 
 #endif

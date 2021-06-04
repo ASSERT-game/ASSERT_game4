@@ -19,4 +19,37 @@
 
 # define ASSETS "assets/"
 
+typedef struct	s_context
+{
+	SDL_bool	exit;
+
+	void		*meta;
+	void		*meta_catch;
+
+	void		*(*init_fn)(struct s_context *, void *, int);
+	void		*(*update_fn)(struct s_context *, void *, int);
+	void		*(*close_fn)(struct s_context *, void *, int);
+
+	int			ticks;
+	SDLX_RenderQueue	queue;
+}				t_context;
+
+void			*main_menu_init(t_context *context, void *meta, int ticks);
+void			*main_menu_close(t_context *context, void *meta, int ticks);
+void			*main_menu_update(t_context *context, void *meta, int ticks);
+
+void			*level_select_init(t_context *context, void *level, int tick);
+void			*level_select_close(t_context *context, void *level, int tick);
+void			*level_select_update(t_context *context, void *level, int tick);
+
+enum	BLASTER_UI_SPRITES
+{
+	PLAY_NORM,
+	PLAY_HOVER,
+	CREDIT_NORM,
+	CREDIT_HOVER,
+};
+
+int				fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
+
 #endif
