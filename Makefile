@@ -21,6 +21,7 @@ SDLX_NAMES = 			\
 # List of all the source files.
 SRC_NAMES = \
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
+	first_level \
 	input \
 	level_select \
 	main_menu \

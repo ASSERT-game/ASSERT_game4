@@ -21,23 +21,6 @@ typedef	struct	s_level_select
 	SDLX_button			play;
 }				t_level_select;
 
-void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
-{
-	t_level_select *scene;
-
-	scene = SDL_malloc(sizeof(*scene));
-	context->meta = scene;
-	context->scene = SDL_TRUE;
-
-	scene->background = SDLX_Sprite_Static(ASSETS"level_one.png");
-	SDLX_set_background(&(scene->background));
-	scene->queue = &(context->queue);
-
-	context->close_fn = level_select_close;
-	context->update_fn = level_select_update;
-
-	return (NULL);
-}
 
 void	*button_level_trigger(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t length)
 {
@@ -84,6 +67,7 @@ void	*level_select_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level, 
 	scene = level;
 	SDLX_RenderQueue_flush(scene->queue, SDLX_GetDisplay()->renderer);
 
+	SDL_free(scene->background.sprite_data);
 	SDL_free(scene);
 
 	return (NULL);
