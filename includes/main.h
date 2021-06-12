@@ -56,6 +56,14 @@ enum	BLASTER_UI_SPRITES
 	PAUSE_NORM,
 };
 
+typedef struct	s_bullet
+{
+	SDLX_Sprite		sprite;
+
+	SDL_Point		vel;
+	SDL_bool		fired;
+}				t_bullet;
+
 int				fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
 
 #endif
