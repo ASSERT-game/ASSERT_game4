@@ -25,8 +25,10 @@ SRC_NAMES = \
 	input \
 	level_select \
 	main_menu \
+	player \
 	main \
 	ui_sprites \
+	weapons \
 
 # List of all the source files, folders are to be added by
 # including a $(addprefix, DIR_NAME, $(DIR_FILES))

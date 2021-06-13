@@ -20,10 +20,11 @@ typedef struct	s_firt_level
 
 	SDLX_button			pause;
 
-	SDLX_Sprite			player;
 	SDLX_Sprite			crosshair;
 
 	t_bullet			bullet;
+
+	t_player			player;
 }				t_firt_level;
 
 void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
@@ -40,9 +41,8 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED in
 
 	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){256 - 21, 5, 16, 16}, scene->queue);
 
-	scene->player = SDLX_Sprite_Static(ASSETS"bunny.png");
-	scene->player.dst = &(scene->player._dst);
-	scene->player._dst = (SDL_Rect){7 * 16, 7 * 16, 40, 40};
+	scene->player.queue = scene->queue;
+	player_init(&(scene->player));
 
 	scene->crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");
 	scene->crosshair.dst = &(scene->crosshair._dst);
@@ -51,15 +51,6 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED in
 	scene->crosshair._center.x = 0;
 	scene->crosshair._center.y = 80;
 	scene->crosshair.angle = 0;
-
-	scene->bullet.fired = SDL_FALSE;
-	scene->bullet.sprite = SDLX_Sprite_Static(ASSETS"laser.png");
-	scene->bullet.sprite.dst = &(scene->bullet.sprite._dst);
-	scene->bullet.sprite._dst = (SDL_Rect){130, 7 * 16 + 8, 16, 16};
-	scene->bullet.sprite.center = &(scene->bullet.sprite._center);
-	scene->bullet.sprite._center.x = 8;
-	scene->bullet.sprite._center.y = 32;
-	scene->bullet.sprite.angle = 0;
 
 	context->close_fn = first_level_close;
 	context->update_fn = first_level_update;
@@ -86,47 +77,53 @@ void	*first_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level, 
 
 	scene = level;
 
-	SDLX_RenderQueue_add(scene->queue, &(scene->player));
-	SDLX_RenderQueue_add(scene->queue, &(scene->crosshair));
 	scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - 130, 140 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
+	SDLX_RenderQueue_add(scene->queue, &(scene->crosshair));
 
-	if (scene->bullet.fired == SDL_FALSE)
-		scene->bullet.sprite.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - (scene->bullet.sprite._dst.x + 4), (scene->bullet.sprite._dst.y + 16) - g_GameInput.GameInput.primary.y) * 180 / M_PI);
-	else
-	{
-		scene->bullet.sprite._dst.x += scene->bullet.vel.x;
-		scene->bullet.sprite._dst.y += scene->bullet.vel.y;
-	}
+	// SDLX_RenderQueue_add(scene->queue, &(scene->player));
 
-	double	angle;
 
-	if (g_GameInput.GameInput.button_primleft == SDL_TRUE && scene->bullet.fired == SDL_FALSE)
-	{
-		scene->bullet.fired = SDL_TRUE;
-		angle = SDL_atan2(g_GameInput.GameInput.primary.x - (scene->bullet.sprite._dst.x + 4), (scene->bullet.sprite._dst.y + 16) - g_GameInput.GameInput.primary.y);
+	// if (scene->bullet.fired == SDL_FALSE)
+	// 	scene->bullet.sprite.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - (scene->bullet.sprite._dst.x + 4), (scene->bullet.sprite._dst.y + 16) - g_GameInput.GameInput.primary.y) * 180 / M_PI);
+	// else
+	// {
+	// 	scene->bullet.sprite._dst.x += scene->bullet.vel.x;
+	// 	scene->bullet.sprite._dst.y += scene->bullet.vel.y;
+	// }
 
-		scene->bullet.vel.x = SDL_sin(angle) * 9;
-		scene->bullet.vel.y = SDL_cos(angle) * -9;
-	}
+	// double	angle;
 
-	SDL_Rect	play_area;
-	SDL_Rect	b_real;
+	// if (g_GameInput.GameInput.button_primleft == SDL_TRUE && scene->bullet.fired == SDL_FALSE)
+	// {
+	// 	scene->bullet.fired = SDL_TRUE;
+	// 	angle = SDL_atan2(g_GameInput.GameInput.primary.x - (scene->bullet.sprite._dst.x + 4), (scene->bullet.sprite._dst.y + 16) - g_GameInput.GameInput.primary.y);
 
-	play_area = (SDL_Rect){0, 0, 32 * 16, 32 * 16};
-	b_real = scene->bullet.sprite._dst;
+	// 	scene->bullet.vel.x = SDL_sin(angle) * 9;
+	// 	scene->bullet.vel.y = SDL_cos(angle) * -9;
+	// }
 
-	b_real.x *= 2;
-	b_real.y *= 2;
-	b_real.w *= 2;
-	b_real.h *= 2;
+	// SDL_Rect	play_area;
+	// SDL_Rect	b_real;
 
-	if (SDL_HasIntersection(&(b_real), &(play_area)) == SDL_FALSE)
-	{
-		scene->bullet.fired = SDL_FALSE;
-		scene->bullet.sprite._dst = (SDL_Rect){130, 7 * 16 + 8, 16, 16};
-	}
-	if (scene->bullet.fired)
-		SDLX_RenderQueue_add(scene->queue, &(scene->bullet.sprite));
+	// play_area = (SDL_Rect){0, 0, 32 * 16, 32 * 16};
+	// b_real = scene->bullet.sprite._dst;
+
+	// b_real.x *= 2;
+	// b_real.y *= 2;
+	// b_real.w *= 2;
+	// b_real.h *= 2;
+
+	// if (SDL_HasIntersection(&(b_real), &(play_area)) == SDL_FALSE)
+	// {
+	// 	scene->bullet.fired = SDL_FALSE;
+	// 	scene->bullet.sprite._dst = (SDL_Rect){130, 7 * 16 + 8, 16, 16};
+	// }
+	// if (scene->bullet.fired)
+	// 	SDLX_RenderQueue_add(scene->queue, &(scene->bullet.sprite));
+
+
+	player_update(&(scene->player));
+	projectile_update(&(scene->player.attacks));
 
 	SDLX_Button_Update(&(scene->pause));
 

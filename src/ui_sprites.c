@@ -81,10 +81,10 @@ int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int no)
 	if (sprite_arr == NULL)
 		sprite_arr = carve_ui_sprite();
 
-	if (no == PLAY_NORM)       { (*dst) = &(sprite_arr[13]); return (EXIT_SUCCESS); }
-	else if (no == PLAY_HOVER) { (*dst) = &(sprite_arr[14]); return (EXIT_SUCCESS); }
-	else if (no == CREDIT_NORM)   { (*dst) = &(sprite_arr[15]); return (EXIT_SUCCESS); }
-	else if (no == CREDIT_HOVER)  { (*dst) = &(sprite_arr[16]); return (EXIT_SUCCESS); }
-	else if (no == PAUSE_NORM)  { (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
+	if (no == PLAY_NORM)		{ (*dst) = &(sprite_arr[13]); return (EXIT_SUCCESS); }
+	else if (no == PLAY_HOVER)	{ (*dst) = &(sprite_arr[14]); return (EXIT_SUCCESS); }
+	else if (no == CREDIT_NORM)	{ (*dst) = &(sprite_arr[15]); return (EXIT_SUCCESS); }
+	else if (no == CREDIT_HOVER){ (*dst) = &(sprite_arr[16]); return (EXIT_SUCCESS); }
+	else if (no == PAUSE_NORM)	{ (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
 	else { return (EXIT_FAILURE); }
 }

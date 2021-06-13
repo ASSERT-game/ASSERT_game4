@@ -61,9 +61,52 @@ typedef struct	s_bullet
 	SDLX_Sprite		sprite;
 
 	SDL_Point		vel;
-	SDL_bool		fired;
+	SDL_bool		active;
 }				t_bullet;
+
+typedef struct	s_attacks
+{
+	size_t		index;
+	size_t		capacity;
+
+	t_bullet	*attacks;
+
+	//remove later
+	SDLX_RenderQueue *queue;
+}				t_attacks;
+typedef struct	s_weapon
+{
+	unsigned int	start;
+	unsigned int	cooldown;
+
+	unsigned int	curr;
+
+	SDL_bool		enabled;
+
+	void		(*factory)(t_bullet *, SDL_Point, double angle, void *);
+}				t_weapon;
+typedef struct	s_player
+{
+	SDLX_Sprite		sprite;
+
+	t_weapon		weapon_equip;
+
+
+	//These are not permanent.
+	SDLX_RenderQueue	*queue;
+	t_attacks			attacks;
+}				t_player;
 
 int				fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
 
+void			player_init(t_player *dst);
+void			player_update(t_player *self);
+
+t_weapon		laser_cannon(void);
+
+void	projectile_update(t_attacks *queue);
+void	projectile_queue(t_attacks *attacks);
+void	projectile_add(t_attacks *dst, t_bullet src);
+
 #endif
+
