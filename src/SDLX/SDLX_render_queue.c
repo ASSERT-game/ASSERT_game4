@@ -16,6 +16,8 @@
 
 #define QUEUE_DEFAULT_SIZE (5)
 
+SDLX_RenderQueue	default_RenderQueue;
+
 int	SDLX_RenderQueue_init(SDLX_RenderQueue *dest)
 {
 	dest->index = 0;
@@ -27,7 +29,7 @@ int	SDLX_RenderQueue_init(SDLX_RenderQueue *dest)
 
 void	SDLX_draw_animation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 {
-	size_t	no;
+	size_t		no;
 	SDL_Rect	draw_rect;
 	SDL_Rect	*ptr_rect;
 
@@ -69,7 +71,7 @@ void	SDLX_RenderQueue_flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer)
 
 	i = 0;
 	if (queue == NULL)
-		return ;
+		queue = &(default_RenderQueue);
 	while (i < queue->index)
 	{
 		SDLX_draw_animation(renderer, queue->content[i]);
@@ -80,6 +82,9 @@ void	SDLX_RenderQueue_flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer)
 
 void	SDLX_RenderQueue_add(SDLX_RenderQueue *dst, SDLX_Sprite *src)
 {
+	if (dst == NULL)
+		dst = &(default_RenderQueue);
+
 	if (dst->index + 1 >= dst->capacity)
 	{
 		dst->content = SDL_realloc(dst->content, sizeof(dst->content) * (dst->capacity * ALLOC_RATE));

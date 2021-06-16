@@ -49,10 +49,9 @@ void	*main_menu_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int 
 	context->scene = SDL_TRUE;
 	scene->background = SDLX_Sprite_Static(ASSETS"p8_main_menu_background.png");
 	SDLX_set_background(&(scene->background));
-	scene->queue = &(context->queue);
 
-	SDLX_Button_Init(&(scene->play), fetch_ui_sprite, PLAY_NORM, (SDL_Rect){50, 10, 23 * UI_ENLARGE, 11 * UI_ENLARGE}, scene->queue);
-	SDLX_Button_Init(&(scene->credits), fetch_ui_sprite, CREDIT_NORM, (SDL_Rect){50, 56, 35 * UI_ENLARGE, 11 * UI_ENLARGE}, scene->queue);
+	SDLX_Button_Init(&(scene->play), fetch_ui_sprite, PLAY_NORM, (SDL_Rect){50, 10, 23 * UI_ENLARGE, 11 * UI_ENLARGE}, NULL);
+	SDLX_Button_Init(&(scene->credits), fetch_ui_sprite, CREDIT_NORM, (SDL_Rect){50, 56, 35 * UI_ENLARGE, 11 * UI_ENLARGE}, NULL);
 
 	SDLX_Style_Button(&(scene->play), PLAY_NORM, PLAY_HOVER);
 	SDLX_Style_Button(&(scene->credits), CREDIT_NORM, CREDIT_HOVER);
@@ -70,7 +69,7 @@ void	*main_menu_close(SDL_UNUSED t_context *context, void *level, SDL_UNUSED int
 
 	scene = level;
 
-	SDLX_RenderQueue_flush(scene->queue, SDLX_GetDisplay()->renderer);
+	SDLX_RenderQueue_flush(NULL, SDLX_GetDisplay()->renderer);
 
 	SDL_free(scene->background.sprite_data);
 	SDL_free(scene);

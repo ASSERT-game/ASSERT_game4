@@ -26,7 +26,6 @@ void	player_init(t_player *dst)
 	player->weapon_equip = laser_cannon();
 
 	projectile_queue(&(player->attacks));
-	player->attacks.queue = player->queue;
 }
 
 void	player_update(t_player *self)
@@ -48,5 +47,5 @@ void	player_update(t_player *self)
 	/* If (curr) is equal to (cooldown + 1) undo the (curr++) */
 	weapon->curr -= (weapon->curr / (weapon->cooldown + 1));
 
-	SDLX_RenderQueue_add(self->queue, &(self->sprite));
+	SDLX_RenderQueue_add(NULL, &(self->sprite));
 }

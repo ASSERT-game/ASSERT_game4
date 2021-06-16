@@ -32,7 +32,6 @@ typedef struct	s_context
 	void		*(*close_fn)(struct s_context *, void *, int);
 
 	int			ticks;
-	SDLX_RenderQueue	queue;
 }				t_context;
 
 void			*main_menu_init(t_context *context, void *meta, int ticks);
@@ -71,8 +70,6 @@ typedef struct	s_attacks
 
 	t_bullet	*attacks;
 
-	//remove later
-	SDLX_RenderQueue *queue;
 }				t_attacks;
 typedef struct	s_weapon
 {
@@ -93,7 +90,6 @@ typedef struct	s_player
 
 
 	//These are not permanent.
-	SDLX_RenderQueue	*queue;
 	t_attacks			attacks;
 }				t_player;
 

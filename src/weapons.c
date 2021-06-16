@@ -74,7 +74,7 @@ void	projectile_update(t_attacks *attacks)
 			//calls the bullet update function
 			attacks->attacks[ix].sprite._dst.x += attacks->attacks[ix].vel.x;
 			attacks->attacks[ix].sprite._dst.y += attacks->attacks[ix].vel.y;
-			SDLX_RenderQueue_add(attacks->queue, &(attacks->attacks[ix].sprite));
+			SDLX_RenderQueue_add(NULL, &(attacks->attacks[ix].sprite));
 		}
 		ix++;
 	}

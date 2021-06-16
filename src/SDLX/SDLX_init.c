@@ -14,13 +14,16 @@ void	SDLX_start(SDLX_Display *dest)
 	dest->window = window;
 	dest->renderer = SDL_CreateRenderer(window, -1, 0);
 
+	SDLX_RenderQueue_init(&(default_RenderQueue));
+
 	atexit(SDLX_close);
 }
 
 void	SDLX_close(void)
 {
-	SDL_Log("Clean Exit");
 	SDL_DestroyWindow(SDLX_GetDisplay()->window);
+	SDL_free(default_RenderQueue.content);
+	SDL_Log("Clean Exit");
 	SDL_Quit();
 }
 

@@ -16,7 +16,6 @@
 typedef	struct	s_level_select
 {
 	SDLX_Sprite			background;
-	SDLX_RenderQueue	*queue;
 
 	SDLX_button			play;
 }				t_level_select;
@@ -46,9 +45,8 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED i
 	context->scene = SDL_TRUE;
 	scene->background = SDLX_Sprite_Static(ASSETS"p8_level_select.png");
 	SDLX_set_background(&(scene->background));
-	scene->queue = &(context->queue);
 
-	SDLX_Button_Init(&(scene->play), fetch_ui_sprite, PLAY_NORM, (SDL_Rect){50, 10, 23 * 2, 11 * 2}, scene->queue);
+	SDLX_Button_Init(&(scene->play), fetch_ui_sprite, PLAY_NORM, (SDL_Rect){50, 10, 23 * 2, 11 * 2}, NULL);
 
 	SDLX_Style_Button(&(scene->play), PLAY_NORM, PLAY_HOVER);
 	SDLX_Button_Set_fn(&(scene->play), SDLX_Button_onHoverFocus, SDLX_Button_NULL_fn, SDLX_Button_NULL_fn, button_level_trigger, SDLX_Button_NULL_fn);
@@ -65,7 +63,7 @@ void	*level_select_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level, 
 	t_level_select *scene;
 
 	scene = level;
-	SDLX_RenderQueue_flush(scene->queue, SDLX_GetDisplay()->renderer);
+	SDLX_RenderQueue_flush(NULL, SDLX_GetDisplay()->renderer);
 
 	SDL_free(scene->background.sprite_data);
 	SDL_free(scene);

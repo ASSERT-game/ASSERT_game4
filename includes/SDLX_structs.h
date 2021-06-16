@@ -56,6 +56,7 @@ typedef struct SDLX_RenderQueue
 	SDLX_Sprite		**content;
 }	SDLX_RenderQueue;
 
+extern SDLX_RenderQueue	default_RenderQueue;
 typedef struct	SDLX_iMap
 {
 	int			*dest;
