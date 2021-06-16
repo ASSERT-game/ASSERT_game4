@@ -27,7 +27,7 @@ void	*button_play_trigger(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED s
 {
 	t_context *context;
 
-	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
 	{
 		context = self->meta;
 
@@ -74,6 +74,7 @@ void	*main_menu_close(SDL_UNUSED t_context *context, void *level, SDL_UNUSED int
 	SDL_free(scene->background.sprite_data);
 	SDL_free(scene);
 
+	g_GameInput_prev.GameInput.button_primleft = SDL_FALSE;
 	return (NULL);
 }
 

@@ -25,7 +25,7 @@ void	*button_level_trigger(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED 
 {
 	t_context *context;
 
-	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
 	{
 		context = self->meta;
 
