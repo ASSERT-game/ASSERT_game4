@@ -19,6 +19,7 @@
 # include "SDLX_const.h"
 
 #define SDLX_NULL_SELF ((void *)(1))
+
 typedef struct SDLX_Display
 {
 	SDL_Renderer	*renderer;
@@ -202,5 +203,38 @@ typedef struct	SDLX_button
 	char		*text;	//Might be another structure
 
 }				SDLX_button;
+
+typedef struct	SDLX_collison
+{
+	size_t		type;
+
+	size_t		response_amount;
+	size_t		*response_type;
+
+	void		*originator;
+
+	void		*detect_meta1;
+	void		*detect_meta2;
+	void		*detect_meta3;
+
+	void		*engage_meta1;
+	void		*engage_meta2;
+	void		*engage_meta3;
+
+	void		*(*engage)(void *, void *, void *, void *, void *);
+	SDL_bool	(*detect)(void *, void *, void *, void *, void *);
+
+}				SDLX_collison;
+
+typedef struct	SDLX_collision_bucket
+{
+	size_t		type;
+
+	size_t		capacity;
+	size_t		index;
+
+	SDLX_collison	**content;
+
+}				SDLX_collision_bucket;
 
 #endif
