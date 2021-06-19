@@ -14,15 +14,15 @@
 #include "SDLX_structs.h"
 #include "SDLX_config.h"
 
-#define QUEUE_DEFAULT_SIZE (5)
+#define SDLX_QUEUE_DEFAULT_SIZE (5)
 
 SDLX_RenderQueue	default_RenderQueue;
 
 int	SDLX_RenderQueue_init(SDLX_RenderQueue *dest)
 {
 	dest->index = 0;
-	dest->capacity = QUEUE_DEFAULT_SIZE;
-	dest->content = SDL_calloc(QUEUE_DEFAULT_SIZE, sizeof(*dest->content));
+	dest->capacity = SDLX_QUEUE_DEFAULT_SIZE;
+	dest->content = SDL_calloc(dest->capacity, sizeof(*dest->content));
 
 	return (EXIT_SUCCESS);
 }
