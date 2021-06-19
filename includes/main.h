@@ -122,6 +122,8 @@ void	projectile_queue(t_attacks *attacks);
 void	projectile_add(t_attacks *dst, t_bullet src);
 
 void	slime_update(void *self);
+SDL_bool	slime_detect_collision(void *self, void *with, void *meta1, void *meta2, void *meta3);
+void		*slime_collide(void *self, void *with, void *meta1, void *meta2, void *meta3);
 
 #endif
 

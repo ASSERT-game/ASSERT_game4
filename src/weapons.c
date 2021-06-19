@@ -40,6 +40,8 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.type = BULLETS;
 	dst->hitbox.originator = dst;
 	// dst->hitbox.detect_meta1 = dst->sprite.dst;
+
+	dst->hitbox.detect = NULL;
 }
 
 #define LASER_COOLDOWN (2)
@@ -105,5 +107,8 @@ void	projectile_add(t_attacks *dst, t_bullet src)
 
 	dst->attacks[ix] = src;
 	dst->attacks[ix].sprite.dst = &(dst->attacks[ix].sprite._dst);
+
+
+	dst->attacks[ix].hitbox.type = BULLETS;
 	dst->attacks[ix].hitbox.detect_meta1 = &(dst->attacks[ix].sprite._dst);
 }

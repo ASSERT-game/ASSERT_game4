@@ -13,6 +13,40 @@
 
 #include "main.h"
 
+SDL_bool	slime_detect_collision(void *self, void *with, void *meta1, void *meta2, void *meta3)
+{
+	SDLX_collison	*self_box;
+	SDLX_collison	*hitbox;
+
+	self_box = self;
+	hitbox = with;
+
+	if (hitbox->type != BULLETS)
+		return (SDL_FALSE);
+
+	if (SDL_HasIntersection(self_box->detect_meta1, hitbox->detect_meta1) == SDL_TRUE)
+		return (SDL_TRUE);
+
+	(void)self;
+	(void)with;
+	(void)meta1;
+	(void)meta2;
+	(void)meta3;
+	return (SDL_FALSE);
+}
+
+void		*slime_collide(void *self, void *with, void *meta1, void *meta2, void *meta3)
+{
+	SDL_Log("The slime is hit, I repeat the slime has been hit.");
+
+	(void)self;
+	(void)with;
+	(void)meta1;
+	(void)meta2;
+	(void)meta3;
+	return (NULL);
+}
+
 void	slime_update(void *self)
 {
 	t_enemy		*slime;

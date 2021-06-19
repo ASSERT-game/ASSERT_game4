@@ -52,11 +52,17 @@ void	SDLX_attempt_CollisionBucket(SDLX_collison *body, SDLX_collision_bucket *bu
 	i = 0;
 	while (i < bucket->index)
 	{
-		collides = body->detect(body->originator, bucket->content[i]->originator,
+		if (body->detect == NULL)
+			collides = SDL_FALSE;
+		else
+		{
+			collides = body->detect(body->originator, bucket->content[i],
 								body->detect_meta1, body->detect_meta2, body->detect_meta3);
+		}
+
 		if (collides)
 		{
-			body->engage(body->originator, bucket->content[i]->originator,
+			body->engage(body->originator, bucket->content[i],
 						body->detect_meta1, body->detect_meta2, body->detect_meta3);
 		}
 		i++;

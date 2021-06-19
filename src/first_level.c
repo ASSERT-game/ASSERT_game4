@@ -57,7 +57,12 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED in
 	scene->slime.sprite = SDLX_Sprite_Static(ASSETS"slime.png");
 	scene->slime.sprite.dst = SDLX_NULL_SELF;
 	scene->slime.sprite._dst = (SDL_Rect){10, 10, 32, 32};
+
+	scene->slime.enemy_hurtbox.originator = &(scene->slime.enemy_hurtbox);
 	scene->slime.enemy_hurtbox.detect_meta1 = &(scene->slime.sprite._dst);
+	scene->slime.enemy_hurtbox.type = SLIMES;
+	scene->slime.enemy_hurtbox.detect = slime_detect_collision;
+	scene->slime.enemy_hurtbox.engage = slime_collide;
 
 	return (NULL);
 }
@@ -141,7 +146,13 @@ void	*first_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level, 
 	while (i < default_CollisionBucket.index)
 	{
 		hitbox = default_CollisionBucket.content[i]->detect_meta1;
+		if (default_CollisionBucket.content[i]->type == SLIMES)
+			SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 0, 170, 170, 255);
+		else
+			SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 255);
 		SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, hitbox);
+
+		SDLX_attempt_CollisionBucket(default_CollisionBucket.content[i], &(default_CollisionBucket));
 		i++;
 	}
 	default_CollisionBucket.index = 0;
