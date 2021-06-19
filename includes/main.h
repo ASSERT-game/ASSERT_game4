@@ -71,6 +71,7 @@ typedef struct	s_attacks
 	t_bullet	*attacks;
 
 }				t_attacks;
+
 typedef struct	s_weapon
 {
 	unsigned int	start;
@@ -82,6 +83,12 @@ typedef struct	s_weapon
 
 	void		(*factory)(t_bullet *, SDL_Point, double angle, void *);
 }				t_weapon;
+
+typedef struct	s_enemy
+{
+	SDLX_Sprite		sprite;
+}				t_enemy;
+
 typedef struct	s_player
 {
 	SDLX_Sprite		sprite;
@@ -103,6 +110,8 @@ t_weapon		laser_cannon(void);
 void	projectile_update(t_attacks *queue);
 void	projectile_queue(t_attacks *attacks);
 void	projectile_add(t_attacks *dst, t_bullet src);
+
+void	slime_update(void *self);
 
 #endif
 

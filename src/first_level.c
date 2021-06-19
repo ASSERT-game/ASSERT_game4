@@ -24,6 +24,8 @@ typedef struct	s_firt_level
 	t_bullet			bullet;
 
 	t_player			player;
+
+	t_enemy				slime;
 }				t_firt_level;
 
 void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
@@ -52,6 +54,10 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED in
 	context->close_fn = first_level_close;
 	context->update_fn = first_level_update;
 
+	scene->slime.sprite = SDLX_Sprite_Static(ASSETS"slime.png");
+	scene->slime.sprite.dst = SDLX_NULL_SELF;
+	scene->slime.sprite._dst = (SDL_Rect){10, 10, 32, 32};
+
 	return (NULL);
 }
 
@@ -74,8 +80,9 @@ void	*first_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level, 
 
 	scene = level;
 
+	slime_update(&(scene->slime));
+
 	scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - 130, 140 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
-	SDLX_RenderQueue_add(NULL, &(scene->crosshair));
 
 	// SDLX_RenderQueue_add(scene->queue, &(scene->player));
 
@@ -119,8 +126,11 @@ void	*first_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level, 
 	// 	SDLX_RenderQueue_add(scene->queue, &(scene->bullet.sprite));
 
 
-	player_update(&(scene->player));
+
 	projectile_update(&(scene->player.attacks));
+	SDLX_RenderQueue_add(NULL, &(scene->slime.sprite));
+	player_update(&(scene->player));
+	SDLX_RenderQueue_add(NULL, &(scene->crosshair));
 
 	SDLX_Button_Update(&(scene->pause));
 

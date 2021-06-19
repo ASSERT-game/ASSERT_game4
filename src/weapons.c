@@ -32,11 +32,11 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	angle = SDL_atan2(g_GameInput.GameInput.primary.x - (dst->sprite._dst.x + 4), (dst->sprite._dst.y + 16) - g_GameInput.GameInput.primary.y);
 
-	dst->vel.x = SDL_sin(angle) * 9;
-	dst->vel.y = SDL_cos(angle) * -9;
+	dst->vel.x = SDL_sin(angle) * 12;
+	dst->vel.y = SDL_cos(angle) * -12;
 }
 
-#define LASER_COOLDOWN (6)
+#define LASER_COOLDOWN (2)
 
 t_weapon	laser_cannon(void)
 {

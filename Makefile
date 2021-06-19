@@ -26,6 +26,7 @@ SRC_NAMES = \
 	level_select \
 	main_menu \
 	player \
+	slime \
 	main \
 	ui_sprites \
 	weapons \
