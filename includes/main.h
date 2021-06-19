@@ -55,12 +55,20 @@ enum	BLASTER_UI_SPRITES
 	PAUSE_NORM,
 };
 
+enum	BLASTER_COLL_TYPES
+{
+	BULLETS,
+	SLIMES,
+};
+
 typedef struct	s_bullet
 {
 	SDLX_Sprite		sprite;
 
 	SDL_Point		vel;
 	SDL_bool		active;
+
+	SDLX_collison	hitbox;
 }				t_bullet;
 
 typedef struct	s_attacks
@@ -87,6 +95,7 @@ typedef struct	s_weapon
 typedef struct	s_enemy
 {
 	SDLX_Sprite		sprite;
+	SDLX_collison	enemy_hurtbox;
 }				t_enemy;
 
 typedef struct	s_player
@@ -94,6 +103,7 @@ typedef struct	s_player
 	SDLX_Sprite		sprite;
 
 	t_weapon		weapon_equip;
+	SDLX_collison	player_hurtbox;
 
 
 	//These are not permanent.

@@ -34,6 +34,12 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->vel.x = SDL_sin(angle) * 12;
 	dst->vel.y = SDL_cos(angle) * -12;
+
+
+
+	dst->hitbox.type = BULLETS;
+	dst->hitbox.originator = dst;
+	// dst->hitbox.detect_meta1 = dst->sprite.dst;
 }
 
 #define LASER_COOLDOWN (2)
@@ -75,6 +81,7 @@ void	projectile_update(t_attacks *attacks)
 			attacks->attacks[ix].sprite._dst.x += attacks->attacks[ix].vel.x;
 			attacks->attacks[ix].sprite._dst.y += attacks->attacks[ix].vel.y;
 			SDLX_RenderQueue_add(NULL, &(attacks->attacks[ix].sprite));
+			SDLX_CollisionBucket_add(NULL, &(attacks->attacks[ix].hitbox));
 		}
 		ix++;
 	}
@@ -98,4 +105,5 @@ void	projectile_add(t_attacks *dst, t_bullet src)
 
 	dst->attacks[ix] = src;
 	dst->attacks[ix].sprite.dst = &(dst->attacks[ix].sprite._dst);
+	dst->attacks[ix].hitbox.detect_meta1 = &(dst->attacks[ix].sprite._dst);
 }

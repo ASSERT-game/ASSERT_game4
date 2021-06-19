@@ -41,4 +41,6 @@ void	slime_update(void *self)
 
 	if (x * x + y * y > x * x + (y + dy) * (y + dy))
 		slime->sprite._dst.y += dy;
+
+	SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
 }

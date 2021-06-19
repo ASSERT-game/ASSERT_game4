@@ -57,6 +57,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED in
 	scene->slime.sprite = SDLX_Sprite_Static(ASSETS"slime.png");
 	scene->slime.sprite.dst = SDLX_NULL_SELF;
 	scene->slime.sprite._dst = (SDL_Rect){10, 10, 32, 32};
+	scene->slime.enemy_hurtbox.detect_meta1 = &(scene->slime.sprite._dst);
 
 	return (NULL);
 }
@@ -133,6 +134,17 @@ void	*first_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level, 
 	SDLX_RenderQueue_add(NULL, &(scene->crosshair));
 
 	SDLX_Button_Update(&(scene->pause));
+
+	size_t	i = 0;
+	SDL_Rect	*hitbox;
+
+	while (i < default_CollisionBucket.index)
+	{
+		hitbox = default_CollisionBucket.content[i]->detect_meta1;
+		SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, hitbox);
+		i++;
+	}
+	default_CollisionBucket.index = 0;
 
 	return (NULL);
 }

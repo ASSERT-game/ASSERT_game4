@@ -237,4 +237,6 @@ typedef struct	SDLX_collision_bucket
 
 }				SDLX_collision_bucket;
 
+extern SDLX_collision_bucket	default_CollisionBucket;
+
 #endif
