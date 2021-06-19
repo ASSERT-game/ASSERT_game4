@@ -13,6 +13,26 @@
 
 #include "main.h"
 
+void	laser_update(void *self, SDL_UNUSED void *meta)
+{
+	t_bullet	*bullet;
+	SDL_Rect	play_area;
+
+	bullet = self;
+
+	play_area = (SDL_Rect){0, 0, 256, 256};
+	if (SDL_HasIntersection(&(bullet->sprite._dst), &(play_area)) == SDL_FALSE)
+	{
+		bullet->active = SDL_FALSE;
+		return ;
+	}
+
+	bullet->sprite._dst.x += bullet->vel.x;
+	bullet->sprite._dst.y += bullet->vel.y;
+	SDLX_RenderQueue_add(NULL, &(bullet->sprite));
+	SDLX_CollisionBucket_add(NULL, &(bullet->hitbox));
+}
+
 void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
 	dst->sprite = SDLX_Sprite_Static(ASSETS"laser.png");
@@ -35,6 +55,7 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->vel.x = SDL_sin(angle) * 12;
 	dst->vel.y = SDL_cos(angle) * -12;
 
+	dst->update = laser_update;
 
 
 	dst->hitbox.type = BULLETS;
@@ -73,8 +94,10 @@ void	projectile_queue(t_attacks *dst)
 void	projectile_update(t_attacks *attacks)
 {
 	size_t	ix;
+	size_t	count;
 
 	ix = 0;
+	count = 0;
 	while (ix < attacks->capacity)
 	{
 		if (attacks->attacks[ix].active)
@@ -84,9 +107,14 @@ void	projectile_update(t_attacks *attacks)
 			attacks->attacks[ix].sprite._dst.y += attacks->attacks[ix].vel.y;
 			SDLX_RenderQueue_add(NULL, &(attacks->attacks[ix].sprite));
 			SDLX_CollisionBucket_add(NULL, &(attacks->attacks[ix].hitbox));
+
+			attacks->attacks[ix].update(&(attacks->attacks[ix]), NULL);
+
+			count++;
 		}
 		ix++;
 	}
+	// SDL_Log("Projectile Count: %zu", count);
 }
 
 void	projectile_add(t_attacks *dst, t_bullet src)
