@@ -21,7 +21,7 @@ void	player_init(t_player *dst)
 
 	player->sprite = SDLX_Sprite_Static(ASSETS"bunny.png");
 	player->sprite.dst = &(player->sprite._dst);
-	player->sprite._dst = (SDL_Rect){7 * 16, 7 * 16, 40, 40};
+	player->sprite._dst = (SDL_Rect){7 * 16, 7 * 16, 32, 32};
 
 	player->weapon_equip = laser_cannon();
 

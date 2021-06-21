@@ -41,10 +41,7 @@ void		*slime_collide(void *self, void *with, void *meta1, void *meta2, void *met
 
 	slime = meta1;
 	slime->hp -= 1;
-	SDL_Log("The slime is hit, I repeat the slime has been hit.");
 
-	if (slime->hp <= 0)
-		SDL_Log("Slime down, red chopper slime down!");
 
 	(void)self;
 	(void)with;
@@ -77,10 +74,20 @@ void	slime_update(void *self)
 	int x = slime->sprite._dst.x - 128;
 	int y = slime->sprite._dst.y - 160;
 	if (x * x + y * y > (x + dx) * (x + dx) + y * y)
-		slime->sprite._dst.x += dx;
+		slime->sprite._dst.x += dx * (int)(slime->meta);
 
 	if (x * x + y * y > x * x + (y + dy) * (y + dy))
-		slime->sprite._dst.y += dy;
+		slime->sprite._dst.y += dy * (int)(slime->meta);
+
+	if (slime->hp <= 0)
+	{
+		SDL_Log("Slime down, red chopper slime down!");
+		slime->sprite.dst->x = 0;
+		slime->sprite.dst->y = 0;
+
+		slime->meta += 1;
+		slime->hp = 5;
+	}
 
 	SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
 	SDL_Log("AT: %d", slime->hp);

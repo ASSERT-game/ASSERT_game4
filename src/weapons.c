@@ -23,9 +23,10 @@ SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta
 	hitbox = with;
 
 	self_attack = meta2;
-	if (hitbox->type != BULLETS)
+	if (hitbox->type == SLIMES && SDL_HasIntersection(meta1, hitbox->detect_meta1))
 	{
 		self_attack->active = SDL_FALSE;
+		SDL_Log("Bullet crashes");
 	}
 
 	(void)meta1;
@@ -40,6 +41,11 @@ void	laser_update(void *self, SDL_UNUSED void *meta)
 	SDL_Rect	play_area;
 
 	bullet = self;
+
+	if (bullet->active == SDL_FALSE)
+	{
+		return ;
+	}
 
 	play_area = (SDL_Rect){0, 0, 256, 256};
 	if (SDL_HasIntersection(&(bullet->sprite._dst), &(play_area)) == SDL_FALSE)
@@ -84,10 +90,10 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.originator = dst;
 	// dst->hitbox.detect_meta1 = dst->sprite.dst;
 
-	dst->hitbox.detect = NULL;
+	dst->hitbox.detect = bullet_detect_collision;
 }
 
-#define LASER_COOLDOWN (2)
+#define LASER_COOLDOWN (0)
 
 t_weapon	laser_cannon(void)
 {

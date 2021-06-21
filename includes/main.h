@@ -101,6 +101,8 @@ typedef struct	s_enemy
 	SDLX_collison	enemy_hurtbox;
 
 	int				hp;
+
+	void			*meta;
 }				t_enemy;
 
 typedef struct	s_player
