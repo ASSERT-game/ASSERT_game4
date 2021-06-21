@@ -13,6 +13,27 @@
 
 #include "main.h"
 
+SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta2, void *meta3)
+{
+	SDLX_collison	*self_box;
+	SDLX_collison	*hitbox;
+	t_bullet		*self_attack;
+
+	self_box = self;
+	hitbox = with;
+
+	self_attack = meta2;
+	if (hitbox->type != BULLETS)
+	{
+		self_attack->active = SDL_FALSE;
+	}
+
+	(void)meta1;
+	(void)meta3;
+
+	return (SDL_FALSE);
+}
+
 void	laser_update(void *self, SDL_UNUSED void *meta)
 {
 	t_bullet	*bullet;
@@ -24,6 +45,7 @@ void	laser_update(void *self, SDL_UNUSED void *meta)
 	if (SDL_HasIntersection(&(bullet->sprite._dst), &(play_area)) == SDL_FALSE)
 	{
 		bullet->active = SDL_FALSE;
+		SDL_free(bullet->sprite.sprite_data);
 		return ;
 	}
 
@@ -102,12 +124,6 @@ void	projectile_update(t_attacks *attacks)
 	{
 		if (attacks->attacks[ix].active)
 		{
-			//calls the bullet update function
-			attacks->attacks[ix].sprite._dst.x += attacks->attacks[ix].vel.x;
-			attacks->attacks[ix].sprite._dst.y += attacks->attacks[ix].vel.y;
-			SDLX_RenderQueue_add(NULL, &(attacks->attacks[ix].sprite));
-			SDLX_CollisionBucket_add(NULL, &(attacks->attacks[ix].hitbox));
-
 			attacks->attacks[ix].update(&(attacks->attacks[ix]), NULL);
 
 			count++;
@@ -139,4 +155,5 @@ void	projectile_add(t_attacks *dst, t_bullet src)
 
 	dst->attacks[ix].hitbox.type = BULLETS;
 	dst->attacks[ix].hitbox.detect_meta1 = &(dst->attacks[ix].sprite._dst);
+	dst->attacks[ix].hitbox.detect_meta2 = &(dst->attacks[ix]);
 }

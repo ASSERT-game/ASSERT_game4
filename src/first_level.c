@@ -60,9 +60,12 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED in
 
 	scene->slime.enemy_hurtbox.originator = &(scene->slime.enemy_hurtbox);
 	scene->slime.enemy_hurtbox.detect_meta1 = &(scene->slime.sprite._dst);
+	scene->slime.enemy_hurtbox.engage_meta1 = &(scene->slime);
 	scene->slime.enemy_hurtbox.type = SLIMES;
 	scene->slime.enemy_hurtbox.detect = slime_detect_collision;
 	scene->slime.enemy_hurtbox.engage = slime_collide;
+
+	scene->slime.hp = 1000;
 
 	return (NULL);
 }
@@ -156,6 +159,11 @@ void	*first_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level, 
 		i++;
 	}
 	default_CollisionBucket.index = 0;
+
+	SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 100, 255, 100, 255);
+	SDL_Rect	playarea = {0, 0, 256 * 2, 256 * 2};
+
+	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(playarea));
 
 	return (NULL);
 }

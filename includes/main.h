@@ -68,6 +68,9 @@ typedef struct	s_bullet
 	SDL_Point		vel;
 	SDL_bool		active;
 
+	void			*meta;
+	void			(*update)(void *, void *);
+
 	SDLX_collison	hitbox;
 }				t_bullet;
 
@@ -96,6 +99,8 @@ typedef struct	s_enemy
 {
 	SDLX_Sprite		sprite;
 	SDLX_collison	enemy_hurtbox;
+
+	int				hp;
 }				t_enemy;
 
 typedef struct	s_player

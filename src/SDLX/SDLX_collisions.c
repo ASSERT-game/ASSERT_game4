@@ -63,7 +63,7 @@ void	SDLX_attempt_CollisionBucket(SDLX_collison *body, SDLX_collision_bucket *bu
 		if (collides)
 		{
 			body->engage(body->originator, bucket->content[i],
-						body->detect_meta1, body->detect_meta2, body->detect_meta3);
+						body->engage_meta1, body->engage_meta2, body->engage_meta3);
 		}
 		i++;
 	}
