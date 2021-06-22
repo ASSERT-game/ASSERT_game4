@@ -80,6 +80,7 @@ void	slime_update(void *self)
 		slime->hp = 2;
 	}
 
+	SDLX_RenderQueue_Add(NULL, &(slime->sprite));
 	SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
 	// SDL_Log("AT: %d", slime->hp);
 }

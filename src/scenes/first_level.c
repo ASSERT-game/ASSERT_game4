@@ -86,16 +86,15 @@ void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 
 	scene = vp_scene;
 
-	slime_update(&(scene->slime));
-
 	scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - 130, 140 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
-
-	projectile_update(&(scene->player.attacks));
-	SDLX_RenderQueue_Add(NULL, &(scene->slime.sprite));
-	player_update(&(scene->player));
 	SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
 
+	slime_update(&(scene->slime));
+	player_update(&(scene->player));
+	projectile_update(&(scene->player.attacks));
+
 	SDLX_Button_Update(&(scene->pause));
+
 
 	size_t	i = 0;
 
