@@ -1,6 +1,6 @@
 NAME = blaster
-# FLAGS = -Wall -Wextra -Werror
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
+# FLAGS = -Wall -Wextra -Werror -fsanitize=address
 INCLUDES = -I includes/ -I includes/SDLX/
 SDL_LIB = -L ~/.brew/lib -l SDL2 -l sdl2_image -l SDL2_ttf
 
@@ -43,6 +43,7 @@ SRC_NAMES = \
 	$(addprefix weapons/, $(WEAPON_FILES))	\
 	button \
 	input \
+	level_sprite \
 	player \
 	main \
 	ui_sprites \

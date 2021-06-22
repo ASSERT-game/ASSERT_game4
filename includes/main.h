@@ -44,6 +44,7 @@ void	*first_level_update(t_context *context, void *vp_scene);
 */
 
 int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
+int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no);
 
 /*
 ** Attack/Projectile Functions

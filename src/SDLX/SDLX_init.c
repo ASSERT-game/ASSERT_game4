@@ -1,4 +1,21 @@
+/***************************************************************************
+ * FILENAME:    SDLX_init.c
+ * DESCRIPTION: Starts up SDLX and SDL. Does this automatically if
+ * SDLX_getDislay() is called.
+ *
+ * ENVIRONMENT:
+ *     macOS Catalina 10.15.7
+ *     Visual Studio Code 1.56.2
+ * AUTHORS:
+ *     Kevin Colour
+ * DATES:
+ *     Created: 22Jun2021
+***************************************************************************/
+
 #include "SDLX.h"
+
+SDLX_GameInput	g_GameInput;
+SDLX_GameInput	g_GameInput_prev;
 
 void	SDLX_start(SDLX_Display *dest)
 {

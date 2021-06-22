@@ -123,8 +123,8 @@ typedef struct	SDLX_GameInput
 	}	GameInput;
 }				SDLX_GameInput;
 
-SDLX_GameInput	g_GameInput;
-SDLX_GameInput	g_GameInput_prev;
+extern SDLX_GameInput	g_GameInput;
+extern SDLX_GameInput	g_GameInput_prev;
 
 #define BMAP(button) (g_GameInput.GameInput.button)
 #define SDLX_GAME_PRESS(curr, prev, button) ((curr.GameInput.button_##button == 1 && prev.GameInput.button_##button == 0))

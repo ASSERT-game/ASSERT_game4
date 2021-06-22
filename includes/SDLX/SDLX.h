@@ -37,7 +37,7 @@ void			SDLX_set_background(SDLX_Sprite *src);
 
 SDLX_Sprite		*SDLX_new_Sprite(SDLX_Sprite *dst);
 void			SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation);
-void			SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation);
+void			SDLX_DrawAnimation_Direct(SDL_Renderer *renderer, SDLX_Sprite *animation);
 
 int				SDLX_RenderQueue_Init(SDLX_RenderQueue *dest);
 void			SDLX_RenderQueue_Add(SDLX_RenderQueue *dst, SDLX_Sprite *src);
