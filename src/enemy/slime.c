@@ -77,7 +77,7 @@ void	slime_update(void *self)
 		slime->sprite.dst->y = 0;
 
 		slime->meta += 1;
-		slime->hp = 5;
+		slime->hp = 2;
 	}
 
 	SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));

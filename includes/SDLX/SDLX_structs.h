@@ -197,8 +197,6 @@ typedef struct	SDLX_button
 	void		*left;
 	void		*right;
 
-	SDL_Point	*mouse;
-
 	// Currently not used:
 	int			priority;
 	char		*text;	//Might be another structure

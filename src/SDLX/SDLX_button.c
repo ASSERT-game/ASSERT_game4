@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 01:10:16 by home              #+#    #+#             */
-/*   Updated: 2021/06/04 02:09:21 by home             ###   ########.fr       */
+/*   Updated: 2021/06/21 19:46:03 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ void	SDLX_Button_Set_fn(SDLX_button *button,
 			void *(*trigger_fn)(struct SDLX_button *, void *, size_t),
 			void *(*update_fn)(struct SDLX_button *, void *, size_t))
 {
-	button->get_focus_fn = get_focus_fn;
-	button->focus_fn = focus_fn;
-	button->focus_once_fn = focus_once_fn;
-	button->trigger_fn = trigger_fn;
-	button->update_fn = update_fn;
+	if (get_focus_fn != NULL) { button->get_focus_fn = get_focus_fn; }
+	if (focus_fn != NULL) { button->focus_fn = focus_fn; }
+	if (focus_once_fn != NULL) { button->focus_once_fn = focus_once_fn; }
+	if (trigger_fn != NULL) { button->trigger_fn = trigger_fn; }
+	if (update_fn != NULL) { button->update_fn = update_fn; }
 }
 
 void	SDLX_Button_Set_UDLR(SDLX_button *button, void *up, void *down, void *left, void *right)

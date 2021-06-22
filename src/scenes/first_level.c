@@ -32,6 +32,9 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_firt_level *scene;
 
+	context->close_fn = first_level_close;
+	context->update_fn = first_level_update;
+
 	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png");
 
 	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){256 - 21, 5, 16, 16}, NULL);
@@ -46,8 +49,6 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->crosshair._center.y = 64;
 	scene->crosshair.angle = 0;
 
-	context->close_fn = first_level_close;
-	context->update_fn = first_level_update;
 
 	scene->slime.sprite = SDLX_Sprite_Static(ASSETS"slime.png");
 	scene->slime.sprite.dst = SDLX_NULL_SELF;
@@ -60,7 +61,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->slime.enemy_hurtbox.detect = slime_detect_collision;
 	scene->slime.enemy_hurtbox.engage = slime_collide;
 
-	scene->slime.hp = 5;
+	scene->slime.hp = 2;
 	scene->slime.meta = (void *)1;
 
 	return (NULL);
@@ -71,8 +72,8 @@ void	*first_level_close(SDL_UNUSED t_context *context, void *vp_scene)
 	t_firt_level	*scene;
 
 	scene = vp_scene;
-	SDLX_RenderQueue_flush(NULL, SDLX_GetDisplay()->renderer);
 
+	SDLX_RenderQueue_flush(NULL, SDLX_GetDisplay()->renderer);
 	SDL_free(context->background.sprite_data);
 	SDL_free(scene);
 
