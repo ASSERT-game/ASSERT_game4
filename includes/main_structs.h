@@ -23,6 +23,8 @@ typedef struct	s_context
 
 	void		*meta;
 
+	SDLX_Sprite	background;
+
 	void		*(*init_fn)(struct s_context *, void *);
 	void		*(*update_fn)(struct s_context *, void *);
 	void		*(*close_fn)(struct s_context *, void *);

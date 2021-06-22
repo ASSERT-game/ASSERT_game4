@@ -32,12 +32,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_firt_level *scene;
 
-	scene = SDL_malloc(sizeof(*scene));
-	context->meta = scene;
-	context->scene = SDL_TRUE;
-
-	scene->background = SDLX_Sprite_Static(ASSETS"level_one.png");
-	SDLX_set_background(&(scene->background));
+	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png");
 
 	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){256 - 21, 5, 16, 16}, NULL);
 
@@ -78,7 +73,7 @@ void	*first_level_close(SDL_UNUSED t_context *context, void *vp_scene)
 	scene = vp_scene;
 	SDLX_RenderQueue_flush(NULL, SDLX_GetDisplay()->renderer);
 
-	SDL_free(scene->background.sprite_data);
+	SDL_free(context->background.sprite_data);
 	SDL_free(scene);
 
 	return (NULL);

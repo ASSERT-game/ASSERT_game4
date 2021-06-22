@@ -24,16 +24,12 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 {
 	t_level_select *scene;
 
-	scene = SDL_malloc(sizeof(*scene));
-	context->meta = scene;
-	context->scene = SDL_TRUE;
-	scene->background = SDLX_Sprite_Static(ASSETS"p8_level_select.png");
-	SDLX_set_background(&(scene->background));
+	scene = new_scene(sizeof(*scene), context, ASSETS"p8_level_select.png");
 
 	SDLX_Button_Init(&(scene->play), fetch_ui_sprite, PLAY_NORM, (SDL_Rect){50, 10, 23 * 2, 11 * 2}, NULL);
-
 	SDLX_Style_Button(&(scene->play), PLAY_NORM, PLAY_HOVER);
 	SDLX_Button_Set_fn(&(scene->play), SDLX_Button_onHoverFocus, SDLX_Button_NULL_fn, SDLX_Button_NULL_fn, button_trigger_scene_switch, SDLX_Button_NULL_fn);
+
 	scene->play.meta1 = first_level_init;
 
 	context->close_fn = level_select_close;
@@ -50,7 +46,7 @@ void	*level_select_close(SDL_UNUSED t_context *context, void *vp_scene)
 	scene = vp_scene;
 	SDLX_RenderQueue_flush(NULL, SDLX_GetDisplay()->renderer);
 
-	SDL_free(scene->background.sprite_data);
+	SDL_free(context->background.sprite_data);
 	SDL_free(scene);
 
 	return (NULL);

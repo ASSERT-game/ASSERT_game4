@@ -24,6 +24,7 @@ SCENE_FILES = 			\
 	first_level			\
 	main_menu			\
 	level_select		\
+	scene_utils			\
 
 ENEMY_FILES = 			\
 	slime				\
