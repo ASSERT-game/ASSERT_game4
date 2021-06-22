@@ -20,18 +20,25 @@ SDLX_NAMES = 			\
 	SDLX_utils			\
 	SDLX_xbox			\
 
+WEAPON_FILES = 			\
+	weapon_manager		\
+	laser				\
+
+ENEMY_FILES = 			\
+	slime				\
+
 # List of all the source files.
 SRC_NAMES = \
+	$(addprefix enemy/, $(ENEMY_FILES))		\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
+	$(addprefix weapons/, $(WEAPON_FILES))	\
 	first_level \
 	input \
 	level_select \
 	main_menu \
 	player \
-	slime \
 	main \
 	ui_sprites \
-	weapons \
 
 # List of all the source files, folders are to be added by
 # including a $(addprefix, DIR_NAME, $(DIR_FILES))
