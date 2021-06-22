@@ -180,6 +180,7 @@ typedef struct	SDLX_button
 	SDL_bool	triggered;
 
 	void		*meta;
+	void		*meta1;
 	int			meta_length;
 
 	SDL_bool	(*get_focus_fn)(struct SDLX_button *, void *, size_t);

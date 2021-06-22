@@ -23,21 +23,6 @@ typedef	struct	s_main_menu_scene
 
 }				t_main_menu_scene;
 
-void	*button_play_trigger(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t length)
-{
-	t_context *context;
-
-	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
-	{
-		context = self->meta;
-
-		context->init_fn = level_select_init;
-		context->scene = SDL_FALSE;
-	}
-
-	return (NULL);
-}
-
 #define UI_ENLARGE (2)
 
 void	*main_menu_init(t_context *context, SDL_UNUSED void *level)
@@ -56,7 +41,8 @@ void	*main_menu_init(t_context *context, SDL_UNUSED void *level)
 	SDLX_Style_Button(&(scene->play), PLAY_NORM, PLAY_HOVER);
 	SDLX_Style_Button(&(scene->credits), CREDIT_NORM, CREDIT_HOVER);
 
-	SDLX_Button_Set_fn(&(scene->play), SDLX_Button_onHoverFocus, SDLX_Button_NULL_fn, SDLX_Button_NULL_fn, button_play_trigger, SDLX_Button_NULL_fn);
+	SDLX_Button_Set_fn(&(scene->play), SDLX_Button_onHoverFocus, SDLX_Button_NULL_fn, SDLX_Button_NULL_fn, button_trigger_scene_switch, SDLX_Button_NULL_fn);
+	scene->play.meta1 = level_select_init;
 	SDLX_Button_Set_fn(&(scene->credits), SDLX_Button_onHoverFocus, SDLX_Button_NULL_fn, SDLX_Button_NULL_fn, SDLX_Button_NULL_fn, SDLX_Button_NULL_fn);
 
 	scene->play.meta = context;

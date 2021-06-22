@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/21 17:10:15 by home             ###   ########.fr       */
+/*   Updated: 2021/06/21 19:01:29 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	blaster_start(t_context *context)
 	context->update_fn = main_menu_update;
 	context->close_fn = main_menu_close;
 
-	context->init_fn = first_level_init;
+	// context->init_fn = first_level_init;
 }
 
 int	main(void)

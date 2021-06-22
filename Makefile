@@ -39,6 +39,7 @@ SRC_NAMES = \
 	$(addprefix scenes/, $(SCENE_FILES))	\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	$(addprefix weapons/, $(WEAPON_FILES))	\
+	button \
 	input \
 	player \
 	main \

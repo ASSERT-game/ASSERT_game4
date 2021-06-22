@@ -53,5 +53,11 @@ void	projectile_update(t_attacks *queue);
 void	projectile_queue(t_attacks *attacks);
 void	projectile_add(t_attacks *dst, t_bullet src);
 
+/*
+** Button Functions
+*/
+
+void	*button_trigger_scene_switch(SDLX_button *self, void *meta, SDL_UNUSED size_t length);
+
 #endif
 

@@ -20,22 +20,6 @@ typedef	struct	s_level_select
 	SDLX_button			play;
 }				t_level_select;
 
-
-void	*button_level_trigger(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t length)
-{
-	t_context *context;
-
-	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
-	{
-		context = self->meta;
-
-		context->init_fn = first_level_init;
-		context->scene = SDL_FALSE;
-	}
-
-	return (NULL);
-}
-
 void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 {
 	t_level_select *scene;
@@ -49,7 +33,8 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 	SDLX_Button_Init(&(scene->play), fetch_ui_sprite, PLAY_NORM, (SDL_Rect){50, 10, 23 * 2, 11 * 2}, NULL);
 
 	SDLX_Style_Button(&(scene->play), PLAY_NORM, PLAY_HOVER);
-	SDLX_Button_Set_fn(&(scene->play), SDLX_Button_onHoverFocus, SDLX_Button_NULL_fn, SDLX_Button_NULL_fn, button_level_trigger, SDLX_Button_NULL_fn);
+	SDLX_Button_Set_fn(&(scene->play), SDLX_Button_onHoverFocus, SDLX_Button_NULL_fn, SDLX_Button_NULL_fn, button_trigger_scene_switch, SDLX_Button_NULL_fn);
+	scene->play.meta1 = first_level_init;
 
 	context->close_fn = level_select_close;
 	context->update_fn = level_select_update;
