@@ -1,7 +1,7 @@
 NAME = blaster
 FLAGS = -Wall -Wextra -Werror
 # FLAGS = -Wall -Wextra -Werror -fsanitize=address
-INCLUDES = -I includes/ -I ~/.brew/include/SDL2/
+INCLUDES = -I includes/ -I includes/SDLX/
 SDL_LIB = -L ~/.brew/lib -l SDL2 -l sdl2_image -l SDL2_ttf
 
 SDLX_DIR = SDLX/
