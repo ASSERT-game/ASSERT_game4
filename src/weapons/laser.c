@@ -51,7 +51,7 @@ void	laser_update(void *self, SDL_UNUSED void *meta)
 
 	bullet->sprite._dst.x += bullet->vel.x;
 	bullet->sprite._dst.y += bullet->vel.y;
-	SDLX_RenderQueue_add(NULL, &(bullet->sprite));
+	SDLX_RenderQueue_Add(NULL, &(bullet->sprite));
 	SDLX_CollisionBucket_add(NULL, &(bullet->hitbox));
 }
 

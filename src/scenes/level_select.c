@@ -44,7 +44,7 @@ void	*level_select_close(SDL_UNUSED t_context *context, void *vp_scene)
 
 	scene = vp_scene;
 
-	SDLX_RenderQueue_flush(NULL, SDLX_GetDisplay()->renderer);
+	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer);
 	SDL_free(context->background.sprite_data);
 	SDL_free(scene);
 

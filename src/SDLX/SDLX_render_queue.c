@@ -11,14 +11,13 @@
  *     Created: 24Jan2021
 ***************************************************************************/
 
-#include "SDLX_structs.h"
-#include "SDLX_config.h"
+#include "SDLX.h"
 
 #define SDLX_QUEUE_DEFAULT_SIZE (5)
 
 SDLX_RenderQueue	default_RenderQueue;
 
-int	SDLX_RenderQueue_init(SDLX_RenderQueue *dest)
+int	SDLX_RenderQueue_Init(SDLX_RenderQueue *dest)
 {
 	dest->index = 0;
 	dest->capacity = SDLX_QUEUE_DEFAULT_SIZE;
@@ -27,7 +26,7 @@ int	SDLX_RenderQueue_init(SDLX_RenderQueue *dest)
 	return (EXIT_SUCCESS);
 }
 
-void	SDLX_draw_animation(SDL_Renderer *renderer, SDLX_Sprite *animation)
+void	SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 {
 	size_t		no;
 	SDL_Rect	draw_rect;
@@ -65,22 +64,59 @@ void	SDLX_draw_animation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 	animation->current += animation->sprite_data[no].skip;
 }
 
-void	SDLX_RenderQueue_flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer)
+void	SDLX_RenderQueue_Flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer)
 {
 	size_t	i;
 
 	i = 0;
 	if (queue == NULL)
 		queue = &(default_RenderQueue);
+	if (renderer == NULL)
+		renderer = SDLX_GetDisplay()->renderer;
 	while (i < queue->index)
 	{
-		SDLX_draw_animation(renderer, queue->content[i]);
+		SDLX_DrawAnimation(renderer, queue->content[i]);
 		i++;
 	}
 	queue->index = 0;
 }
 
-void	SDLX_RenderQueue_add(SDLX_RenderQueue *dst, SDLX_Sprite *src)
+void	SDLX_DrawAnimation_Direct(SDL_Renderer *renderer, SDLX_Sprite *animation)
+{
+	size_t		no;
+
+	no = animation->current % animation->sprite_data->cycle;
+
+	SDL_RenderCopyEx(renderer,
+	animation->sprite_data[no].texture,
+	animation->sprite_data[no].src,
+	animation->dst,
+	animation->angle,
+	animation->center,
+	animation->flip);
+
+	animation->current += animation->sprite_data[no].skip;
+
+}
+
+void	SDLX_RenderQueue_Flush_Direct(SDLX_RenderQueue *queue, SDL_Renderer *renderer)
+{
+	size_t	i;
+
+	i = 0;
+	if (queue == NULL)
+		queue = &(default_RenderQueue);
+	if (renderer == NULL)
+		renderer = SDLX_GetDisplay()->renderer;
+	while (i < queue->index)
+	{
+		SDLX_DrawAnimation_Direct(renderer, queue->content[i]);
+		i++;
+	}
+	queue->index = 0;
+}
+
+void	SDLX_RenderQueue_Add(SDLX_RenderQueue *dst, SDLX_Sprite *src)
 {
 	if (dst == NULL)
 		dst = &(default_RenderQueue);

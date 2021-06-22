@@ -227,11 +227,10 @@ typedef struct	SDLX_collision_bucket
 {
 	size_t		type;
 
-	size_t		capacity;
 	size_t		index;
+	size_t		capacity;
 
 	SDLX_collison	**content;
-
 }				SDLX_collision_bucket;
 
 extern SDLX_collision_bucket	default_CollisionBucket;

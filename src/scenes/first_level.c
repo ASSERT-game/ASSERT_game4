@@ -73,7 +73,7 @@ void	*first_level_close(SDL_UNUSED t_context *context, void *vp_scene)
 
 	scene = vp_scene;
 
-	SDLX_RenderQueue_flush(NULL, SDLX_GetDisplay()->renderer);
+	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer);
 	SDL_free(context->background.sprite_data);
 	SDL_free(scene);
 
@@ -91,9 +91,9 @@ void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 	scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - 130, 140 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
 
 	projectile_update(&(scene->player.attacks));
-	SDLX_RenderQueue_add(NULL, &(scene->slime.sprite));
+	SDLX_RenderQueue_Add(NULL, &(scene->slime.sprite));
 	player_update(&(scene->player));
-	SDLX_RenderQueue_add(NULL, &(scene->crosshair));
+	SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
 
 	SDLX_Button_Update(&(scene->pause));
 

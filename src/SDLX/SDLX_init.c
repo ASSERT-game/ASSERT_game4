@@ -14,7 +14,7 @@ void	SDLX_start(SDLX_Display *dest)
 	dest->window = window;
 	dest->renderer = SDL_CreateRenderer(window, -1, 0);
 
-	SDLX_RenderQueue_init(&(default_RenderQueue));
+	SDLX_RenderQueue_Init(&(default_RenderQueue));
 	SDLX_CollisionBucket_Init(&(default_CollisionBucket), 0);
 
 	atexit(SDLX_close);

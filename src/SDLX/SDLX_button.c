@@ -6,37 +6,11 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 01:10:16 by home              #+#    #+#             */
-/*   Updated: 2021/06/21 19:46:03 by home             ###   ########.fr       */
+/*   Updated: 2021/06/21 21:31:23 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "SDLX.h"
-
-void	*SDLX_Button_NULL_fn(SDL_UNUSED SDLX_button *button, SDL_UNUSED void *meta, SDL_UNUSED size_t meta_length)
-{
-	return NULL;
-}
-
-SDL_bool	SDLX_Button_onHoverFocus(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t meta_length)
-{
-	SDL_bool	result;
-	SDL_Point	*mouse;
-	SDL_Point	*mouse_delta;
-
-	result = SDL_FALSE;
-	mouse = &(g_GameInput.GameInput.primary);
-	mouse_delta = &(g_GameInput.GameInput.primary_delta);
-	if ((mouse_delta->x != 0 || mouse_delta->y != 0) && SDL_PointInRect(mouse, &(self->trigger_box)))
-		result = SDL_TRUE;
-
-	if (self->focused == SDL_TRUE)
-		result = SDL_TRUE;
-
-	if ((mouse_delta->x != 0 || mouse_delta->y != 0) && SDL_PointInRect(mouse, &(self->trigger_box)) == SDL_FALSE)
-		result = SDL_FALSE;
-
-	return (result);
-}
 
 int	SDLX_Button_Init(SDLX_button *dst, int (*sprite_fn)(SDLX_Sprite_Data **, int), int sprite_no, SDL_Rect placement, SDLX_RenderQueue *render_dst)
 {
@@ -72,6 +46,32 @@ int	SDLX_Button_Init(SDLX_button *dst, int (*sprite_fn)(SDLX_Sprite_Data **, int
 	return (EXIT_SUCCESS);
 }
 
+void	*SDLX_Button_NULL_fn(SDL_UNUSED SDLX_button *button, SDL_UNUSED void *meta, SDL_UNUSED size_t meta_length)
+{
+	return NULL;
+}
+
+SDL_bool	SDLX_Button_onHoverFocus(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t meta_length)
+{
+	SDL_bool	result;
+	SDL_Point	*mouse;
+	SDL_Point	*mouse_delta;
+
+	result = SDL_FALSE;
+	mouse = &(g_GameInput.GameInput.primary);
+	mouse_delta = &(g_GameInput.GameInput.primary_delta);
+	if ((mouse_delta->x != 0 || mouse_delta->y != 0) && SDL_PointInRect(mouse, &(self->trigger_box)))
+		result = SDL_TRUE;
+
+	if (self->focused == SDL_TRUE)
+		result = SDL_TRUE;
+
+	if ((mouse_delta->x != 0 || mouse_delta->y != 0) && SDL_PointInRect(mouse, &(self->trigger_box)) == SDL_FALSE)
+		result = SDL_FALSE;
+
+	return (result);
+}
+
 void	SDLX_Style_Button(SDLX_button *button, int norm, int hover)
 {
 	button->focus_no = hover;
@@ -98,66 +98,4 @@ void	SDLX_Button_Set_UDLR(SDLX_button *button, void *up, void *down, void *left,
 	button->down = down;
 	button->left = left;
 	button->right = right;
-}
-
-void	SDLX_Button_ReFocus(SDLX_button *button)
-{
-	button->focus_once_fn(button, button->meta, button->meta_length);
-	if (button->focus_no != -1)
-	{
-		button->sprite_fn(&(button->sprite.sprite_data), button->focus_no);
-		button->sprite.current = 0;
-	}
-	button->focused = SDL_TRUE;
-}
-
-void	SDLX_Button_Focus(SDLX_button *button)
-{
-	if (button->focused == SDL_FALSE) // This activates on-hover, aka once
-		SDLX_Button_ReFocus(button);
-	else //This continues to activate on hover
-		button->focus_fn(button, button->meta, button->meta_length);
-
-	// always active
-	button->trigger_fn(button, button->meta, button->meta_length);
-}
-
-void	SDLX_Button_Lose_Focus(SDLX_button *button)
-{
-	if (button->norm_no != -1)
-	{
-		button->sprite_fn(&(button->sprite.sprite_data), button->norm_no);
-		button->sprite.current = 0;
-	}
-	button->focused = SDL_FALSE;
-}
-
-/*
-// Updates the button based on the data saved in the button class.
-// The button has functions for on trigger, on focus, continued focus#include "../aoc++.h"
-// These function should go after all changes, allowing the user to revert
-// them if they do not want the automatic changes. This also allows the user to
-// create a copy and be able to preform shallow copies.
-*/
-
-void	SDLX_Button_Update(SDLX_button *button)
-{
-	SDL_bool	get_focus;
-
-	if (button->disabled == SDL_TRUE)
-		return ;
-
-	get_focus = button->get_focus_fn(button, button->meta, button->meta_length);
-	if (get_focus == SDL_TRUE) //This could be 'in focus triggers'
-		SDLX_Button_Focus(button);
-	else if (button->focused == SDL_TRUE && get_focus == SDL_FALSE) // Was focused but no longer
-		SDLX_Button_Lose_Focus(button);
-
-	button->update_fn(button, button->meta, button->meta_length);
-
-	if (button->global_active == SDL_TRUE)
-		button->trigger_fn(button, button->meta, button->meta_length);
-
-	SDLX_RenderQueue_add(button->render_dst, &(button->sprite));
-	button->sprite.current++;
 }

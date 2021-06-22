@@ -33,7 +33,7 @@ void	SDLX_screen_reset(SDL_Renderer *renderer, SDL_Color *bg_color)
 
 	background = SDLX_get_background();
 	if (background != NULL)
-		SDLX_draw_animation(renderer, background);
+		SDLX_DrawAnimation(renderer, background);
 
 	// Line below might be unecessary.
 	// SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);

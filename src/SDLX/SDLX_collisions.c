@@ -21,9 +21,8 @@ int		SDLX_CollisionBucket_Init(SDLX_collision_bucket *dst, size_t type)
 {
 	dst->type = type;
 
-	dst->capacity = SDLX_DEFAULT_CBUCKET_SIZE;
 	dst->index = 0;
-
+	dst->capacity = SDLX_DEFAULT_CBUCKET_SIZE;
 	dst->content = SDL_calloc(dst->capacity, sizeof(*dst->content));
 
 	return (EXIT_SUCCESS);

@@ -36,11 +36,13 @@ void			SDLX_set_background(SDLX_Sprite *src);
 */
 
 SDLX_Sprite		*SDLX_new_Sprite(SDLX_Sprite *dst);
-void			SDLX_draw_animation(SDL_Renderer *renderer, SDLX_Sprite *animation);
+void			SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation);
+void			SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation);
 
-int				SDLX_RenderQueue_init(SDLX_RenderQueue *dest);
-void			SDLX_RenderQueue_add(SDLX_RenderQueue *dst, SDLX_Sprite *src);
-void			SDLX_RenderQueue_flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer);
+int				SDLX_RenderQueue_Init(SDLX_RenderQueue *dest);
+void			SDLX_RenderQueue_Add(SDLX_RenderQueue *dst, SDLX_Sprite *src);
+void			SDLX_RenderQueue_Flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer);
+void			SDLX_RenderQueue_Flush_Direct(SDLX_RenderQueue *queue, SDL_Renderer *renderer);
 
 /*
 ** Input type functions.

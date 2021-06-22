@@ -10,6 +10,7 @@ BIN_DIR = bin/
 
 SDLX_NAMES = 			\
 	SDLX_background		\
+	SDLX_button_loop	\
 	SDLX_button			\
 	SDLX_collisions		\
 	SDLX_init			\
