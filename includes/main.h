@@ -25,26 +25,24 @@ typedef struct	s_context
 	SDL_bool	scene;
 
 	void		*meta;
-	void		*meta_catch;
 
-	void		*(*init_fn)(struct s_context *, void *, int);
-	void		*(*update_fn)(struct s_context *, void *, int);
-	void		*(*close_fn)(struct s_context *, void *, int);
+	void		*(*init_fn)(struct s_context *, void *);
+	void		*(*update_fn)(struct s_context *, void *);
+	void		*(*close_fn)(struct s_context *, void *);
 
-	int			ticks;
 }				t_context;
 
-void			*main_menu_init(t_context *context, void *meta, int ticks);
-void			*main_menu_close(t_context *context, void *meta, int ticks);
-void			*main_menu_update(t_context *context, void *meta, int ticks);
+void			*main_menu_init(t_context *context, void *meta);
+void			*main_menu_close(t_context *context, void *meta);
+void			*main_menu_update(t_context *context, void *meta);
 
-void			*level_select_init(t_context *context, void *level, int tick);
-void			*level_select_close(t_context *context, void *level, int tick);
-void			*level_select_update(t_context *context, void *level, int tick);
+void			*level_select_init(t_context *context, void *level);
+void			*level_select_close(t_context *context, void *level);
+void			*level_select_update(t_context *context, void *level);
 
-void			*first_level_init(t_context *context, void *level, int tick);
-void			*first_level_close(t_context *context, void *level, int tick);
-void			*first_level_update(t_context *context, void *level, int tick);
+void			*first_level_init(t_context *context, void *level);
+void			*first_level_close(t_context *context, void *level);
+void			*first_level_update(t_context *context, void *level);
 
 enum	BLASTER_UI_SPRITES
 {

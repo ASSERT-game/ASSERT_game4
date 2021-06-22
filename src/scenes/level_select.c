@@ -36,7 +36,7 @@ void	*button_level_trigger(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED 
 	return (NULL);
 }
 
-void	*level_select_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
+void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 {
 	t_level_select *scene;
 
@@ -58,7 +58,7 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED i
 	return (NULL);
 }
 
-void	*level_select_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
+void	*level_select_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level)
 {
 	t_level_select *scene;
 
@@ -71,7 +71,7 @@ void	*level_select_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level, 
 	return (NULL);
 }
 
-void	*level_select_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
+void	*level_select_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level)
 {
 	t_level_select *scene;
 

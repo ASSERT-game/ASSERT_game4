@@ -28,7 +28,7 @@ typedef struct	s_firt_level
 	t_enemy				slime;
 }				t_firt_level;
 
-void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
+void	*first_level_init(t_context *context, SDL_UNUSED void *level)
 {
 	t_firt_level *scene;
 
@@ -71,7 +71,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED in
 	return (NULL);
 }
 
-void	*first_level_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
+void	*first_level_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level)
 {
 	t_firt_level	*scene;
 
@@ -84,7 +84,7 @@ void	*first_level_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level, S
 	return (NULL);
 }
 
-void	*first_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
+void	*first_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level)
 {
 	t_firt_level	*scene;
 

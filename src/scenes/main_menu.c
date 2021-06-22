@@ -40,7 +40,7 @@ void	*button_play_trigger(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED s
 
 #define UI_ENLARGE (2)
 
-void	*main_menu_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int tick)
+void	*main_menu_init(t_context *context, SDL_UNUSED void *level)
 {
 	t_main_menu_scene *scene;
 
@@ -63,7 +63,7 @@ void	*main_menu_init(t_context *context, SDL_UNUSED void *level, SDL_UNUSED int 
 	return (NULL);
 }
 
-void	*main_menu_close(SDL_UNUSED t_context *context, void *level, SDL_UNUSED int tick)
+void	*main_menu_close(SDL_UNUSED t_context *context, void *level)
 {
 	t_main_menu_scene *scene;
 
@@ -78,7 +78,7 @@ void	*main_menu_close(SDL_UNUSED t_context *context, void *level, SDL_UNUSED int
 	return (NULL);
 }
 
-void	*main_menu_update(SDL_UNUSED t_context *context, void *level, SDL_UNUSED int tick)
+void	*main_menu_update(SDL_UNUSED t_context *context, void *level)
 {
 	t_main_menu_scene *scene;
 
