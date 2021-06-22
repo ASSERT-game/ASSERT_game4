@@ -20,22 +20,26 @@ SDLX_NAMES = 			\
 	SDLX_utils			\
 	SDLX_xbox			\
 
-WEAPON_FILES = 			\
-	weapon_manager		\
-	laser				\
+SCENE_FILES = 			\
+	first_level			\
+	main_menu			\
+	level_select		\
 
 ENEMY_FILES = 			\
 	slime				\
 
+WEAPON_FILES = 			\
+	weapon_manager		\
+	laser				\
+
+
 # List of all the source files.
 SRC_NAMES = \
 	$(addprefix enemy/, $(ENEMY_FILES))		\
+	$(addprefix scenes/, $(SCENE_FILES))	\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	$(addprefix weapons/, $(WEAPON_FILES))	\
-	first_level \
 	input \
-	level_select \
-	main_menu \
 	player \
 	main \
 	ui_sprites \
