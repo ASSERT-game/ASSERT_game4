@@ -17,118 +17,41 @@
 
 # include "SDLX/SDLX.h"
 
+# include "main_structs.h"
+# include "entity.h"
+
 # define ASSETS "assets/"
 
-typedef struct	s_context
-{
-	SDL_bool	exit;
-	SDL_bool	scene;
 
-	void		*meta;
+/*
+** Scene Functions
+*/
 
-	void		*(*init_fn)(struct s_context *, void *);
-	void		*(*update_fn)(struct s_context *, void *);
-	void		*(*close_fn)(struct s_context *, void *);
+void	*main_menu_init(t_context *context, void *vp_scene);
+void	*main_menu_close(t_context *context, void *vp_scene);
+void	*main_menu_update(t_context *context, void *vp_scene);
 
-}				t_context;
+void	*level_select_init(t_context *context, void *vp_scene);
+void	*level_select_close(t_context *context, void *vp_scene);
+void	*level_select_update(t_context *context, void *vp_scene);
 
-void			*main_menu_init(t_context *context, void *vp_scene);
-void			*main_menu_close(t_context *context, void *vp_scene);
-void			*main_menu_update(t_context *context, void *vp_scene);
+void	*first_level_init(t_context *context, void *vp_scene);
+void	*first_level_close(t_context *context, void *vp_scene);
+void	*first_level_update(t_context *context, void *vp_scene);
 
-void			*level_select_init(t_context *context, void *vp_scene);
-void			*level_select_close(t_context *context, void *vp_scene);
-void			*level_select_update(t_context *context, void *vp_scene);
+/*
+** Sprite Handlers
+*/
 
-void			*first_level_init(t_context *context, void *vp_scene);
-void			*first_level_close(t_context *context, void *vp_scene);
-void			*first_level_update(t_context *context, void *vp_scene);
+int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
 
-enum	BLASTER_UI_SPRITES
-{
-	PLAY_NORM,
-	PLAY_HOVER,
-	CREDIT_NORM,
-	CREDIT_HOVER,
-	PAUSE_NORM,
-};
-
-enum	BLASTER_COLL_TYPES
-{
-	BULLETS,
-	SLIMES,
-};
-
-typedef struct	s_bullet
-{
-	SDLX_Sprite		sprite;
-
-	SDL_Point		vel;
-	SDL_bool		active;
-
-	void			*meta;
-	void			(*update)(void *, void *);
-
-	SDLX_collison	hitbox;
-}				t_bullet;
-
-typedef struct	s_attacks
-{
-	size_t		index;
-	size_t		capacity;
-
-	t_bullet	*attacks;
-
-}				t_attacks;
-
-typedef struct	s_weapon
-{
-	unsigned int	start;
-	unsigned int	cooldown;
-
-	unsigned int	curr;
-
-	SDL_bool		enabled;
-
-	void		(*factory)(t_bullet *, SDL_Point, double angle, void *);
-}				t_weapon;
-
-typedef struct	s_enemy
-{
-	SDLX_Sprite		sprite;
-	SDLX_collison	enemy_hurtbox;
-
-	int				hp;
-
-	void			*meta;
-}				t_enemy;
-
-typedef struct	s_player
-{
-	SDLX_Sprite		sprite;
-
-	t_weapon		weapon_equip;
-	SDLX_collison	player_hurtbox;
-
-
-	//These are not permanent.
-	t_attacks			attacks;
-}				t_player;
-
-int				fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
-
-void			player_init(t_player *dst);
-void			player_update(t_player *self);
-
-t_weapon		laser_cannon(void);
+/*
+** Attack/Projectile Functions
+*/
 
 void	projectile_update(t_attacks *queue);
 void	projectile_queue(t_attacks *attacks);
 void	projectile_add(t_attacks *dst, t_bullet src);
-
-void	slime_update(void *self);
-SDL_bool	slime_detect_collision(void *self, void *with, void *meta1, void *meta2, void *meta3);
-void		*slime_collide(void *self, void *with, void *meta1, void *meta2, void *meta3);
 
 #endif
 
