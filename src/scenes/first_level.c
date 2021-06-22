@@ -28,7 +28,7 @@ typedef struct	s_firt_level
 	t_enemy				slime;
 }				t_firt_level;
 
-void	*first_level_init(t_context *context, SDL_UNUSED void *level)
+void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_firt_level *scene;
 
@@ -71,11 +71,11 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *level)
 	return (NULL);
 }
 
-void	*first_level_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level)
+void	*first_level_close(SDL_UNUSED t_context *context, void *vp_scene)
 {
 	t_firt_level	*scene;
 
-	scene = level;
+	scene = vp_scene;
 	SDLX_RenderQueue_flush(NULL, SDLX_GetDisplay()->renderer);
 
 	SDL_free(scene->background.sprite_data);
@@ -84,11 +84,11 @@ void	*first_level_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level)
 	return (NULL);
 }
 
-void	*first_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level)
+void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 {
 	t_firt_level	*scene;
 
-	scene = level;
+	scene = vp_scene;
 
 	slime_update(&(scene->slime));
 

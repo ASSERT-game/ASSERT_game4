@@ -32,17 +32,17 @@ typedef struct	s_context
 
 }				t_context;
 
-void			*main_menu_init(t_context *context, void *meta);
-void			*main_menu_close(t_context *context, void *meta);
-void			*main_menu_update(t_context *context, void *meta);
+void			*main_menu_init(t_context *context, void *vp_scene);
+void			*main_menu_close(t_context *context, void *vp_scene);
+void			*main_menu_update(t_context *context, void *vp_scene);
 
-void			*level_select_init(t_context *context, void *level);
-void			*level_select_close(t_context *context, void *level);
-void			*level_select_update(t_context *context, void *level);
+void			*level_select_init(t_context *context, void *vp_scene);
+void			*level_select_close(t_context *context, void *vp_scene);
+void			*level_select_update(t_context *context, void *vp_scene);
 
-void			*first_level_init(t_context *context, void *level);
-void			*first_level_close(t_context *context, void *level);
-void			*first_level_update(t_context *context, void *level);
+void			*first_level_init(t_context *context, void *vp_scene);
+void			*first_level_close(t_context *context, void *vp_scene);
+void			*first_level_update(t_context *context, void *vp_scene);
 
 enum	BLASTER_UI_SPRITES
 {

@@ -58,11 +58,11 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 	return (NULL);
 }
 
-void	*level_select_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level)
+void	*level_select_close(SDL_UNUSED t_context *context, void *vp_scene)
 {
 	t_level_select *scene;
 
-	scene = level;
+	scene = vp_scene;
 	SDLX_RenderQueue_flush(NULL, SDLX_GetDisplay()->renderer);
 
 	SDL_free(scene->background.sprite_data);
@@ -71,11 +71,11 @@ void	*level_select_close(SDL_UNUSED t_context *context, SDL_UNUSED void *level)
 	return (NULL);
 }
 
-void	*level_select_update(SDL_UNUSED t_context *context, SDL_UNUSED void *level)
+void	*level_select_update(SDL_UNUSED t_context *context, void *vp_scene)
 {
 	t_level_select *scene;
 
-	scene = level;
+	scene = vp_scene;
 
 	SDLX_Button_Update(&(scene->play));
 	return (NULL);
