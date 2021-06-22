@@ -215,14 +215,12 @@ typedef struct	SDLX_collison
 
 	void		*detect_meta1;
 	void		*detect_meta2;
-	void		*detect_meta3;
 
 	void		*engage_meta1;
 	void		*engage_meta2;
-	void		*engage_meta3;
 
-	void		*(*engage)(void *, void *, void *, void *, void *);
-	SDL_bool	(*detect)(void *, void *, void *, void *, void *);
+	void		*(*engage)(void *, void *, void *, void *);
+	SDL_bool	(*detect)(void *, void *, void *, void *);
 
 }				SDLX_collison;
 

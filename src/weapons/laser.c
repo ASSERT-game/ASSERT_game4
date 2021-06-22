@@ -13,7 +13,7 @@
 
 #include "main.h"
 
-SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta2, void *meta3)
+SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta2)
 {
 	SDLX_collison	*self_box;
 	SDLX_collison	*hitbox;
@@ -27,7 +27,6 @@ SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta
 		self_attack->active = SDL_FALSE;
 
 	(void)meta1;
-	(void)meta3;
 
 	return (SDL_FALSE);
 }

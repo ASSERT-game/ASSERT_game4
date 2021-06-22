@@ -58,7 +58,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->slime.sprite.dst = SDLX_NULL_SELF;
 	scene->slime.sprite._dst = (SDL_Rect){10, 10, 32, 32};
 
-	scene->slime.enemy_hurtbox.originator = &(scene->slime.enemy_hurtbox);
+	scene->slime.enemy_hurtbox.originator = &(scene->slime);
 	scene->slime.enemy_hurtbox.detect_meta1 = &(scene->slime.sprite._dst);
 	scene->slime.enemy_hurtbox.engage_meta1 = &(scene->slime);
 	scene->slime.enemy_hurtbox.type = SLIMES;

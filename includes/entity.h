@@ -35,7 +35,7 @@ t_weapon		laser_cannon(void);
 */
 
 void			slime_update(void *self);
-SDL_bool		slime_detect_collision(void *self, void *with, void *meta1, void *meta2, void *meta3);
-void			*slime_collide(void *self, void *with, void *meta1, void *meta2, void *meta3);
+SDL_bool		slime_detect_collision(void *self, void *with, void *meta1, void *meta2);
+void			*slime_collide(void *self, void *with, void *meta1, void *meta2);
 
 #endif
