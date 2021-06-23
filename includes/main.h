@@ -59,6 +59,8 @@ void	projectile_add(t_attacks *dst, t_bullet src);
 */
 
 void	*button_trigger_scene_switch(SDLX_button *self, void *meta, SDL_UNUSED size_t length);
+void	*button_pause(SDLX_button *self, void *vp_context, SDL_UNUSED size_t length);
+void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t length);
 
 void	*new_scene(size_t size, t_context *context, char *background_path);
 

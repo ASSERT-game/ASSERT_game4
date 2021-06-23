@@ -31,18 +31,6 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 
 	scene = new_scene(sizeof(*scene), context, ASSETS"level_select_background.png");
 
-	// SDLX_Button_Init(&(scene->level_1), fetch_level_select_sprite, 1, (SDL_Rect){50, 50, 32, 32}, NULL);
-	// SDLX_Style_Button(&(scene->level_1), 1, -100);
-	// scene->level_1.meta = context;
-	// scene->level_1.meta1 = first_level_init;
-	// scene->level_1.trigger_fn = button_trigger_scene_switch;
-
-	// SDLX_Button_Init(&(scene->level_2), fetch_level_select_sprite, LOCK_NORM, (SDL_Rect){82, 50, 32, 32}, NULL);
-	// SDLX_Style_Button(&(scene->level_2), LOCK_NORM, LOCK_HOVER);
-	// scene->level_2.meta = context;
-	// scene->level_2.meta1 = first_level_init;
-	// // scene->level_2.trigger_fn = button_trigger_scene_switch;
-
 	size_t	i;
 	size_t	j;
 	int		x;

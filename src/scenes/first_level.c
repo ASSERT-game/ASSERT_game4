@@ -18,6 +18,10 @@ typedef struct	s_firt_level
 	SDLX_Sprite			background;
 
 	SDLX_button			pause;
+	SDL_bool			paused_hint;
+	SDL_bool			paused;
+
+	SDLX_button			lmenu_resume;
 
 	SDLX_Sprite			crosshair;
 
@@ -26,6 +30,8 @@ typedef struct	s_firt_level
 	t_player			player;
 
 	t_enemy				slime;
+
+	SDL_Texture			*pbackground;
 }				t_firt_level;
 
 void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
@@ -38,6 +44,14 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png");
 
 	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){256 - 21, 5, 16, 16}, NULL);
+	scene->pause.trigger_fn = button_pause;
+	scene->pause.meta = &(scene->paused_hint);
+
+	SDLX_Button_Init(&(scene->lmenu_resume), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){50, 200, 32, 32}, NULL);
+	SDLX_Style_Button(&(scene->lmenu_resume), BACK_NORM, BACK_HOVER);
+	scene->lmenu_resume.meta = &(scene->paused);
+	scene->lmenu_resume.meta1 = &(scene->pbackground);
+	scene->lmenu_resume.trigger_fn = button_resume;
 
 	player_init(&(scene->player));
 
@@ -64,6 +78,8 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->slime.hp = 2;
 	scene->slime.meta = (void *)1;
 
+	scene->paused = SDL_FALSE;
+	scene->paused_hint = SDL_FALSE;
 	return (NULL);
 }
 
@@ -82,28 +98,56 @@ void	*first_level_close(SDL_UNUSED t_context *context, void *vp_scene)
 
 void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 {
+	size_t	i;
 	t_firt_level	*scene;
 
 	scene = vp_scene;
 
-	scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - 130, 140 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
-	SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
-
-	slime_update(&(scene->slime));
-	player_update(&(scene->player));
-	projectile_update(&(scene->player.attacks));
-
-	SDLX_Button_Update(&(scene->pause));
-
-
-	size_t	i = 0;
-
-	while (i < default_CollisionBucket.index)
+	if (scene->paused == SDL_FALSE)
 	{
-		SDLX_attempt_CollisionBucket(default_CollisionBucket.content[i], &(default_CollisionBucket));
-		i++;
+		scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - 130, 140 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
+		SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
+
+		SDLX_Button_Update(&(scene->pause));
+
+		slime_update(&(scene->slime));
+		player_update(&(scene->player));
+		projectile_update(&(scene->player.attacks));
+
+
+		i = 0;
+		while (i < default_CollisionBucket.index)
+		{
+			SDLX_attempt_CollisionBucket(default_CollisionBucket.content[i], &(default_CollisionBucket));
+			i++;
+		}
+		default_CollisionBucket.index = 0;
 	}
-	default_CollisionBucket.index = 0;
+	else
+	{
+		SDL_RenderCopy(SDLX_GetDisplay()->renderer, scene->pbackground, NULL, NULL);
+		SDLX_Button_Update(&(scene->lmenu_resume));
+	}
+
+	if (scene->paused_hint == SDL_TRUE)
+	{
+		scene->pbackground = SDL_CreateTexture(SDLX_GetDisplay()->renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, WIN_WIDTH, WIN_HEIGHT);
+		SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, scene->pbackground);
+
+		SDL_RenderClear(SDLX_GetDisplay()->renderer);
+
+		SDLX_Sprite *background;
+		background = SDLX_get_background();
+		SDLX_DrawAnimation(SDLX_GetDisplay()->renderer, background);
+
+		SDLX_RenderQueue_Flush(NULL, NULL);
+
+		SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, NULL);
+		scene->paused = SDL_TRUE;
+		scene->paused_hint = SDL_FALSE;
+	}
+
+	// SDL_Log("This: %p", text);
 
 	// SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 100, 255, 100, 255);
 	// SDL_Rect	playarea = {0, 0, 256 * 2, 256 * 2};
