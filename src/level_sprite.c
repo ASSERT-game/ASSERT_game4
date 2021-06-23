@@ -20,7 +20,7 @@ SDLX_Sprite_Data *carve_level_select_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(42, sizeof(*result));
+	result = SDL_calloc(44, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"level_select.png");
 
 	i = 0;
@@ -32,6 +32,18 @@ SDLX_Sprite_Data *carve_level_select_sprite(void)
 	i++;
 	result[i].texture = texture;
 	result[i]._src = (SDL_Rect){16 * 2, 0, 16, 16};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+
+	/* The Back Button */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){16 * 3, 0, 16, 16};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){16 * 4, 0, 16, 16};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;
@@ -67,15 +79,17 @@ int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no)
 
 	if (no == LOCK_NORM)		{ (*dst) = &(sprite_arr[0]); return (EXIT_SUCCESS); }
 	else if (no == LOCK_HOVER)	{ (*dst) = &(sprite_arr[1]); return (EXIT_SUCCESS); }
-	else if (no == -100)	{ (*dst) = &(sprite_arr[3]); return (EXIT_SUCCESS); }
+	else if (no == BACK_NORM)	{ (*dst) = &(sprite_arr[2]); return (EXIT_SUCCESS); }
+	else if (no == BACK_HOVER)	{ (*dst) = &(sprite_arr[3]); return (EXIT_SUCCESS); }
+	else if (no == -100)	{ (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
 	else {
-		which = no * 2;
+		which = (no + 1) * 2;
 		if (no <= 0)
 		{
 			which *= -1;
-			(*dst) = &(sprite_arr[2 + 1]); return (EXIT_SUCCESS);
+			(*dst) = &(sprite_arr[which + 1]); return (EXIT_SUCCESS);
 		}
 		else
-			(*dst) = &(sprite_arr[2]); return (EXIT_SUCCESS);
+			(*dst) = &(sprite_arr[which]); return (EXIT_SUCCESS);
 	}
 }

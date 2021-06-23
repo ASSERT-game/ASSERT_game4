@@ -17,11 +17,9 @@ typedef	struct	s_level_select
 {
 	SDLX_Sprite			background;
 
-	SDLX_button			level_1;
-	SDLX_button			level_2;
-	SDLX_button			level_3;
-	SDLX_button			level_4;
-	SDLX_button			level_5;
+	SDLX_button			back;
+
+	SDLX_button			levels[5][5];
 }				t_level_select;
 
 void	*level_select_init(t_context *context, SDL_UNUSED void *level)
@@ -31,19 +29,63 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 	context->close_fn = level_select_close;
 	context->update_fn = level_select_update;
 
-	scene = new_scene(sizeof(*scene), context, ASSETS"p8_level_select.png");
+	scene = new_scene(sizeof(*scene), context, ASSETS"level_select_background.png");
 
-	SDLX_Button_Init(&(scene->level_1), fetch_level_select_sprite, 1, (SDL_Rect){50, 50, 32, 32}, NULL);
-	SDLX_Style_Button(&(scene->level_1), 1, -100);
-	scene->level_1.meta = context;
-	scene->level_1.meta1 = first_level_init;
-	scene->level_1.trigger_fn = button_trigger_scene_switch;
+	// SDLX_Button_Init(&(scene->level_1), fetch_level_select_sprite, 1, (SDL_Rect){50, 50, 32, 32}, NULL);
+	// SDLX_Style_Button(&(scene->level_1), 1, -100);
+	// scene->level_1.meta = context;
+	// scene->level_1.meta1 = first_level_init;
+	// scene->level_1.trigger_fn = button_trigger_scene_switch;
 
-	SDLX_Button_Init(&(scene->level_2), fetch_level_select_sprite, LOCK_NORM, (SDL_Rect){82, 50, 32, 32}, NULL);
-	SDLX_Style_Button(&(scene->level_2), LOCK_NORM, LOCK_HOVER);
-	scene->level_2.meta = context;
-	scene->level_2.meta1 = first_level_init;
-	// scene->level_2.trigger_fn = button_trigger_scene_switch;
+	// SDLX_Button_Init(&(scene->level_2), fetch_level_select_sprite, LOCK_NORM, (SDL_Rect){82, 50, 32, 32}, NULL);
+	// SDLX_Style_Button(&(scene->level_2), LOCK_NORM, LOCK_HOVER);
+	// scene->level_2.meta = context;
+	// scene->level_2.meta1 = first_level_init;
+	// // scene->level_2.trigger_fn = button_trigger_scene_switch;
+
+	size_t	i;
+	size_t	j;
+	int		x;
+	int		y;
+	int		left_offset;
+	int		up_offset;
+	int		tile_padding;
+
+	left_offset = 30;
+	up_offset = 50;
+	tile_padding = 5;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 5)
+		{
+			x = j * (32 + tile_padding) + left_offset;
+			y = i * (32 + tile_padding) + up_offset;
+			SDLX_Button_Init(&(scene->levels[i][j]), fetch_level_select_sprite, LOCK_NORM, (SDL_Rect){x, y, 32, 32}, NULL);
+			SDLX_Style_Button(&(scene->levels[i][j]), LOCK_NORM, LOCK_HOVER);
+			scene->levels[i][j].meta = context;
+			if (context->levels[i][j].unlocked == SDL_TRUE)
+			{
+				SDLX_Style_Button(&(scene->levels[i][j]), i * 5 + j, (i * 5 + j) * -1);
+				scene->levels[i][j].meta1 = context->levels[i][j].init_fn;
+				scene->levels[i][j].trigger_fn = button_trigger_scene_switch;
+				scene->levels[i][j].sprite_fn(&(scene->levels[i][j].sprite.sprite_data), scene->levels[i][j].norm_no);
+
+			}
+			j++;
+		}
+		i++;
+	}
+	SDLX_Style_Button(&(scene->levels[0][0]), 1, -100);
+	scene->levels[0][0].sprite_fn(&(scene->levels[0][0].sprite.sprite_data), scene->levels[0][0].norm_no);
+
+	SDLX_Button_Init(&(scene->back), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){50, 200, 32, 32}, NULL);
+	SDLX_Style_Button(&(scene->back), BACK_NORM, BACK_HOVER);
+	scene->back.meta = context;
+	scene->back.meta1 = main_menu_init;
+	scene->back.trigger_fn = button_trigger_scene_switch;
 
 	return (NULL);
 }
@@ -67,10 +109,28 @@ void	*level_select_update(SDL_UNUSED t_context *context, void *vp_scene)
 
 	scene = vp_scene;
 
-	SDLX_Button_Update(&(scene->level_1));
-	SDLX_Button_Update(&(scene->level_2));
+	// SDLX_Button_Update(&(scene->level_1));
+	// SDLX_Button_Update(&(scene->level_2));
 	// SDLX_Button_Update(&(scene->level_3));
 	// SDLX_Button_Update(&(scene->level_4));
 	// SDLX_Button_Update(&(scene->level_5));
+
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 5)
+		{
+			SDLX_Button_Update(&(scene->levels[i][j]));
+			j++;
+		}
+		i++;
+	}
+
+	SDLX_Button_Update(&(scene->back));
+
 	return (NULL);
 }

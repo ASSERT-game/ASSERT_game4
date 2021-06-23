@@ -16,12 +16,22 @@
 
 # include "SDLX/SDLX.h"
 
+struct s_context;
+
+typedef struct	s_level_progress
+{
+	SDL_bool	unlocked;
+	void		*(*init_fn)(struct s_context *, void *);
+}				t_level_progress;
+
 typedef struct	s_context
 {
 	SDL_bool	exit;
 	SDL_bool	scene;
 
 	void		*meta;
+
+	t_level_progress	levels[5][5];
 
 	SDLX_Sprite	background;
 
@@ -41,6 +51,8 @@ enum	BLASTER_UI_SPRITES
 
 	LOCK_NORM,
 	LOCK_HOVER,
+	BACK_NORM,
+	BACK_HOVER,
 };
 
 enum	BLASTER_COLLISION_TYPES
