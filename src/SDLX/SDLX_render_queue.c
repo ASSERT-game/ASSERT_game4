@@ -64,7 +64,7 @@ void	SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 	animation->current += animation->sprite_data[no].skip;
 }
 
-void	SDLX_RenderQueue_Flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer)
+void	SDLX_RenderQueue_Flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer, SDL_bool reverse)
 {
 	size_t	i;
 
@@ -73,10 +73,22 @@ void	SDLX_RenderQueue_Flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer)
 		queue = &(default_RenderQueue);
 	if (renderer == NULL)
 		renderer = SDLX_GetDisplay()->renderer;
-	while (i < queue->index)
+
+	if (reverse == SDL_TRUE)
 	{
-		SDLX_DrawAnimation(renderer, queue->content[i]);
-		i++;
+		while (i < queue->index)
+		{
+			SDLX_DrawAnimation(renderer, queue->content[queue->index - 1 - i]);
+			i++;
+		}
+	}
+	else
+	{
+		while (i < queue->index)
+		{
+			SDLX_DrawAnimation(renderer, queue->content[i]);
+			i++;
+		}
 	}
 	queue->index = 0;
 }
@@ -99,7 +111,7 @@ void	SDLX_DrawAnimation_Direct(SDL_Renderer *renderer, SDLX_Sprite *animation)
 
 }
 
-void	SDLX_RenderQueue_Flush_Direct(SDLX_RenderQueue *queue, SDL_Renderer *renderer)
+void	SDLX_RenderQueue_Flush_Direct(SDLX_RenderQueue *queue, SDL_Renderer *renderer, SDL_bool reverse)
 {
 	size_t	i;
 
@@ -108,11 +120,23 @@ void	SDLX_RenderQueue_Flush_Direct(SDLX_RenderQueue *queue, SDL_Renderer *render
 		queue = &(default_RenderQueue);
 	if (renderer == NULL)
 		renderer = SDLX_GetDisplay()->renderer;
-	while (i < queue->index)
+	if (reverse == SDL_TRUE)
 	{
-		SDLX_DrawAnimation_Direct(renderer, queue->content[i]);
-		i++;
+		while (i < queue->index)
+		{
+			SDLX_DrawAnimation_Direct(renderer, queue->content[queue->index - 1 - i]);
+			i++;
+		}
 	}
+	else
+	{
+		while (i < queue->index)
+		{
+			SDLX_DrawAnimation_Direct(renderer, queue->content[i]);
+			i++;
+		}
+	}
+	queue->index = 0;
 	queue->index = 0;
 }
 

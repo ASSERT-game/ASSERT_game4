@@ -41,8 +41,8 @@ void			SDLX_DrawAnimation_Direct(SDL_Renderer *renderer, SDLX_Sprite *animation)
 
 int				SDLX_RenderQueue_Init(SDLX_RenderQueue *dest);
 void			SDLX_RenderQueue_Add(SDLX_RenderQueue *dst, SDLX_Sprite *src);
-void			SDLX_RenderQueue_Flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer);
-void			SDLX_RenderQueue_Flush_Direct(SDLX_RenderQueue *queue, SDL_Renderer *renderer);
+void			SDLX_RenderQueue_Flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer, SDL_bool reverse);
+void			SDLX_RenderQueue_Flush_Direct(SDLX_RenderQueue *queue, SDL_Renderer *renderer, SDL_bool reverse);
 
 /*
 ** Input type functions.
