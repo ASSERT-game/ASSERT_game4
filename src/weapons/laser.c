@@ -84,7 +84,7 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.detect = bullet_detect_collision;
 }
 
-#define LASER_COOLDOWN (0)
+#define LASER_COOLDOWN (9)
 
 t_weapon	laser_cannon(void)
 {

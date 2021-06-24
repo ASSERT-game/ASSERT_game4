@@ -28,11 +28,6 @@ void	player_init(t_player *player)
 	player->player_hurtbox.engage = player_collide;
 	player->player_hurtbox.type = PLAYER;
 	player->player_hurtbox.detect_meta1 = &(player->sprite._dst);
-	// player->player_hurtbox.detect_meta2 = &(player->sprite._dst);
-	// player->player_hurtbox.engage_meta1 = &(player->sprite._dst);
-	// player->player_hurtbox.engage_meta1 = &(player->sprite._dst);
-	// player->player_hurtbox.detect_meta2 = SDL_malloc(sizeof(SDL_Rect));
-	// SDL_Log("!!!!!!!!!!!%p!!!!!!!!!!!!!", player->player_hurtbox.detect_meta1);
 
 	projectile_queue(&(player->attacks));
 }
@@ -70,7 +65,14 @@ void	player_update(t_player *self)
 	t_bullet	attack;
 
 	weapon = &(self->weapon_equip);
-	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
+	// if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
+	// {
+	// 	weapon->curr = weapon->start;
+	// 	weapon->factory(&(attack), (SDL_Point){0, 0}, 0, NULL);
+	// 	projectile_add(&(self->attacks), attack);
+	// }
+
+	if (g_GameInput.GameInput.button_primleft && weapon->curr >= weapon->cooldown)
 	{
 		weapon->curr = weapon->start;
 		weapon->factory(&(attack), (SDL_Point){0, 0}, 0, NULL);

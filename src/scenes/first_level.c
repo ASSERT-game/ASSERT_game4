@@ -29,6 +29,7 @@ typedef struct	s_first_level
 	t_player			player;
 
 	t_enemy				slime;
+	int					score;
 
 	SDL_Texture			*pbackground;
 }				t_first_level;
@@ -42,6 +43,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png");
 	scene->pbackground = NULL;
+	scene->score = 0;
 
 	scene->bottom_ui = SDLX_Sprite_Static(ASSETS"bottom_ui.png");
 	scene->bottom_ui.dst = SDLX_NULL_SELF;
@@ -82,8 +84,9 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->slime.enemy_hurtbox.detect = slime_detect_collision;
 	scene->slime.enemy_hurtbox.engage = slime_collide;
 
+	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
 	scene->slime.hp = 2;
-	scene->slime.meta = (void *)10;
+	scene->slime.meta = (void *)6;
 
 	scene->paused = SDL_FALSE;
 	scene->paused_hint = SDL_FALSE;
@@ -121,7 +124,6 @@ void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 		SDL_Rect	playarea = {16, 220 * DISPLAY_SCALE, lerp32(scene->player.hp / 100.0, 0, 480), 10};
 
 		SDL_RenderFillRect(SDLX_GetDisplay()->renderer, &(playarea));
-
 
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		SDLX_Button_Update(&(scene->pause));
@@ -164,6 +166,7 @@ void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 		SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, NULL);
 		scene->paused = SDL_TRUE;
 		scene->paused_hint = SDL_FALSE;
+		SDL_Log("Kill count: %d", scene->score);
 	}
 
 	// SDL_Log("This: %p", text);
