@@ -64,5 +64,11 @@ void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t lengt
 
 void	*new_scene(size_t size, t_context *context, char *background_path);
 
+/*
+** Misc. Functions
+*/
+
+uint32_t	lerp32(double percent, uint32_t start, uint32_t end);
+
 #endif
 

@@ -13,19 +13,53 @@
 
 #include "main.h"
 
-void	player_init(t_player *dst)
+void	player_init(t_player *player)
 {
-	t_player	*player;
-
-	player = dst;
-
 	player->sprite = SDLX_Sprite_Static(ASSETS"bunny.png");
 	player->sprite.dst = &(player->sprite._dst);
-	player->sprite._dst = (SDL_Rect){7 * 16, 7 * 16, 32, 32};
+	player->sprite._dst = (SDL_Rect){7 * 16, 7 * 16 - 8, 32, 32};
+
+	player->hp = 100;
 
 	player->weapon_equip = laser_cannon();
 
+	player->player_hurtbox.originator = player;
+	player->player_hurtbox.detect = player_hit;
+	player->player_hurtbox.engage = player_collide;
+	player->player_hurtbox.type = PLAYER;
+	player->player_hurtbox.detect_meta1 = &(player->sprite._dst);
+	// player->player_hurtbox.detect_meta2 = &(player->sprite._dst);
+	// player->player_hurtbox.engage_meta1 = &(player->sprite._dst);
+	// player->player_hurtbox.engage_meta1 = &(player->sprite._dst);
+	// player->player_hurtbox.detect_meta2 = SDL_malloc(sizeof(SDL_Rect));
+	// SDL_Log("!!!!!!!!!!!%p!!!!!!!!!!!!!", player->player_hurtbox.detect_meta1);
+
 	projectile_queue(&(player->attacks));
+}
+
+SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SDL_UNUSED void *meta1)
+{
+	SDLX_collision	*hitbox;
+	t_player		*player;
+
+	player = self;
+	hitbox = with;
+	if (hitbox->type == SLIMES)
+	{
+		if (SDL_HasIntersection(&(player->sprite._dst), hitbox->detect_meta1) == SDL_TRUE)
+			return (SDL_TRUE);
+	}
+	return (SDL_FALSE);
+}
+
+void		*player_collide(void *self, SDL_UNUSED void *with, SDL_UNUSED void *meta, SDL_UNUSED void *meta1)
+{
+	t_player	*player;
+
+	player = self;
+
+	player->hp -= 10;
+	return (NULL);
 }
 
 void	player_update(t_player *self)
@@ -43,9 +77,11 @@ void	player_update(t_player *self)
 		projectile_add(&(self->attacks), attack);
 	}
 
+	// self->hp--;
 	weapon->curr++;
 	/* If (curr) is equal to (cooldown + 1) undo the (curr++) */
 	weapon->curr -= (weapon->curr / (weapon->cooldown + 1));
 
 	SDLX_RenderQueue_Add(NULL, &(self->sprite));
+	SDLX_CollisionBucket_add(NULL, &(self->player_hurtbox));
 }

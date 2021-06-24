@@ -15,8 +15,8 @@
 
 SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta2)
 {
-	SDLX_collison	*self_box;
-	SDLX_collison	*hitbox;
+	SDLX_collision	*self_box;
+	SDLX_collision	*hitbox;
 	t_bullet		*self_attack;
 
 	self_box = self;
@@ -59,10 +59,8 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 {
 	dst->sprite = SDLX_Sprite_Static(ASSETS"laser.png");
 	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){128, 7 * 16 + 8, 16, 16};
-	dst->sprite.center = SDLX_NULL_SELF;
-	dst->sprite._center.x = 8;
-	dst->sprite._center.y = 32;
+	dst->sprite._dst = (SDL_Rect){(256 / 2) - 8, 120 - 8, 16, 16};
+	dst->sprite.center = NULL;
 	dst->sprite.angle = 0;
 
 	dst->vel.x = 1;
@@ -70,9 +68,9 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->active = SDL_TRUE;
 
-	dst->sprite.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - (dst->sprite._dst.x + 4), (dst->sprite._dst.y + 16) - g_GameInput.GameInput.primary.y) * 180 / M_PI);
+	dst->sprite.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - (256 / 2), 120 - g_GameInput.GameInput.primary.y) * 180 / M_PI);
 
-	angle = SDL_atan2(g_GameInput.GameInput.primary.x - (dst->sprite._dst.x + 4), (dst->sprite._dst.y + 16) - g_GameInput.GameInput.primary.y);
+	angle = SDL_atan2(g_GameInput.GameInput.primary.x - (256 / 2), 120 - g_GameInput.GameInput.primary.y);
 
 	dst->vel.x = SDL_sin(angle) * 12;
 	dst->vel.y = SDL_cos(angle) * -12;

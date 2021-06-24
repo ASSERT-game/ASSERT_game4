@@ -203,7 +203,7 @@ typedef struct	SDLX_button
 
 }				SDLX_button;
 
-typedef struct	SDLX_collison
+typedef struct	SDLX_collision
 {
 	size_t		type;
 
@@ -221,7 +221,7 @@ typedef struct	SDLX_collison
 	void		*(*engage)(void *, void *, void *, void *);
 	SDL_bool	(*detect)(void *, void *, void *, void *);
 
-}				SDLX_collison;
+}				SDLX_collision;
 
 typedef struct	SDLX_collision_bucket
 {
@@ -230,7 +230,7 @@ typedef struct	SDLX_collision_bucket
 	size_t		index;
 	size_t		capacity;
 
-	SDLX_collison	**content;
+	SDLX_collision	**content;
 }				SDLX_collision_bucket;
 
 extern SDLX_collision_bucket	default_CollisionBucket;

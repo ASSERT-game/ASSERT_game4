@@ -100,7 +100,7 @@ SDLX_Sprite		SDLX_Sprite_Static(char *path);
 */
 
 int		SDLX_CollisionBucket_Init(SDLX_collision_bucket *dst, size_t type);
-void	SDLX_CollisionBucket_add(SDLX_collision_bucket *dst, SDLX_collison *body);
-void	SDLX_attempt_CollisionBucket(SDLX_collison *body, SDLX_collision_bucket *bucket);
+void	SDLX_CollisionBucket_add(SDLX_collision_bucket *dst, SDLX_collision *body);
+void	SDLX_attempt_CollisionBucket(SDLX_collision *body, SDLX_collision_bucket *bucket);
 
 #endif

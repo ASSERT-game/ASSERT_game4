@@ -28,7 +28,7 @@ int		SDLX_CollisionBucket_Init(SDLX_collision_bucket *dst, size_t type)
 	return (EXIT_SUCCESS);
 }
 
-void	SDLX_CollisionBucket_add(SDLX_collision_bucket *dst, SDLX_collison *body)
+void	SDLX_CollisionBucket_add(SDLX_collision_bucket *dst, SDLX_collision *body)
 {
 	if (dst == NULL)
 		dst = &(default_CollisionBucket);
@@ -43,7 +43,7 @@ void	SDLX_CollisionBucket_add(SDLX_collision_bucket *dst, SDLX_collison *body)
 	dst->index += 1;
 }
 
-void	SDLX_attempt_CollisionBucket(SDLX_collison *body, SDLX_collision_bucket *bucket)
+void	SDLX_attempt_CollisionBucket(SDLX_collision *body, SDLX_collision_bucket *bucket)
 {
 	size_t	i;
 	SDL_bool	collides;
@@ -73,7 +73,7 @@ void	unnammed(void)
 {
 	size_t	i;
 	SDLX_collision_bucket	*bucket;
-	SDLX_collison			*body;
+	SDLX_collision			*body;
 
 	bucket = NULL;
 	body = NULL;

@@ -16,7 +16,7 @@
 
 SDL_bool	ename_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
-	SDLX_collison	*hitbox;
+	SDLX_collision	*hitbox;
 	t_enemy			*ename;
 
 	ename = self;
@@ -27,7 +27,7 @@ SDL_bool	ename_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 
 void		*ename_collide(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
-	SDLX_collison	*hitbox;
+	SDLX_collision	*hitbox;
 	t_enemy		*ename;
 
 	ename = self;

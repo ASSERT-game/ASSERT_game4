@@ -60,6 +60,7 @@ enum	BLASTER_COLLISION_TYPES
 	E_NONE,
 	BULLETS,
 	SLIMES,
+	PLAYER,
 };
 
 typedef struct	s_bullet
@@ -72,7 +73,7 @@ typedef struct	s_bullet
 	void			*meta;
 	void			(*update)(void *, void *);
 
-	SDLX_collison	hitbox;
+	SDLX_collision	hitbox;
 }				t_bullet;
 
 typedef struct	s_attacks
@@ -99,7 +100,7 @@ typedef struct	s_weapon
 typedef struct	s_enemy
 {
 	SDLX_Sprite		sprite;
-	SDLX_collison	enemy_hurtbox;
+	SDLX_collision	enemy_hurtbox;
 
 	int				hp;
 
@@ -110,8 +111,11 @@ typedef struct	s_player
 {
 	SDLX_Sprite		sprite;
 
+	int				hp;
+
 	t_weapon		weapon_equip;
-	SDLX_collison	player_hurtbox;
+
+	SDLX_collision	player_hurtbox;
 
 
 	//These are not permanent.

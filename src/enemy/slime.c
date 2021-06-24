@@ -15,28 +15,33 @@
 
 SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
-	SDLX_collison	*hitbox;
+	SDLX_collision	*hitbox;
 	t_enemy			*slime;
 
 	slime = self;
 	hitbox = with;
 
-	if (hitbox->type != BULLETS)
-		return (SDL_FALSE);
-
-	if (SDL_HasIntersection(slime->sprite.dst, hitbox->detect_meta1) == SDL_TRUE)
-		return (SDL_TRUE);
-
+	if (hitbox->type == BULLETS || hitbox->type == PLAYER)
+	{
+		if (SDL_HasIntersection(&(slime->sprite._dst), hitbox->detect_meta1))
+			return (SDL_TRUE);
+	}
 	return (SDL_FALSE);
 }
 
 void		*slime_collide(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
-	t_enemy	*slime;
+	t_enemy			*slime;
+	SDLX_collision	*hurtbox;
 
 	slime = self;
 	slime->hp -= 1;
 
+	hurtbox = with;
+	if (hurtbox->type == PLAYER)
+	{
+		slime->hp = 0;
+	}
 	(void)with;
 	return (NULL);
 }
@@ -76,7 +81,6 @@ void	slime_update(void *self)
 		slime->sprite.dst->x = 0;
 		slime->sprite.dst->y = 0;
 
-		slime->meta += 1;
 		slime->hp = 2;
 	}
 

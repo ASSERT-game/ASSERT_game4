@@ -13,7 +13,7 @@
 
 #include "main.h"
 
-typedef struct	s_firt_level
+typedef struct	s_first_level
 {
 	SDLX_Sprite			bottom_ui;
 
@@ -31,22 +31,23 @@ typedef struct	s_firt_level
 	t_enemy				slime;
 
 	SDL_Texture			*pbackground;
-}				t_firt_level;
+}				t_first_level;
 
 void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
-	t_firt_level *scene;
+	t_first_level *scene;
 
 	context->close_fn = first_level_close;
 	context->update_fn = first_level_update;
 
 	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png");
+	scene->pbackground = NULL;
 
 	scene->bottom_ui = SDLX_Sprite_Static(ASSETS"bottom_ui.png");
 	scene->bottom_ui.dst = SDLX_NULL_SELF;
 	scene->bottom_ui._dst = (SDL_Rect){0, (320 - 16 * 5), 256, 16 * 5};
 
-	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){256 - 21, 5, 16, 16}, NULL);
+	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){256 - 24, 8, 16, 16}, NULL);
 	scene->pause.trigger_fn = button_pause;
 	scene->pause.meta = &(scene->paused_hint);
 
@@ -66,10 +67,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	scene->crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");
 	scene->crosshair.dst = &(scene->crosshair._dst);
-	scene->crosshair._dst = (SDL_Rect){130, 100, 32, 32};
-	scene->crosshair.center = &(scene->crosshair._center);
-	scene->crosshair._center.x = 0;
-	scene->crosshair._center.y = 64;
+	scene->crosshair._dst = (SDL_Rect){(256 / 2) - 32, 120 - 32, 64, 64};
 	scene->crosshair.angle = 0;
 
 
@@ -85,7 +83,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->slime.enemy_hurtbox.engage = slime_collide;
 
 	scene->slime.hp = 2;
-	scene->slime.meta = (void *)1;
+	scene->slime.meta = (void *)10;
 
 	scene->paused = SDL_FALSE;
 	scene->paused_hint = SDL_FALSE;
@@ -94,7 +92,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 void	*first_level_close(t_context *context, void *vp_scene)
 {
-	t_firt_level	*scene;
+	t_first_level	*scene;
 
 	scene = vp_scene;
 
@@ -106,22 +104,29 @@ void	*first_level_close(t_context *context, void *vp_scene)
 	SDL_free(scene->bottom_ui.sprite_data);
 	SDL_free(scene);
 
+	(void)context;
 	return (NULL);
 }
 
 void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 {
 	size_t	i;
-	t_firt_level	*scene;
+	t_first_level	*scene;
 
 	scene = vp_scene;
 
 	if (scene->paused == SDL_FALSE)
 	{
+		SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 255);
+		SDL_Rect	playarea = {16, 220 * DISPLAY_SCALE, lerp32(scene->player.hp / 100.0, 0, 480), 10};
+
+		SDL_RenderFillRect(SDLX_GetDisplay()->renderer, &(playarea));
+
+
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		SDLX_Button_Update(&(scene->pause));
 
-		scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - 130, 140 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
+		scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - (256 / 2), 120 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
 		SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
 
 		player_update(&(scene->player));
@@ -163,9 +168,6 @@ void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 
 	// SDL_Log("This: %p", text);
 
-	// SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 100, 255, 100, 255);
-	// SDL_Rect	playarea = {0, 0, 256 * 2, 256 * 2};
-	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(playarea));
 
 	return (NULL);
 }

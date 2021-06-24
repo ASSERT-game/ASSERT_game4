@@ -20,8 +20,10 @@
 **Player
 */
 
-void			player_init(t_player *dst);
-void			player_update(t_player *self);
+void		player_init(t_player *dst);
+SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SDL_UNUSED void *meta1);
+void		*player_collide(void *self, void *with, SDL_UNUSED void *meta, SDL_UNUSED void *meta1);
+void		player_update(t_player *self);
 
 /*
 **Weapons
