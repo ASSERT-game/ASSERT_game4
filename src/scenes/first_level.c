@@ -29,6 +29,7 @@ typedef struct	s_first_level
 	t_player			player;
 
 	t_enemy				slime;
+	int					score;
 
 	SDL_Texture			*pbackground;
 }				t_first_level;
@@ -42,6 +43,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png");
 	scene->pbackground = NULL;
+	scene->score = 0;
 
 	scene->bottom_ui = SDLX_Sprite_Static(ASSETS"bottom_ui.png");
 	scene->bottom_ui.dst = SDLX_NULL_SELF;
@@ -82,8 +84,9 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->slime.enemy_hurtbox.detect = slime_detect_collision;
 	scene->slime.enemy_hurtbox.engage = slime_collide;
 
+	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
 	scene->slime.hp = 2;
-	scene->slime.meta = (void *)10;
+	scene->slime.meta = (void *)6;
 
 	scene->paused = SDL_FALSE;
 	scene->paused_hint = SDL_FALSE;
@@ -122,7 +125,6 @@ void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 
 		SDL_RenderFillRect(SDLX_GetDisplay()->renderer, &(playarea));
 
-
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		SDLX_Button_Update(&(scene->pause));
 
@@ -150,20 +152,13 @@ void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 
 	if (scene->paused_hint == SDL_TRUE)
 	{
-		scene->pbackground = SDL_CreateTexture(SDLX_GetDisplay()->renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, WIN_WIDTH, WIN_HEIGHT);
-		SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, scene->pbackground);
+		scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI);
+		scene->pbackground = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
+		scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), PAUSE_NORM);
 
-		SDL_RenderClear(SDLX_GetDisplay()->renderer);
-
-		SDLX_Sprite *background;
-		background = SDLX_get_background();
-		SDLX_DrawAnimation(SDLX_GetDisplay()->renderer, background);
-
-		SDLX_RenderQueue_Flush(NULL, NULL, SDL_FALSE);
-
-		SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, NULL);
-		scene->paused = SDL_TRUE;
 		scene->paused_hint = SDL_FALSE;
+		scene->paused = SDL_TRUE;
+		SDL_Log("Kill count: %d", scene->score);
 	}
 
 	// SDL_Log("This: %p", text);

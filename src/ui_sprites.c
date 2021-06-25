@@ -20,7 +20,7 @@ SDLX_Sprite_Data *carve_ui_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(17, sizeof(*result));
+	result = SDL_calloc(18, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"buttons.png");
 
 	i = 0;
@@ -70,6 +70,13 @@ SDLX_Sprite_Data *carve_ui_sprite(void)
 	result[i]._src = (SDL_Rect){35, 16 * 6 + 11, 35, 11};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
+	i++;
+
+	/* The Empty Button */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){16, 0, 16, 16};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
 
 	return (result);
 }
@@ -86,5 +93,6 @@ int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int no)
 	else if (no == CREDIT_NORM)	{ (*dst) = &(sprite_arr[15]); return (EXIT_SUCCESS); }
 	else if (no == CREDIT_HOVER){ (*dst) = &(sprite_arr[16]); return (EXIT_SUCCESS); }
 	else if (no == PAUSE_NORM)	{ (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
+	else if (no == EMPTY_UI)	{ (*dst) = &(sprite_arr[17]); return (EXIT_SUCCESS); }
 	else { return (EXIT_FAILURE); }
 }

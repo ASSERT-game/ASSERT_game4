@@ -17,7 +17,7 @@
 SDLX_GameInput	g_GameInput;
 SDLX_GameInput	g_GameInput_prev;
 
-void	SDLX_start(SDLX_Display *dest)
+void	SDLX_Start(SDLX_Display *dest)
 {
 	SDL_Window	*window;
 
@@ -34,10 +34,10 @@ void	SDLX_start(SDLX_Display *dest)
 	SDLX_RenderQueue_Init(&(default_RenderQueue));
 	SDLX_CollisionBucket_Init(&(default_CollisionBucket), 0);
 
-	atexit(SDLX_close);
+	atexit(SDLX_Close);
 }
 
-void	SDLX_close(void)
+void	SDLX_Close(void)
 {
 	SDL_DestroyWindow(SDLX_GetDisplay()->window);
 	SDL_free(default_RenderQueue.content);
@@ -50,7 +50,7 @@ SDLX_Display	*SDLX_GetDisplay(void)
 	static SDLX_Display	display;
 
 	if (display.window == NULL)
-		SDLX_start(&display);
+		SDLX_Start(&display);
 
 	return (&display);
 }

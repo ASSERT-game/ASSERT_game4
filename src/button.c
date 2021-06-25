@@ -38,6 +38,7 @@ void	*button_pause(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t length
 		pause_hint = pause_addr;
 		*pause_hint = SDL_TRUE;
 		g_GameInput_prev.GameInput.button_primleft = 0;
+		self->focused = SDL_FALSE;
 	}
 	(void)self;
 
@@ -55,6 +56,7 @@ void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t lengt
 	{
 		pause = pause_addr;
 		*pause = SDL_FALSE;
+		self->focused = SDL_FALSE;
 		g_GameInput_prev.GameInput.button_primleft = 0;
 
 		pbackground = self->meta1;

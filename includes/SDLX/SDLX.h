@@ -18,8 +18,8 @@
 ** SDLX_Library Functions:
 */
 
-void			SDLX_start(SDLX_Display *dest);
-void			SDLX_close(void);
+void			SDLX_Start(SDLX_Display *dest);
+void			SDLX_Close(void);
 
 SDLX_Display	*SDLX_GetDisplay(void);
 
@@ -27,9 +27,11 @@ SDLX_Display	*SDLX_GetDisplay(void);
 ** Functions that get the screen ready for a redraw.
 */
 
-void			SDLX_screen_reset(SDL_Renderer *renderer, SDL_Color *bg_color);
-SDLX_Sprite		*SDLX_get_background(void);
-void			SDLX_set_background(SDLX_Sprite *src);
+void			SDLX_ScreenReset(SDL_Renderer *renderer, SDL_Color *bg_color);
+SDLX_Sprite		*SDLX_GetBackground(void);
+void			SDLX_SetBackground(SDLX_Sprite *src);
+
+SDL_Texture		*SDLX_CaptureScreen(SDLX_RenderQueue **Queues, size_t amount, SDL_bool reverse);
 
 /*
 ** Functions that have to do with rendering the current frame.
