@@ -13,6 +13,23 @@
 
 #include "main.h"
 
+void		slime_init(t_enemy *dst)
+{
+	dst->sprite = SDLX_Sprite_Static(ASSETS"slime.png");
+	dst->sprite.dst = SDLX_NULL_SELF;
+	dst->sprite._dst = (SDL_Rect){10, 10, 32, 32};
+
+	dst->enemy_hurtbox.originator = dst;
+	dst->enemy_hurtbox.detect_meta1 = &(dst->sprite._dst);
+	dst->enemy_hurtbox.engage_meta1 = dst;
+	dst->enemy_hurtbox.type = SLIMES;
+	dst->enemy_hurtbox.detect = slime_detect_collision;
+	dst->enemy_hurtbox.engage = slime_collide;
+
+	dst->hp = 2;
+	dst->meta = (void *)6;
+}
+
 SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
 	SDLX_collision	*hitbox;

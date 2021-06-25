@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/24 18:51:44 by home             ###   ########.fr       */
+/*   Updated: 2021/06/24 19:58:57 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ void	blaster_start(t_context *context)
 	context->scene = SDL_FALSE;
 
 	context->meta = NULL;
+
+	context->death_capture_sceen = NULL;
+	context->redo_init_fn = NULL;
 
 	context->init_fn = main_menu_init;
 
@@ -50,7 +53,7 @@ void	blaster_start(t_context *context)
 	// context->levels[4][3].init_fn = first_level_init;
 	// context->levels[4][4].init_fn = first_level_init;
 
-	// context->init_fn = first_level_init;
+	context->init_fn = first_level_init;
 	// context->init_fn = level_select_init;
 }
 

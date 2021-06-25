@@ -19,7 +19,7 @@ void	player_init(t_player *player)
 	player->sprite.dst = &(player->sprite._dst);
 	player->sprite._dst = (SDL_Rect){7 * 16, 7 * 16 - 8, 32, 32};
 
-	player->hp = 100;
+	player->hp = 50;
 
 	player->weapon_equip = laser_cannon();
 
@@ -59,18 +59,17 @@ void		*player_collide(void *self, SDL_UNUSED void *with, SDL_UNUSED void *meta, 
 
 void	player_update(t_player *self)
 {
-	//Player hp drops below 0
-
 	t_weapon	*weapon;
 	t_bullet	attack;
+	SDL_bool	*scene_end;
 
 	weapon = &(self->weapon_equip);
-	// if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
-	// {
-	// 	weapon->curr = weapon->start;
-	// 	weapon->factory(&(attack), (SDL_Point){0, 0}, 0, NULL);
-	// 	projectile_add(&(self->attacks), attack);
-	// }
+
+	if (self->hp <= 0)
+	{
+		scene_end = self->scene_end;
+		*scene_end = SDL_FALSE;
+	}
 
 	if (g_GameInput.GameInput.button_primleft && weapon->curr >= weapon->cooldown)
 	{
@@ -79,7 +78,6 @@ void	player_update(t_player *self)
 		projectile_add(&(self->attacks), attack);
 	}
 
-	// self->hp--;
 	weapon->curr++;
 	/* If (curr) is equal to (cooldown + 1) undo the (curr++) */
 	weapon->curr -= (weapon->curr / (weapon->cooldown + 1));

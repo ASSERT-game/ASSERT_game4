@@ -17,9 +17,10 @@ void	*button_trigger_scene_switch(SDLX_button *self, void *vp_context, SDL_UNUSE
 {
 	t_context *context;
 
-	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
 	{
 		context = vp_context;
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
 
 		context->init_fn = self->meta1;
 		context->scene = SDL_FALSE;
@@ -33,11 +34,12 @@ void	*button_pause(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t length
 	// t_context *context;
 	SDL_bool	*pause_hint;
 
-	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
 	{
 		pause_hint = pause_addr;
 		*pause_hint = SDL_TRUE;
-		g_GameInput_prev.GameInput.button_primleft = 0;
+
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
 		self->focused = SDL_FALSE;
 	}
 	(void)self;
@@ -52,12 +54,12 @@ void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t lengt
 	SDL_Texture	**pbackground;
 
 	button = self;
-	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
 	{
 		pause = pause_addr;
 		*pause = SDL_FALSE;
 		self->focused = SDL_FALSE;
-		g_GameInput_prev.GameInput.button_primleft = 0;
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
 
 		pbackground = self->meta1;
 		SDL_DestroyTexture(*pbackground);

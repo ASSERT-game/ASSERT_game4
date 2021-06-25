@@ -22,6 +22,7 @@ SDLX_NAMES = 			\
 	SDLX_xbox			\
 
 SCENE_FILES = 			\
+	death_scene			\
 	first_level			\
 	main_menu			\
 	level_select		\

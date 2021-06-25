@@ -31,6 +31,9 @@ typedef struct	s_context
 
 	void		*meta;
 
+	SDL_Texture	*death_capture_sceen;
+	void		*(*redo_init_fn)(struct s_context *, void *);
+
 	t_level_progress	levels[5][5];
 
 	SDLX_Sprite	background;
@@ -119,6 +122,7 @@ typedef struct	s_player
 
 	SDLX_collision	player_hurtbox;
 
+	SDL_bool		*scene_end;
 
 	//These are not permanent.
 	t_attacks			attacks;

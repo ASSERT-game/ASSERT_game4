@@ -36,7 +36,7 @@ typedef struct	s_first_level
 
 void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
-	t_first_level *scene;
+	t_first_level	*scene;
 
 	context->close_fn = first_level_close;
 	context->update_fn = first_level_update;
@@ -55,38 +55,26 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	SDLX_Button_Init(&(scene->lmenu_resume), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 150, 32, 32}, NULL);
 	SDLX_Style_Button(&(scene->lmenu_resume), BACK_NORM, BACK_HOVER);
+	scene->lmenu_resume.trigger_fn = button_resume;
 	scene->lmenu_resume.meta = &(scene->paused);
 	scene->lmenu_resume.meta1 = &(scene->pbackground);
-	scene->lmenu_resume.trigger_fn = button_resume;
 
 	SDLX_Button_Init(&(scene->lmenu_selectscene), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 200, 32, 32}, NULL);
 	SDLX_Style_Button(&(scene->lmenu_selectscene), BACK_NORM, BACK_HOVER);
+	scene->lmenu_selectscene.trigger_fn = button_trigger_scene_switch;
 	scene->lmenu_selectscene.meta = context;
 	scene->lmenu_selectscene.meta1 = level_select_init;
-	scene->lmenu_selectscene.trigger_fn = button_trigger_scene_switch;
 
 	player_init(&(scene->player));
+	scene->player.scene_end = &(context->scene);
 
 	scene->crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");
 	scene->crosshair.dst = &(scene->crosshair._dst);
 	scene->crosshair._dst = (SDL_Rect){(256 / 2) - 32, 120 - 32, 64, 64};
 	scene->crosshair.angle = 0;
 
-
-	scene->slime.sprite = SDLX_Sprite_Static(ASSETS"slime.png");
-	scene->slime.sprite.dst = SDLX_NULL_SELF;
-	scene->slime.sprite._dst = (SDL_Rect){10, 10, 32, 32};
-
-	scene->slime.enemy_hurtbox.originator = &(scene->slime);
-	scene->slime.enemy_hurtbox.detect_meta1 = &(scene->slime.sprite._dst);
-	scene->slime.enemy_hurtbox.engage_meta1 = &(scene->slime);
-	scene->slime.enemy_hurtbox.type = SLIMES;
-	scene->slime.enemy_hurtbox.detect = slime_detect_collision;
-	scene->slime.enemy_hurtbox.engage = slime_collide;
-
+	slime_init(&(scene->slime));
 	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
-	scene->slime.hp = 2;
-	scene->slime.meta = (void *)6;
 
 	scene->paused = SDL_FALSE;
 	scene->paused_hint = SDL_FALSE;
@@ -102,6 +90,12 @@ void	*first_level_close(t_context *context, void *vp_scene)
 	if (scene->pbackground != NULL)
 		SDL_DestroyTexture(scene->pbackground);
 
+	if (scene->player.hp <= 0)
+	{
+		context->redo_init_fn = context->init_fn;
+		context->init_fn = death_level_init;
+	}
+
 	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);
 	SDL_free(context->background.sprite_data);
 	SDL_free(scene->bottom_ui.sprite_data);
@@ -111,7 +105,7 @@ void	*first_level_close(t_context *context, void *vp_scene)
 	return (NULL);
 }
 
-void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
+void	*first_level_update(t_context *context, void *vp_scene)
 {
 	size_t	i;
 	t_first_level	*scene;
@@ -161,6 +155,8 @@ void	*first_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 		SDL_Log("Kill count: %d", scene->score);
 	}
 
+	if (scene->player.hp <= 0)
+		context->death_capture_sceen = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 	// SDL_Log("This: %p", text);
 
 

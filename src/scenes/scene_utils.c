@@ -21,7 +21,15 @@ void	*new_scene(size_t size, t_context *context, char *background_path)
 	context->meta = result;
 	context->scene = SDL_TRUE;
 
-	context->background = SDLX_Sprite_Static(background_path);
-	SDLX_SetBackground(&(context->background));
+	if (background_path != NULL)
+	{
+		context->background = SDLX_Sprite_Static(background_path);
+		SDLX_SetBackground(&(context->background));
+	}
+	else
+	{
+		SDLX_SetBackground(NULL);
+	}
+
 	return (result);
 }
