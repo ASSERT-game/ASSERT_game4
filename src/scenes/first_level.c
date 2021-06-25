@@ -156,7 +156,11 @@ void	*first_level_update(t_context *context, void *vp_scene)
 	}
 
 	if (scene->player.hp <= 0)
+	{
+		int cap = default_RenderQueue.index;
 		context->death_capture_sceen = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
+		default_RenderQueue.index = cap;
+	}
 	// SDL_Log("This: %p", text);
 
 

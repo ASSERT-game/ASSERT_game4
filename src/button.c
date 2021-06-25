@@ -17,7 +17,7 @@ void	*button_trigger_scene_switch(SDLX_button *self, void *vp_context, SDL_UNUSE
 {
 	t_context *context;
 
-	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
+	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
 	{
 		context = vp_context;
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)

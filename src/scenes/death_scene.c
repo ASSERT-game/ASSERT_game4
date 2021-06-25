@@ -52,6 +52,7 @@ void	*death_level_close(t_context *context, SDL_UNUSED void *vp_scene)
 	scene = vp_scene;
 	SDLX_RenderQueue_Flush(NULL, NULL, SDL_FALSE);
 
+	SDL_RenderCopy(SDLX_GetDisplay()->renderer, context->death_capture_sceen, NULL, NULL);
 	SDL_DestroyTexture(context->death_capture_sceen);
 	context->death_capture_sceen = NULL;
 	context->redo_init_fn = NULL;
