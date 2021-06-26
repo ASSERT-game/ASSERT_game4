@@ -49,9 +49,9 @@ void	*death_level_close(t_context *context, SDL_UNUSED void *vp_scene)
 	scene = vp_scene;
 	SDLX_RenderQueue_Flush(NULL, NULL, SDL_FALSE);
 
-	SDL_RenderCopy(SDLX_GetDisplay()->renderer, context->death_capture_sceen, NULL, NULL);
-	SDL_DestroyTexture(context->death_capture_sceen);
-	context->death_capture_sceen = NULL;
+	SDL_RenderCopy(SDLX_GetDisplay()->renderer, context->capture_texture, NULL, NULL);
+	SDL_DestroyTexture(context->capture_texture);
+	context->capture_texture = NULL;
 	context->redo_init_fn = NULL;
 
 	return (NULL);
@@ -63,7 +63,7 @@ void	*death_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 
 	scene = vp_scene;
 
-	SDL_RenderCopy(SDLX_GetDisplay()->renderer, context->death_capture_sceen, NULL, NULL);
+	SDL_RenderCopy(SDLX_GetDisplay()->renderer, context->capture_texture, NULL, NULL);
 	SDLX_Button_Update(&(scene->restart));
 	SDLX_Button_Update(&(scene->level_select));
 

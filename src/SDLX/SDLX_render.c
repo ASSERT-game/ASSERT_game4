@@ -42,6 +42,7 @@ void	SDLX_ScreenReset(SDL_Renderer *renderer, SDL_Color *bg_color)
 SDL_Texture	*SDLX_CaptureScreen(SDLX_RenderQueue **Queues, size_t amount, SDL_bool reverse)
 {
 	size_t	i;
+	size_t	render_object_amount;
 	SDL_Texture	*result;
 
 	result = SDL_CreateTexture(SDLX_GetDisplay()->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIN_WIDTH, WIN_HEIGHT);
@@ -49,14 +50,20 @@ SDL_Texture	*SDLX_CaptureScreen(SDLX_RenderQueue **Queues, size_t amount, SDL_bo
 	SDL_RenderClear(SDLX_GetDisplay()->renderer);
 
 	SDLX_DrawAnimation(SDLX_GetDisplay()->renderer, SDLX_GetBackground());
+
+	render_object_amount = default_RenderQueue.index;
 	SDLX_RenderQueue_Flush(NULL, NULL, reverse);
+	default_RenderQueue.index = render_object_amount;
 
 	i = 0;
 	while (i < amount)
 	{
+		render_object_amount = Queues[i]->index;
 		SDLX_RenderQueue_Flush(Queues[i], NULL, reverse);
+		Queues[i]->index = render_object_amount;
 		i++;
 	}
+
 	SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, NULL);
 
 	return (result);

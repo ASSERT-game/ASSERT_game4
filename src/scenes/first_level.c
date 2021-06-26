@@ -39,6 +39,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	t_first_level	*scene;
 
 	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", first_level_close, first_level_update);
+
 	scene->pbackground = NULL;
 	scene->score = 0;
 
@@ -153,16 +154,15 @@ void	*first_level_update(t_context *context, void *vp_scene)
 	}
 
 	if (scene->player.hp <= 0)
-	{
-		int cap = default_RenderQueue.index;
-		context->death_capture_sceen = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
-		default_RenderQueue.index = cap;
-	}
+		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 
-	if (scene->score == 42)
+	if (scene->score == 3)
 	{
+		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
+
 		context->scene = SDL_FALSE;
 		context->init_fn = loot_level_init;
+		context->redo_init_fn = context->init_fn;
 	}
 	// SDL_Log("This: %p", text);
 

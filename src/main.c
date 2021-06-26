@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/24 20:32:37 by home             ###   ########.fr       */
+/*   Updated: 2021/06/26 15:57:30 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	blaster_start(t_context *context)
 
 	context->meta = NULL;
 
-	context->death_capture_sceen = NULL;
+	context->capture_texture = NULL;
 	context->redo_init_fn = NULL;
 
 	context->init_fn = main_menu_init;

@@ -35,7 +35,7 @@ typedef struct	s_context
 
 	void		*meta;
 
-	SDL_Texture	*death_capture_sceen;
+	SDL_Texture	*capture_texture;
 	t_scene_fn	*redo_init_fn;
 
 	t_level_progress	levels[5][5];
