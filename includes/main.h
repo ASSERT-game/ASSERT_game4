@@ -19,29 +19,9 @@
 
 # include "main_structs.h"
 # include "entity.h"
+# include "scenes.h"
 
 # define ASSETS "assets/"
-
-
-/*
-** Scene Functions
-*/
-
-void	*main_menu_init(t_context *context, void *vp_scene);
-void	*main_menu_close(t_context *context, void *vp_scene);
-void	*main_menu_update(t_context *context, void *vp_scene);
-
-void	*level_select_init(t_context *context, void *vp_scene);
-void	*level_select_close(t_context *context, void *vp_scene);
-void	*level_select_update(t_context *context, void *vp_scene);
-
-void	*first_level_init(t_context *context, void *vp_scene);
-void	*first_level_close(t_context *context, void *vp_scene);
-void	*first_level_update(t_context *context, void *vp_scene);
-
-void	*death_level_init(t_context *context, void *vp_scene);
-void	*death_level_close(t_context *context, void *vp_scene);
-void	*death_level_update(t_context *context, void *vp_scene);
 
 /*
 ** Sprite Handlers
@@ -66,7 +46,7 @@ void	*button_trigger_scene_switch(SDLX_button *self, void *meta, SDL_UNUSED size
 void	*button_pause(SDLX_button *self, void *vp_context, SDL_UNUSED size_t length);
 void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t length);
 
-void	*new_scene(size_t size, t_context *context, char *background_path);
+void	*new_scene(size_t size, t_context *context, char *background_path, t_scene_fn close, t_scene_fn update);
 
 /*
 ** Misc. Functions

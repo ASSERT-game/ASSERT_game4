@@ -29,10 +29,7 @@ void	*main_menu_init(t_context *context, SDL_UNUSED void *level)
 {
 	t_main_menu_scene *scene;
 
-	context->update_fn = main_menu_update;
-	context->close_fn = main_menu_close;
-
-	scene = new_scene(sizeof(*scene), context, ASSETS"p8_main_menu_background.png");
+	scene = new_scene(sizeof(*scene), context, ASSETS"p8_main_menu_background.png", main_menu_close, main_menu_update);
 
 	SDLX_Button_Init(&(scene->play), fetch_ui_sprite, PLAY_NORM, (SDL_Rect){50, 10, 23 * UI_ENLARGE, 11 * UI_ENLARGE}, NULL);
 	SDLX_Style_Button(&(scene->play), PLAY_NORM, PLAY_HOVER);

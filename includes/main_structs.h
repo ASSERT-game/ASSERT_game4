@@ -18,11 +18,15 @@
 
 struct s_context;
 
+typedef void *(t_scene_fn)(struct s_context *, void *);
+
 typedef struct	s_level_progress
 {
 	SDL_bool	unlocked;
-	void		*(*init_fn)(struct s_context *, void *);
+	t_scene_fn	*init_fn;
 }				t_level_progress;
+
+struct s_weapon;
 
 typedef struct	s_context
 {
@@ -32,16 +36,17 @@ typedef struct	s_context
 	void		*meta;
 
 	SDL_Texture	*death_capture_sceen;
-	void		*(*redo_init_fn)(struct s_context *, void *);
+	t_scene_fn	*redo_init_fn;
 
 	t_level_progress	levels[5][5];
 
 	SDLX_Sprite	background;
 
-	void		*(*init_fn)(struct s_context *, void *);
-	void		*(*update_fn)(struct s_context *, void *);
-	void		*(*close_fn)(struct s_context *, void *);
+	t_scene_fn	*init_fn;
+	t_scene_fn	*update_fn;
+	t_scene_fn	*close_fn;
 
+	struct s_weapon	*weapons;
 }				t_context;
 
 enum	BLASTER_UI_SPRITES

@@ -26,10 +26,7 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 {
 	t_level_select *scene;
 
-	context->close_fn = level_select_close;
-	context->update_fn = level_select_update;
-
-	scene = new_scene(sizeof(*scene), context, ASSETS"level_select_background.png");
+	scene = new_scene(sizeof(*scene), context, ASSETS"level_select_background.png", level_select_close, level_select_update);
 
 	size_t	i;
 	size_t	j;

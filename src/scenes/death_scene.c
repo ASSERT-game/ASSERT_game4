@@ -25,10 +25,7 @@ void	*death_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_death_scene	*scene;
 
-	context->close_fn = death_level_close;
-	context->update_fn = death_level_update;
-
-	scene = new_scene(sizeof(*scene), context, NULL);
+	scene = new_scene(sizeof(*scene), context, NULL, death_level_close, death_level_update);
 
 	SDLX_Button_Init(&(scene->restart), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 100, 32, 32}, NULL);
 	SDLX_Style_Button(&(scene->restart), BACK_NORM, BACK_HOVER);

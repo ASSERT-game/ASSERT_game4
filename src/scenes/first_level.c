@@ -38,10 +38,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_first_level	*scene;
 
-	context->close_fn = first_level_close;
-	context->update_fn = first_level_update;
-
-	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png");
+	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", first_level_close, first_level_update);
 	scene->pbackground = NULL;
 	scene->score = 0;
 
@@ -160,6 +157,12 @@ void	*first_level_update(t_context *context, void *vp_scene)
 		int cap = default_RenderQueue.index;
 		context->death_capture_sceen = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 		default_RenderQueue.index = cap;
+	}
+
+	if (scene->score == 42)
+	{
+		context->scene = SDL_FALSE;
+		context->init_fn = loot_level_init;
 	}
 	// SDL_Log("This: %p", text);
 

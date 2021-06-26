@@ -13,11 +13,16 @@
 
 #include "main.h"
 
-void	*new_scene(size_t size, t_context *context, char *background_path)
+void	*new_scene(size_t size, t_context *context, char *background_path, void *(close)(t_context *, void *), void *(update)(t_context *, void *))
 {
 	void *result;
 
 	result = SDL_malloc(size);
+
+	SDL_assert(close != NULL);
+	SDL_assert(update != NULL);
+	context->close_fn = close;
+	context->update_fn = update;
 	context->meta = result;
 	context->scene = SDL_TRUE;
 

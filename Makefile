@@ -24,6 +24,7 @@ SDLX_NAMES = 			\
 SCENE_FILES = 			\
 	death_scene			\
 	first_level			\
+	loot_scene			\
 	main_menu			\
 	level_select		\
 	scene_utils			\
