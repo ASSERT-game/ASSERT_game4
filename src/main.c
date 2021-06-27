@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/26 17:31:04 by home             ###   ########.fr       */
+/*   Updated: 2021/06/26 19:23:50 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,16 @@ void	blaster_start(t_context *context)
 	unequip_weapon(&(context->special));
 
 	context->mainhand = laser_cannon();
+	// context->shield = laser_green_cannon();
+	// context->heal = heal_cannon();
 
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
 	context->levels[0][0].unlocked = SDL_TRUE;
 
 	context->levels[0][0].init_fn = first_level_init;
-	// context->levels[0][1].init_fn = first_level_init;
-	// context->levels[0][2].init_fn = first_level_init;
-	// context->levels[0][3].init_fn = first_level_init;
+	context->levels[0][1].init_fn = second_level_init;
+	context->levels[0][2].init_fn = third_level_init;
+	// context->levels[0][3].init_fn = fourth_level_init;
 	// context->levels[0][4].init_fn = first_level_init;
 	// context->levels[1][0].init_fn = first_level_init;
 	// context->levels[1][1].init_fn = first_level_init;
@@ -60,7 +62,7 @@ void	blaster_start(t_context *context)
 	// context->levels[4][3].init_fn = first_level_init;
 	// context->levels[4][4].init_fn = first_level_init;
 
-	context->init_fn = first_level_init;
+	// context->init_fn = first_level_init;
 	// context->init_fn = level_select_init;
 }
 

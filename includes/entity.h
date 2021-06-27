@@ -30,6 +30,9 @@ void		player_update(t_player *self);
 */
 
 t_weapon		laser_cannon(void);
+t_weapon		laser_green_cannon(void);
+
+t_weapon		heal_cannon(void);
 
 
 /*

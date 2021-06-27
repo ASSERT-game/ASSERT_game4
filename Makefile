@@ -22,17 +22,23 @@ SDLX_NAMES = 			\
 	SDLX_xbox			\
 
 SCENE_FILES = 			\
-	death_scene			\
-	first_level			\
-	loot_scene			\
 	main_menu			\
 	level_select		\
+	\
+	death_scene			\
+	loot_scene			\
+	\
+	first_level			\
+	second_level		\
+	third_level			\
+	\
 	scene_utils			\
 
 ENEMY_FILES = 			\
 	slime				\
 
 WEAPON_FILES = 			\
+	heal				\
 	laser				\
 	weapon_manager		\
 	weapon_utils		\

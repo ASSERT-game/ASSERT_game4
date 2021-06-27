@@ -28,6 +28,14 @@ void	*first_level_init(t_context *context, void *vp_scene);
 void	*first_level_close(t_context *context, void *vp_scene);
 void	*first_level_update(t_context *context, void *vp_scene);
 
+void	*second_level_init(t_context *context, void *vp_scene);
+void	*second_level_close(t_context *context, void *vp_scene);
+void	*second_level_update(t_context *context, void *vp_scene);
+
+void	*third_level_init(t_context *context, void *vp_scene);
+void	*third_level_close(t_context *context, void *vp_scene);
+void	*third_level_update(t_context *context, void *vp_scene);
+
 void	*death_level_init(t_context *context, void *vp_scene);
 void	*death_level_close(t_context *context, void *vp_scene);
 void	*death_level_update(t_context *context, void *vp_scene);

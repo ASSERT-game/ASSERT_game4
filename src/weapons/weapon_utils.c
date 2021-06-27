@@ -51,13 +51,13 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	if (context->special.enabled == SDL_TRUE) { line[count] = special; count++; }
 
 	i = 0;
-	SDL_Log("%zu", count);
 	SDL_assert(count != 0);
 	ability_bar_width = 256 - ABILITY_LEFT_PADDING - ABILITY_LEFT_PADDING;
 	ability_space = (ability_bar_width - (mainhand->sprite._dst.w * count)) / (count);
 	while (i < count)
 	{
 		line[i]->sprite._dst.x = ABILITY_LEFT_PADDING + (i * (ability_space + 48)) + (ability_space / 2);
+		line[i]->trigger_box = line[i]->sprite._dst;
 		i++;
 	}
 }

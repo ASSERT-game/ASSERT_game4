@@ -21,6 +21,12 @@ struct s_bullet;
 
 typedef void *(t_scene_fn)(struct s_context *, void *);
 
+typedef	struct	s_loot
+{
+	size_t		type;
+	void		*data;
+}				t_loot;
+
 typedef struct	s_level_progress
 {
 	SDL_bool	unlocked;
@@ -48,6 +54,7 @@ typedef struct	s_context
 
 	SDL_Texture	*capture_texture;
 	t_scene_fn	*redo_init_fn;
+	t_loot		loot;
 
 	t_level_progress	levels[5][5];
 
@@ -88,6 +95,7 @@ enum	BLASTER_COLLISION_TYPES
 	BULLETS,
 	SLIMES,
 	PLAYER,
+	HEAL,
 };
 
 typedef struct	s_bullet

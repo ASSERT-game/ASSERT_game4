@@ -72,7 +72,7 @@ void	player_update(t_player *self)
 	if (g_GameInput.GameInput.button_primleft && weapon->curr >= weapon->cooldown)
 	{
 		weapon->curr = weapon->start;
-		weapon->factory(&(attack), (SDL_Point){0, 0}, 0, NULL);
+		weapon->factory(&(attack), (SDL_Point){0, 0}, 0, self);
 		projectile_add(&(self->attacks), attack);
 	}
 
