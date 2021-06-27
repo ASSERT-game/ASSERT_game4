@@ -38,6 +38,8 @@ void	projectile_update(t_attacks *queue);
 void	projectile_queue(t_attacks *attacks);
 void	projectile_add(t_attacks *dst, t_bullet src);
 
+void	unequip_weapon(t_weapon *dst);
+
 /*
 ** Button Functions
 */

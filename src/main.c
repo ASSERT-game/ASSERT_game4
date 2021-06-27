@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/26 15:57:30 by home             ###   ########.fr       */
+/*   Updated: 2021/06/26 16:53:31 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ void	blaster_start(t_context *context)
 	context->redo_init_fn = NULL;
 
 	context->init_fn = main_menu_init;
+
+	unequip_weapon(&(context->mainhand));
+	unequip_weapon(&(context->shield));
+	unequip_weapon(&(context->heal));
+	unequip_weapon(&(context->special));
+
+	context->mainhand = laser_cannon();
 
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
 	context->levels[0][0].unlocked = SDL_TRUE;

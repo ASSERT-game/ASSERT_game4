@@ -65,6 +65,7 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	player_init(&(scene->player));
 	scene->player.scene_end = &(context->scene);
+	scene->player.weapon_equip = &(context->mainhand);
 
 	scene->crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");
 	scene->crosshair.dst = &(scene->crosshair._dst);

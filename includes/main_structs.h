@@ -17,6 +17,7 @@
 # include "SDLX/SDLX.h"
 
 struct s_context;
+struct s_bullet;
 
 typedef void *(t_scene_fn)(struct s_context *, void *);
 
@@ -26,7 +27,17 @@ typedef struct	s_level_progress
 	t_scene_fn	*init_fn;
 }				t_level_progress;
 
-struct s_weapon;
+typedef struct	s_weapon
+{
+	unsigned int	start;
+	unsigned int	cooldown;
+
+	unsigned int	curr;
+
+	SDL_bool		enabled;
+
+	void		(*factory)(struct s_bullet *, SDL_Point, double , void *);
+}				t_weapon;
 
 typedef struct	s_context
 {
@@ -46,7 +57,11 @@ typedef struct	s_context
 	t_scene_fn	*update_fn;
 	t_scene_fn	*close_fn;
 
-	struct s_weapon	*weapons;
+	struct s_weapon	mainhand;
+	struct s_weapon	shield;
+	struct s_weapon	heal;
+	struct s_weapon	special;
+
 }				t_context;
 
 enum	BLASTER_UI_SPRITES
@@ -95,18 +110,6 @@ typedef struct	s_attacks
 
 }				t_attacks;
 
-typedef struct	s_weapon
-{
-	unsigned int	start;
-	unsigned int	cooldown;
-
-	unsigned int	curr;
-
-	SDL_bool		enabled;
-
-	void		(*factory)(t_bullet *, SDL_Point, double angle, void *);
-}				t_weapon;
-
 typedef struct	s_enemy
 {
 	SDLX_Sprite		sprite;
@@ -123,7 +126,7 @@ typedef struct	s_player
 
 	int				hp;
 
-	t_weapon		weapon_equip;
+	t_weapon		*weapon_equip;
 
 	SDLX_collision	player_hurtbox;
 

@@ -33,8 +33,9 @@ ENEMY_FILES = 			\
 	slime				\
 
 WEAPON_FILES = 			\
-	weapon_manager		\
 	laser				\
+	weapon_manager		\
+	weapon_utils		\
 
 
 # List of all the source files.

@@ -21,8 +21,6 @@ void	player_init(t_player *player)
 
 	player->hp = 50;
 
-	player->weapon_equip = laser_cannon();
-
 	player->player_hurtbox.originator = player;
 	player->player_hurtbox.detect = player_hit;
 	player->player_hurtbox.engage = player_collide;
@@ -63,7 +61,7 @@ void	player_update(t_player *self)
 	t_bullet	attack;
 	SDL_bool	*scene_end;
 
-	weapon = &(self->weapon_equip);
+	weapon = self->weapon_equip;
 
 	if (self->hp <= 0)
 	{
