@@ -83,13 +83,13 @@ int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no)
 	else if (no == BACK_HOVER)	{ (*dst) = &(sprite_arr[3]); return (EXIT_SUCCESS); }
 	else if (no == -100)	{ (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
 	else {
-		which = (no + 1) * 2;
+		which = (no - 4) * 2;
 		if (no <= 0)
 		{
-			which *= -1;
-			(*dst) = &(sprite_arr[which + 1]); return (EXIT_SUCCESS);
+			which = (no + 4) * -2;
+			(*dst) = &(sprite_arr[which + 4 + 1]); return (EXIT_SUCCESS);
 		}
 		else
-			(*dst) = &(sprite_arr[which]); return (EXIT_SUCCESS);
+			(*dst) = &(sprite_arr[which + 4]); return (EXIT_SUCCESS);
 	}
 }
