@@ -1,6 +1,6 @@
 /***************************************************************************
- * FILENAME:    first_level.c
- * DESCRIPTION: The first level.
+ * FILENAME:    third_level.c
+ * DESCRIPTION: The third level.
  *
  * ENVIRONMENT:
  *     macOS Catalina 10.15.7
@@ -13,7 +13,7 @@
 
 #include "main.h"
 
-typedef struct	s_first_level
+typedef struct	s_third_level
 {
 	SDLX_Sprite			bottom_ui;
 
@@ -37,13 +37,13 @@ typedef struct	s_first_level
 	int					score;
 
 	SDL_Texture			*pbackground;
-}				t_first_level;
+}				t_third_level;
 
-void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
+void	*level_02_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
-	t_first_level	*scene;
+	t_third_level	*scene;
 
-	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", first_level_close, first_level_update);
+	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", level_03_close, level_03_update);
 
 	scene->pbackground = NULL;
 	scene->score = 0;
@@ -90,9 +90,9 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	return (NULL);
 }
 
-void	*first_level_close(t_context *context, void *vp_scene)
+void	*level_03_close(t_context *context, void *vp_scene)
 {
-	t_first_level	*scene;
+	t_third_level	*scene;
 
 	scene = vp_scene;
 
@@ -114,10 +114,10 @@ void	*first_level_close(t_context *context, void *vp_scene)
 	return (NULL);
 }
 
-void	*first_level_update(t_context *context, void *vp_scene)
+void	*level_03_update(t_context *context, void *vp_scene)
 {
 	size_t	i;
-	t_first_level	*scene;
+	t_third_level	*scene;
 
 	scene = vp_scene;
 
@@ -172,16 +172,13 @@ void	*first_level_update(t_context *context, void *vp_scene)
 	if (scene->player.hp <= 0)
 		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 
-	if (scene->score == 10)
+	if (scene->score == 42)
 	{
 		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 
 		context->scene = SDL_FALSE;
 		context->redo_init_fn = context->init_fn;
 		context->init_fn = loot_level_init;
-
-		context->levels[0][1].unlocked = SDL_TRUE;
-		context->special = laser_green_cannon();
 	}
 	// SDL_Log("This: %p", text);
 

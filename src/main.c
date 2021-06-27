@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/26 19:32:12 by home             ###   ########.fr       */
+/*   Updated: 2021/06/26 20:13:01 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,31 @@ void	blaster_start(t_context *context)
 	context->levels[0][1].unlocked = SDL_TRUE;
 	context->levels[0][2].unlocked = SDL_TRUE;
 
-	context->levels[0][0].init_fn = first_level_init;
-	context->levels[0][1].init_fn = second_level_init;
-	context->levels[0][2].init_fn = third_level_init;
-	// context->levels[0][3].init_fn = fourth_level_init;
-	// context->levels[0][4].init_fn = first_level_init;
-	// context->levels[1][0].init_fn = first_level_init;
-	// context->levels[1][1].init_fn = first_level_init;
-	// context->levels[1][2].init_fn = first_level_init;
-	// context->levels[1][3].init_fn = first_level_init;
-	// context->levels[1][4].init_fn = first_level_init;
-	// context->levels[2][0].init_fn = first_level_init;
-	// context->levels[2][1].init_fn = first_level_init;
-	// context->levels[2][2].init_fn = first_level_init;
-	// context->levels[2][3].init_fn = first_level_init;
-	// context->levels[2][4].init_fn = first_level_init;
-	// context->levels[3][0].init_fn = first_level_init;
-	// context->levels[3][1].init_fn = first_level_init;
-	// context->levels[3][2].init_fn = first_level_init;
-	// context->levels[3][3].init_fn = first_level_init;
-	// context->levels[3][4].init_fn = first_level_init;
-	// context->levels[4][0].init_fn = first_level_init;
-	// context->levels[4][1].init_fn = first_level_init;
-	// context->levels[4][2].init_fn = first_level_init;
-	// context->levels[4][3].init_fn = first_level_init;
-	// context->levels[4][4].init_fn = first_level_init;
+	context->levels[0][0].init_fn = level_1_init;
+	context->levels[0][1].init_fn = level_2_init;
+	context->levels[0][2].init_fn = level_3_init;
+	// context->levels[0][3].init_fn = level_4_init;
+	// context->levels[0][4].init_fn = level_5_init;
+	// context->levels[1][0].init_fn = level_6_init;
+	// context->levels[1][1].init_fn = level_7_init;
+	// context->levels[1][2].init_fn = level_8_init;
+	// context->levels[1][3].init_fn = level_9_init;
+	// context->levels[1][4].init_fn = level_10_init;
+	// context->levels[2][0].init_fn = level_11_init;
+	// context->levels[2][1].init_fn = level_12_init;
+	// context->levels[2][2].init_fn = level_13_init;
+	// context->levels[2][3].init_fn = level_14_init;
+	// context->levels[2][4].init_fn = level_15_init;
+	// context->levels[3][0].init_fn = level_16_init;
+	// context->levels[3][1].init_fn = level_17_init;
+	// context->levels[3][2].init_fn = level_18_init;
+	// context->levels[3][3].init_fn = level_19_init;
+	// context->levels[3][4].init_fn = level_20_init;
+	// context->levels[4][0].init_fn = level_21_init;
+	// context->levels[4][1].init_fn = level_22_init;
+	// context->levels[4][2].init_fn = level_23_init;
+	// context->levels[4][3].init_fn = level_24_init;
+	// context->levels[4][4].init_fn = level_25_init;
 
 	// context->init_fn = first_level_init;
 	// context->init_fn = level_select_init;

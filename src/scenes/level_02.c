@@ -39,11 +39,11 @@ typedef struct	s_second_level
 	SDL_Texture			*pbackground;
 }				t_second_level;
 
-void	*second_level_init(t_context *context, SDL_UNUSED void *vp_scene)
+void	*level_02_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_second_level	*scene;
 
-	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", second_level_close, second_level_update);
+	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", level_02_close, level_02_update);
 
 	scene->pbackground = NULL;
 	scene->score = 0;
@@ -90,7 +90,7 @@ void	*second_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	return (NULL);
 }
 
-void	*second_level_close(t_context *context, void *vp_scene)
+void	*level_02_close(t_context *context, void *vp_scene)
 {
 	t_second_level	*scene;
 
@@ -114,7 +114,7 @@ void	*second_level_close(t_context *context, void *vp_scene)
 	return (NULL);
 }
 
-void	*second_level_update(t_context *context, void *vp_scene)
+void	*level_02_update(t_context *context, void *vp_scene)
 {
 	size_t	i;
 	t_second_level	*scene;

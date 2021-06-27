@@ -24,24 +24,25 @@ void	*level_select_init(t_context *context, void *vp_scene);
 void	*level_select_close(t_context *context, void *vp_scene);
 void	*level_select_update(t_context *context, void *vp_scene);
 
-void	*first_level_init(t_context *context, void *vp_scene);
-void	*first_level_close(t_context *context, void *vp_scene);
-void	*first_level_update(t_context *context, void *vp_scene);
-
-void	*second_level_init(t_context *context, void *vp_scene);
-void	*second_level_close(t_context *context, void *vp_scene);
-void	*second_level_update(t_context *context, void *vp_scene);
-
-void	*third_level_init(t_context *context, void *vp_scene);
-void	*third_level_close(t_context *context, void *vp_scene);
-void	*third_level_update(t_context *context, void *vp_scene);
+void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene);
+void	*loot_level_close(t_context *context, SDL_UNUSED void *vp_scene);
+void	*loot_level_update(t_context *context, SDL_UNUSED void *vp_scene);
 
 void	*death_level_init(t_context *context, void *vp_scene);
 void	*death_level_close(t_context *context, void *vp_scene);
 void	*death_level_update(t_context *context, void *vp_scene);
 
-void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene);
-void	*loot_level_close(t_context *context, SDL_UNUSED void *vp_scene);
-void	*loot_level_update(t_context *context, SDL_UNUSED void *vp_scene);
+void	*level_01_init(t_context *context, void *vp_scene);
+void	*level_01_close(t_context *context, void *vp_scene);
+void	*level_01_update(t_context *context, void *vp_scene);
+
+void	*level_02_init(t_context *context, void *vp_scene);
+void	*level_02_close(t_context *context, void *vp_scene);
+void	*level_02_update(t_context *context, void *vp_scene);
+
+void	*level_03_init(t_context *context, void *vp_scene);
+void	*level_03_close(t_context *context, void *vp_scene);
+void	*level_03_update(t_context *context, void *vp_scene);
+
 
 #endif
