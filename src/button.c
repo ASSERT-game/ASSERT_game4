@@ -68,3 +68,14 @@ void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t lengt
 
 	return (NULL);
 }
+
+void	ability_button_init(SDLX_button *dst, t_weapon **player_equip_addr, t_weapon *to)
+{
+	SDLX_Button_Init(dst, fetch_level_select_sprite, ABILITY, (SDL_Rect){100, 256 + 8, 48, 48}, NULL);
+
+	dst->disabled = SDL_TRUE;
+	if (to->enabled == SDL_TRUE) {dst->disabled = SDL_FALSE;}
+
+	dst->meta = player_equip_addr;
+	dst->meta1 = to;
+}

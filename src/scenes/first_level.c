@@ -28,6 +28,11 @@ typedef struct	s_first_level
 
 	t_player			player;
 
+	SDLX_button			mainhand;
+	SDLX_button			shield;
+	SDLX_button			heal;
+	SDLX_button			special;
+
 	t_enemy				slime;
 	int					score;
 
@@ -66,6 +71,11 @@ void	*first_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	player_init(&(scene->player));
 	scene->player.scene_end = &(context->scene);
 	scene->player.weapon_equip = &(context->mainhand);
+
+	// context->heal.enabled = SDL_TRUE;
+	// context->shield.enabled = SDL_TRUE;
+	// context->special.enabled = SDL_TRUE;
+	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
 
 	scene->crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");
 	scene->crosshair.dst = &(scene->crosshair._dst);
@@ -118,8 +128,13 @@ void	*first_level_update(t_context *context, void *vp_scene)
 
 		SDL_RenderFillRect(SDLX_GetDisplay()->renderer, &(playarea));
 
-		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
+
 		SDLX_Button_Update(&(scene->pause));
+		SDLX_Button_Update(&(scene->mainhand));
+		SDLX_Button_Update(&(scene->shield));
+		SDLX_Button_Update(&(scene->heal));
+		SDLX_Button_Update(&(scene->special));
+		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 
 		scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - (256 / 2), 120 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
 		SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
@@ -157,16 +172,15 @@ void	*first_level_update(t_context *context, void *vp_scene)
 	if (scene->player.hp <= 0)
 		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 
-	if (scene->score == 3)
+	if (scene->score == 10)
 	{
 		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 
 		context->scene = SDL_FALSE;
-		context->init_fn = loot_level_init;
 		context->redo_init_fn = context->init_fn;
+		context->init_fn = loot_level_init;
 	}
 	// SDL_Log("This: %p", text);
-
 
 	return (NULL);
 }

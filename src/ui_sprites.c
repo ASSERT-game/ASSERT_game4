@@ -94,5 +94,6 @@ int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int no)
 	else if (no == CREDIT_HOVER){ (*dst) = &(sprite_arr[16]); return (EXIT_SUCCESS); }
 	else if (no == PAUSE_NORM)	{ (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
 	else if (no == EMPTY_UI)	{ (*dst) = &(sprite_arr[17]); return (EXIT_SUCCESS); }
+	else if (no == ABILITY)		{ (*dst) = &(sprite_arr[0]); return (EXIT_SUCCESS); }
 	else { return (EXIT_FAILURE); }
 }
