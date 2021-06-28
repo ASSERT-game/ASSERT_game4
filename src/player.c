@@ -59,15 +59,8 @@ void	player_update(t_player *self)
 {
 	t_weapon	*weapon;
 	t_bullet	attack;
-	SDL_bool	*scene_end;
 
 	weapon = self->weapon_equip;
-
-	if (self->hp <= 0)
-	{
-		scene_end = self->scene_end;
-		*scene_end = SDL_FALSE;
-	}
 
 	if (g_GameInput.GameInput.button_primleft && weapon->curr >= weapon->cooldown)
 	{
@@ -75,10 +68,6 @@ void	player_update(t_player *self)
 		weapon->factory(&(attack), (SDL_Point){0, 0}, 0, self);
 		projectile_add(&(self->attacks), attack);
 	}
-
-	weapon->curr++;
-	/* If (curr) is equal to (cooldown + 1) undo the (curr++) */
-	weapon->curr -= (weapon->curr / (weapon->cooldown + 1));
 
 	SDLX_RenderQueue_Add(NULL, &(self->sprite));
 	SDLX_CollisionBucket_add(NULL, &(self->player_hurtbox));

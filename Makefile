@@ -28,9 +28,9 @@ SCENE_FILES = 			\
 	death_scene			\
 	loot_scene			\
 	\
-	first_level			\
-	second_level		\
-	third_level			\
+	level_01			\
+	level_02			\
+	level_03			\
 	\
 	scene_utils			\
 

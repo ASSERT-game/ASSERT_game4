@@ -69,7 +69,6 @@ void	*level_02_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->lmenu_selectscene.meta1 = level_select_init;
 
 	player_init(&(scene->player));
-	scene->player.scene_end = &(context->scene);
 	scene->player.weapon_equip = &(context->mainhand);
 
 	// context->heal.enabled = SDL_TRUE;
@@ -96,13 +95,19 @@ void	*level_02_close(t_context *context, void *vp_scene)
 
 	scene = vp_scene;
 
+	context->redo_init_fn = context->init_fn;
 	if (scene->pbackground != NULL)
 		SDL_DestroyTexture(scene->pbackground);
 
 	if (scene->player.hp <= 0)
-	{
-		context->redo_init_fn = context->init_fn;
 		context->init_fn = death_level_init;
+
+	if (scene->score >= 21)
+	{
+		context->init_fn = loot_level_init;
+
+		context->levels[0][2].unlocked = SDL_TRUE;
+		context->heal = heal_cannon();
 	}
 
 	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);
@@ -128,20 +133,24 @@ void	*level_02_update(t_context *context, void *vp_scene)
 
 		SDL_RenderFillRect(SDLX_GetDisplay()->renderer, &(playarea));
 
-
 		SDLX_Button_Update(&(scene->pause));
+
+		update_cooldowns(&(context->mainhand), &(context->shield), &(context->heal), &(context->special));
 		SDLX_Button_Update(&(scene->mainhand));
 		SDLX_Button_Update(&(scene->shield));
 		SDLX_Button_Update(&(scene->heal));
 		SDLX_Button_Update(&(scene->special));
-		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 
 		scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - (256 / 2), 120 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
-		SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
+		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 
-		projectile_update(&(scene->player.attacks));
 		player_update(&(scene->player));
+
+		SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
+		projectile_update(&(scene->player.attacks));
+
 		slime_update(&(scene->slime));
+
 
 		i = 0;
 		while (i < default_CollisionBucket.index)
@@ -170,18 +179,15 @@ void	*level_02_update(t_context *context, void *vp_scene)
 	}
 
 	if (scene->player.hp <= 0)
-		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
-
-	if (scene->score == 20)
 	{
 		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
-
 		context->scene = SDL_FALSE;
-		context->redo_init_fn = context->init_fn;
-		context->init_fn = loot_level_init;
+	}
 
-		context->levels[0][2].unlocked = SDL_TRUE;
-		context->heal = heal_cannon();
+	if (scene->score >= 21)
+	{
+		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
+		context->scene = SDL_FALSE;
 	}
 	// SDL_Log("This: %p", text);
 

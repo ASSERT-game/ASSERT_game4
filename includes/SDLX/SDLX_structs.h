@@ -47,6 +47,8 @@ typedef struct SDLX_Sprite
 	SDL_Point			_center;
 	SDL_Point			*center;
 	SDL_RendererFlip	flip;
+
+	size_t				id;
 }	SDLX_Sprite;
 
 typedef struct SDLX_RenderQueue

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/26 20:13:01 by home             ###   ########.fr       */
+/*   Updated: 2021/06/28 00:34:55 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	blaster_start(t_context *context)
 	context->init_fn = main_menu_init;
 
 	unequip_weapon(&(context->mainhand));
+	unequip_weapon(&(context->special));
 	unequip_weapon(&(context->shield));
 	unequip_weapon(&(context->heal));
-	unequip_weapon(&(context->special));
 
 	context->mainhand = laser_cannon();
 	// context->shield = laser_green_cannon();
-	// context->heal = heal_cannon();
+	context->heal = heal_cannon();
 
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
 
@@ -39,15 +39,15 @@ void	blaster_start(t_context *context)
 	context->levels[0][1].unlocked = SDL_TRUE;
 	context->levels[0][2].unlocked = SDL_TRUE;
 
-	context->levels[0][0].init_fn = level_1_init;
-	context->levels[0][1].init_fn = level_2_init;
-	context->levels[0][2].init_fn = level_3_init;
-	// context->levels[0][3].init_fn = level_4_init;
-	// context->levels[0][4].init_fn = level_5_init;
-	// context->levels[1][0].init_fn = level_6_init;
-	// context->levels[1][1].init_fn = level_7_init;
-	// context->levels[1][2].init_fn = level_8_init;
-	// context->levels[1][3].init_fn = level_9_init;
+	context->levels[0][0].init_fn = level_01_init;
+	context->levels[0][1].init_fn = level_02_init;
+	context->levels[0][2].init_fn = level_03_init;
+	// context->levels[0][3].init_fn = level_04_init;
+	// context->levels[0][4].init_fn = level_05_init;
+	// context->levels[1][0].init_fn = level_06_init;
+	// context->levels[1][1].init_fn = level_07_init;
+	// context->levels[1][2].init_fn = level_08_init;
+	// context->levels[1][3].init_fn = level_09_init;
 	// context->levels[1][4].init_fn = level_10_init;
 	// context->levels[2][0].init_fn = level_11_init;
 	// context->levels[2][1].init_fn = level_12_init;
@@ -86,6 +86,7 @@ int	main(void)
 			SDLX_GameInput_Mouse_Fill(&(g_GameInput), SDL_TRUE);
 
 			context.update_fn(&context, context.meta);
+
 			if (context.exit != SDL_TRUE && SDLX_discrete_frames(NULL) != EXIT_FAILURE)
 			{
 				SDLX_RenderQueue_Flush(NULL, NULL, SDL_TRUE);

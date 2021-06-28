@@ -35,6 +35,8 @@ typedef struct	s_level_progress
 
 typedef struct	s_weapon
 {
+	SDLX_Sprite		cooldown_sprite;
+
 	unsigned int	start;
 	unsigned int	cooldown;
 
@@ -68,6 +70,7 @@ typedef struct	s_context
 	struct s_weapon	shield;
 	struct s_weapon	heal;
 	struct s_weapon	special;
+	struct s_weapon	special1;
 
 }				t_context;
 
@@ -140,8 +143,6 @@ typedef struct	s_player
 	t_weapon		*weapon_equip;
 
 	SDLX_collision	player_hurtbox;
-
-	SDL_bool		*scene_end;
 
 	//These are not permanent.
 	t_attacks			attacks;

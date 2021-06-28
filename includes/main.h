@@ -40,6 +40,7 @@ void	projectile_add(t_attacks *dst, t_bullet src);
 
 void	unequip_weapon(t_weapon *dst);
 void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button *mainhand, SDLX_button *shield, SDLX_button *heal, SDLX_button *special);
+void	update_cooldowns(t_weapon *mainhand, t_weapon *shield, t_weapon *heal, t_weapon *special);
 
 /*
 ** Button Functions
