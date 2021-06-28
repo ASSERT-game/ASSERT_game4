@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/28 00:34:55 by home             ###   ########.fr       */
+/*   Updated: 2021/06/28 03:28:46 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	blaster_start(t_context *context)
 {
 	context->exit = SDL_FALSE;
 	context->scene = SDL_FALSE;
+
+	context->ticks = 0;
 
 	context->meta = NULL;
 
@@ -87,7 +89,7 @@ int	main(void)
 
 			context.update_fn(&context, context.meta);
 
-			if (context.exit != SDL_TRUE && SDLX_discrete_frames(NULL) != EXIT_FAILURE)
+			if (context.exit != SDL_TRUE && SDLX_discrete_frames(&(context.ticks)) != EXIT_FAILURE)
 			{
 				SDLX_RenderQueue_Flush(NULL, NULL, SDL_TRUE);
 				SDLX_ScreenReset(SDLX_GetDisplay()->renderer, NULL);

@@ -20,7 +20,7 @@ SDLX_Sprite_Data *carve_ui_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(18, sizeof(*result));
+	result = SDL_calloc(19, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"buttons.png");
 
 	i = 0;
@@ -77,6 +77,14 @@ SDLX_Sprite_Data *carve_ui_sprite(void)
 	result[i]._src = (SDL_Rect){16, 0, 16, 16};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
+	i++;
+
+	/* The Ability Select Button */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){0, 16 * 8, 48, 48};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
 
 	return (result);
 }
@@ -95,5 +103,6 @@ int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int no)
 	else if (no == PAUSE_NORM)	{ (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
 	else if (no == EMPTY_UI)	{ (*dst) = &(sprite_arr[17]); return (EXIT_SUCCESS); }
 	else if (no == ABILITY)		{ (*dst) = &(sprite_arr[0]); return (EXIT_SUCCESS); }
+	else if (no == ABILITY_SEL)	{ (*dst) = &(sprite_arr[18]); return (EXIT_SUCCESS); }
 	else { return (EXIT_FAILURE); }
 }

@@ -86,12 +86,30 @@ void	*change_ability(SDLX_button *self, void *weapon_addr, SDL_UNUSED size_t len
 	return (NULL);
 }
 
+void	*ability_button_update(SDLX_button *self, void *weapon_addr, SDL_UNUSED size_t length)
+{
+	t_weapon	**player_spot;
+	t_weapon	*from_weapon;
+
+	from_weapon = self->meta1;
+	player_spot = weapon_addr;
+
+	if (*player_spot == self->meta1)
+		self->sprite_fn(&(self->sprite.sprite_data), ABILITY_SEL);
+	else
+		self->sprite_fn(&(self->sprite.sprite_data), ABILITY);
+
+	return (NULL);
+}
+
+
 void	ability_button_init(SDLX_button *dst, t_weapon **player_equip_addr, t_weapon *to)
 {
 	SDLX_Button_Init(dst, fetch_ui_sprite, ABILITY, (SDL_Rect){100, 256 + 8, 48, 48}, NULL);
+	// SDLX_Style_Button(dst, ABILITY, ABILITY_SEL);
 
 	dst->disabled = SDL_TRUE;
-	if (to->enabled == SDL_TRUE) {dst->disabled = SDL_FALSE; dst->trigger_fn = change_ability; }
+	if (to->enabled == SDL_TRUE) {dst->disabled = SDL_FALSE; dst->trigger_fn = change_ability; dst->update_fn = ability_button_update;}
 
 	dst->meta = player_equip_addr;
 	dst->meta1 = to;

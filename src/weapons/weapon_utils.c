@@ -44,11 +44,6 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	ability_button_init(shield, player_weapon_addr, &(context->shield));
 	ability_button_init(heal, player_weapon_addr, &(context->heal));
 
-	context->mainhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png");
-	context->special.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png");
-	context->shield.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png");
-	context->heal.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png");
-
 	fetch_ui_sprite(&(context->mainhand.cooldown_sprite.sprite_data), EMPTY_UI);
 	fetch_ui_sprite(&(context->special.cooldown_sprite.sprite_data), EMPTY_UI);
 	fetch_ui_sprite(&(context->shield.cooldown_sprite.sprite_data), EMPTY_UI);
@@ -105,10 +100,10 @@ void	update_cooldowns(t_weapon *mainhand, t_weapon *shield, t_weapon *heal, t_we
 	shield->curr -= (shield->curr / (shield->cooldown + 1));
 	heal->curr -= (heal->curr / (heal->cooldown + 1));
 
-	mainhand->cooldown_sprite._dst.w = lerp32((double)(mainhand->curr) / (mainhand->cooldown), 0, 48);
-	special->cooldown_sprite._dst.w = lerp32((double)(special->curr) / (special->cooldown), 0, 48);
-	shield->cooldown_sprite._dst.w = lerp32((double)(shield->curr) / (shield->cooldown), 0, 48);
-	heal->cooldown_sprite._dst.w = lerp32((double)(heal->curr) / (heal->cooldown), 0, 48);
+	mainhand->cooldown_sprite._dst.w = 48 - lerp32((double)(mainhand->curr) / (mainhand->cooldown), 0, 48);
+	special->cooldown_sprite._dst.w = 48 - lerp32((double)(special->curr) / (special->cooldown), 0, 48);
+	shield->cooldown_sprite._dst.w = 48 - lerp32((double)(shield->curr) / (shield->cooldown), 0, 48);
+	heal->cooldown_sprite._dst.w = 48 - lerp32((double)(heal->curr) / (heal->cooldown), 0, 48);
 
 	SDLX_RenderQueue_Add(NULL, &(mainhand->cooldown_sprite));
 	SDLX_RenderQueue_Add(NULL, &(special->cooldown_sprite));

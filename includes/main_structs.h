@@ -52,6 +52,8 @@ typedef struct	s_context
 	SDL_bool	exit;
 	SDL_bool	scene;
 
+	int			ticks;
+
 	void		*meta;
 
 	SDL_Texture	*capture_texture;
@@ -70,7 +72,6 @@ typedef struct	s_context
 	struct s_weapon	shield;
 	struct s_weapon	heal;
 	struct s_weapon	special;
-	struct s_weapon	special1;
 
 }				t_context;
 
@@ -87,8 +88,8 @@ enum	BLASTER_UI_SPRITES
 	CREDIT_HOVER,
 	PAUSE_NORM,
 
-
 	ABILITY,
+	ABILITY_SEL,
 
 	EMPTY_UI,
 };

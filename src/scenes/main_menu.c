@@ -20,7 +20,6 @@ typedef	struct	s_main_menu_scene
 
 	SDLX_button	play;
 	SDLX_button	credits;
-
 }				t_main_menu_scene;
 
 #define UI_ENLARGE (2)
