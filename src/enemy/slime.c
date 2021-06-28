@@ -27,7 +27,7 @@ void		slime_init(t_enemy *dst)
 	dst->enemy_hurtbox.engage = slime_collide;
 
 	dst->hp = 2;
-	dst->meta = (void *)6;
+	dst->meta = (void *)3;
 }
 
 SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)

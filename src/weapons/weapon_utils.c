@@ -56,9 +56,9 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 
 	count = 0;
 	if (context->mainhand.enabled == SDL_TRUE) { line[count] = mainhand; context->mainhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); count++; }
-	if (context->special.enabled == SDL_TRUE) { line[count] = special; context->special.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); count++; }
 	if (context->shield.enabled == SDL_TRUE) { line[count] = shield; context->shield.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); count++; }
 	if (context->heal.enabled == SDL_TRUE) { line[count] = heal; context->heal.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); count++; }
+	if (context->special.enabled == SDL_TRUE) { line[count] = special; context->special.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); count++; }
 
 	i = 0;
 	SDL_assert(count != 0);

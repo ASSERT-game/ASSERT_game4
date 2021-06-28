@@ -37,16 +37,22 @@ typedef struct	s_third_level
 	t_enemy				slime2;
 	t_enemy				slime3;
 	t_enemy				slime4;
+	t_enemy				slime5;
+	t_enemy				slime6;
+	t_enemy				slime7;
+	t_enemy				slime8;
+
+	SDL_bool			slow;
 	int					score;
 
 	SDL_Texture			*pbackground;
 }				t_third_level;
 
-void	*level_03_init(t_context *context, SDL_UNUSED void *vp_scene)
+void	*level_05_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_third_level	*scene;
 
-	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", level_03_close, level_03_update);
+	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", level_05_close, level_05_update);
 
 	scene->pbackground = NULL;
 	scene->score = 0;
@@ -96,12 +102,28 @@ void	*level_03_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->slime4.enemy_hurtbox.engage_meta2 = &(scene->score);
 	scene->slime4.meta = (void *)6;
 
+	slime_init(&(scene->slime5));
+	scene->slime5.enemy_hurtbox.engage_meta2 = &(scene->score);
+	scene->slime5.meta = (void *)6;
+	slime_init(&(scene->slime6));
+	scene->slime6.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_init(&(scene->slime7));
+	scene->slime7.meta = (void *)1;
+	scene->slime7.enemy_hurtbox.engage_meta2 = &(scene->score);
+
+	slime_init(&(scene->slime8));
+	scene->slime8.enemy_hurtbox.engage_meta2 = &(scene->score);
+
+
 	scene->paused = SDL_FALSE;
 	scene->paused_hint = SDL_FALSE;
+
+	scene->slow = SDL_FALSE;
+	scene->player.meta = &(scene->slow);
 	return (NULL);
 }
 
-void	*level_03_close(t_context *context, void *vp_scene)
+void	*level_05_close(t_context *context, void *vp_scene)
 {
 	t_third_level	*scene;
 
@@ -114,13 +136,8 @@ void	*level_03_close(t_context *context, void *vp_scene)
 	if (scene->player.hp <= 0)
 		context->init_fn = death_level_init;
 
-	if (scene->score >= 84)
-	{
+	if (scene->score >= 124)
 		context->init_fn = loot_level_init;
-
-		context->levels[0][3].unlocked = SDL_TRUE;
-		context->mainhand = laser_yellow_cannon();
-	}
 
 	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);
 	SDL_free(context->background.sprite_data);
@@ -131,10 +148,11 @@ void	*level_03_close(t_context *context, void *vp_scene)
 	return (NULL);
 }
 
-void	*level_03_update(t_context *context, void *vp_scene)
+void	*level_05_update(t_context *context, void *vp_scene)
 {
 	size_t	i;
 	t_third_level	*scene;
+	static int		slow;
 
 	scene = vp_scene;
 
@@ -144,7 +162,6 @@ void	*level_03_update(t_context *context, void *vp_scene)
 		SDL_Rect	playarea = {16, 220 * DISPLAY_SCALE, lerp32(scene->player.hp / 100.0, 0, 480), 10};
 
 		SDL_RenderFillRect(SDLX_GetDisplay()->renderer, &(playarea));
-
 
 		SDLX_Button_Update(&(scene->pause));
 
@@ -162,11 +179,35 @@ void	*level_03_update(t_context *context, void *vp_scene)
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		projectile_update(&(scene->player.attacks));
 
-		slime_update(&(scene->slime));
-		slime_update(&(scene->slime2));
-		slime_update(&(scene->slime3));
-		slime_update(&(scene->slime4));
-
+		if (scene->slow == SDL_FALSE || context->ticks % 3 == 0)
+		{
+			slime_update(&(scene->slime));
+			slime_update(&(scene->slime2));
+			slime_update(&(scene->slime3));
+			slime_update(&(scene->slime4));
+			slime_update(&(scene->slime5));
+			slime_update(&(scene->slime6));
+			slime_update(&(scene->slime7));
+			slime_update(&(scene->slime8));
+		}
+		else
+		{
+			slow++;
+			SDLX_RenderQueue_Add(NULL, &(scene->slime.sprite));
+			SDLX_RenderQueue_Add(NULL, &(scene->slime2.sprite));
+			SDLX_RenderQueue_Add(NULL, &(scene->slime3.sprite));
+			SDLX_RenderQueue_Add(NULL, &(scene->slime4.sprite));
+			SDLX_RenderQueue_Add(NULL, &(scene->slime5.sprite));
+			SDLX_RenderQueue_Add(NULL, &(scene->slime6.sprite));
+			SDLX_RenderQueue_Add(NULL, &(scene->slime7.sprite));
+			SDLX_RenderQueue_Add(NULL, &(scene->slime8.sprite));
+			if (slow % 100 == 0)
+			{
+				SDL_Log("Stop slow");
+				slow++;
+				scene->slow = SDL_FALSE;
+			}
+		}
 		i = 0;
 		while (i < default_CollisionBucket.index)
 		{
@@ -199,7 +240,7 @@ void	*level_03_update(t_context *context, void *vp_scene)
 		context->scene = SDL_FALSE;
 	}
 
-	if (scene->score == 84)
+	if (scene->score == 124)
 	{
 		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 		context->scene = SDL_FALSE;

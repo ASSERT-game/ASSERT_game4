@@ -37,16 +37,17 @@ typedef struct	s_third_level
 	t_enemy				slime2;
 	t_enemy				slime3;
 	t_enemy				slime4;
+	t_enemy				slime5;
 	int					score;
 
 	SDL_Texture			*pbackground;
 }				t_third_level;
 
-void	*level_03_init(t_context *context, SDL_UNUSED void *vp_scene)
+void	*level_04_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_third_level	*scene;
 
-	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", level_03_close, level_03_update);
+	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", level_04_close, level_04_update);
 
 	scene->pbackground = NULL;
 	scene->score = 0;
@@ -96,12 +97,15 @@ void	*level_03_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->slime4.enemy_hurtbox.engage_meta2 = &(scene->score);
 	scene->slime4.meta = (void *)6;
 
+	slime_init(&(scene->slime5));
+	scene->slime5.enemy_hurtbox.engage_meta2 = &(scene->score);
+
 	scene->paused = SDL_FALSE;
 	scene->paused_hint = SDL_FALSE;
 	return (NULL);
 }
 
-void	*level_03_close(t_context *context, void *vp_scene)
+void	*level_04_close(t_context *context, void *vp_scene)
 {
 	t_third_level	*scene;
 
@@ -114,12 +118,12 @@ void	*level_03_close(t_context *context, void *vp_scene)
 	if (scene->player.hp <= 0)
 		context->init_fn = death_level_init;
 
-	if (scene->score >= 84)
+	if (scene->score >= 12)
 	{
 		context->init_fn = loot_level_init;
 
-		context->levels[0][3].unlocked = SDL_TRUE;
-		context->mainhand = laser_yellow_cannon();
+		context->levels[0][4].unlocked = SDL_TRUE;
+		context->special = time_cannon();
 	}
 
 	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);
@@ -131,7 +135,7 @@ void	*level_03_close(t_context *context, void *vp_scene)
 	return (NULL);
 }
 
-void	*level_03_update(t_context *context, void *vp_scene)
+void	*level_04_update(t_context *context, void *vp_scene)
 {
 	size_t	i;
 	t_third_level	*scene;
@@ -166,6 +170,7 @@ void	*level_03_update(t_context *context, void *vp_scene)
 		slime_update(&(scene->slime2));
 		slime_update(&(scene->slime3));
 		slime_update(&(scene->slime4));
+		slime_update(&(scene->slime5));
 
 		i = 0;
 		while (i < default_CollisionBucket.index)
@@ -199,7 +204,7 @@ void	*level_03_update(t_context *context, void *vp_scene)
 		context->scene = SDL_FALSE;
 	}
 
-	if (scene->score == 84)
+	if (scene->score == 12)
 	{
 		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 		context->scene = SDL_FALSE;

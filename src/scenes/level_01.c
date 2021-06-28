@@ -34,6 +34,7 @@ typedef struct	s_first_level
 	SDLX_button			special;
 
 	t_enemy				slime;
+	t_enemy				slime2;
 	int					score;
 
 	SDL_Texture			*pbackground;
@@ -83,6 +84,9 @@ void	*level_01_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	slime_init(&(scene->slime));
 	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
+
+	slime_init(&(scene->slime2));
+	scene->slime2.enemy_hurtbox.engage_meta2 = &(scene->score);
 
 	scene->paused = SDL_FALSE;
 	scene->paused_hint = SDL_FALSE;
@@ -150,6 +154,7 @@ void	*level_01_update(t_context *context, void *vp_scene)
 		projectile_update(&(scene->player.attacks));
 
 		slime_update(&(scene->slime));
+		slime_update(&(scene->slime2));
 
 
 		i = 0;

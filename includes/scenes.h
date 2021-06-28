@@ -44,5 +44,13 @@ void	*level_03_init(t_context *context, void *vp_scene);
 void	*level_03_close(t_context *context, void *vp_scene);
 void	*level_03_update(t_context *context, void *vp_scene);
 
+void	*level_04_init(t_context *context, void *vp_scene);
+void	*level_04_close(t_context *context, void *vp_scene);
+void	*level_04_update(t_context *context, void *vp_scene);
+
+void	*level_05_init(t_context *context, void *vp_scene);
+void	*level_05_close(t_context *context, void *vp_scene);
+void	*level_05_update(t_context *context, void *vp_scene);
+
 
 #endif

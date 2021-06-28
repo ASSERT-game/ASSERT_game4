@@ -147,6 +147,7 @@ typedef struct	s_player
 
 	//These are not permanent.
 	t_attacks			attacks;
+	void				*meta;
 }				t_player;
 
 #endif

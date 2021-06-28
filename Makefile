@@ -31,6 +31,8 @@ SCENE_FILES = 			\
 	level_01			\
 	level_02			\
 	level_03			\
+	level_04			\
+	level_05			\
 	\
 	scene_utils			\
 
@@ -40,6 +42,7 @@ ENEMY_FILES = 			\
 WEAPON_FILES = 			\
 	heal				\
 	laser				\
+	time				\
 	weapon_manager		\
 	weapon_utils		\
 

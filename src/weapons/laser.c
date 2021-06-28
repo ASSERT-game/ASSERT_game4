@@ -146,3 +146,48 @@ t_weapon	laser_green_cannon(void)
 
 	return (laser_cannon);
 }
+
+void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
+{
+	dst->sprite = SDLX_Sprite_Static(ASSETS"laser_yellow.png");
+	dst->sprite.dst = SDLX_NULL_SELF;
+	dst->sprite._dst = (SDL_Rect){(256 / 2) - 8, 120 - 8, 16, 16};
+	dst->sprite.center = NULL;
+	dst->sprite.angle = 0;
+
+	dst->vel.x = 1;
+	dst->vel.y = 1;
+
+	dst->active = SDL_TRUE;
+
+	dst->sprite.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - (256 / 2), 120 - g_GameInput.GameInput.primary.y) * 180 / M_PI);
+
+	angle = SDL_atan2(g_GameInput.GameInput.primary.x - (256 / 2), 120 - g_GameInput.GameInput.primary.y);
+
+	dst->vel.x = SDL_sin(angle) * 16;
+	dst->vel.y = SDL_cos(angle) * -16;
+
+	dst->update = laser_update;
+
+
+	dst->hitbox.type = BULLETS;
+	dst->hitbox.originator = dst;
+
+	dst->hitbox.detect = bullet_detect_collision;
+}
+
+t_weapon	laser_yellow_cannon(void)
+{
+	t_weapon	laser_cannon;
+
+	laser_cannon.start = 0;
+	laser_cannon.cooldown = LASER_COOLDOWN - 5;
+
+	laser_cannon.curr = LASER_COOLDOWN;
+
+	laser_cannon.enabled = SDL_TRUE;
+
+	laser_cannon.factory = laser_yellow_factory;
+
+	return (laser_cannon);
+}

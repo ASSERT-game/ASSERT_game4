@@ -52,10 +52,10 @@ void	heal_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED do
 
 	t_player *player;
 	player = meta;
-	player->hp += 10;
+	player->hp += 30;
 }
 
-#define HEAL_COOLDOWN (100)
+#define HEAL_COOLDOWN (80)
 
 t_weapon	heal_cannon(void)
 {
