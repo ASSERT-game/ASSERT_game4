@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/11 19:01:08 by home             ###   ########.fr       */
+/*   Updated: 2021/09/12 02:11:31 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ void	blaster_start(t_context *context)
 	context->levels[3][3].isUnlocked = SDL_TRUE;
 	context->levels[3][0].isUnlocked = SDL_TRUE;
 
-	context->mainhand = faser_cannon();
-	context->offhand = ghostfire_cannon();
-	context->defense = shield_cannon();
-	context->special = emp_cannon();
+	// context->mainhand = faser_cannon();
+	// context->offhand = ghostfire_cannon();
+	// context->defense = shield_cannon();
+	// context->special = emp_cannon();
 }
 
 void	main_loop(void *context_addr)
