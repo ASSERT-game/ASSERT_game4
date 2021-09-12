@@ -118,7 +118,7 @@ void	*level_04_close(t_context *context, void *vp_scene)
 	if (scene->player.hp <= 0)
 		context->init_fn = death_level_init;
 
-	if (scene->score >= 12)
+	if (scene->score >= 124)
 	{
 		context->init_fn = loot_level_init;
 
@@ -204,7 +204,7 @@ void	*level_04_update(t_context *context, void *vp_scene)
 		context->scene = SDL_FALSE;
 	}
 
-	if (scene->score == 12)
+	if (scene->score == 124)
 	{
 		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 		context->scene = SDL_FALSE;

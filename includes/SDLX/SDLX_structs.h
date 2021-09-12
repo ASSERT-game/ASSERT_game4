@@ -129,8 +129,8 @@ extern SDLX_GameInput	g_GameInput;
 extern SDLX_GameInput	g_GameInput_prev;
 
 #define BMAP(button) (g_GameInput.GameInput.button)
-#define SDLX_GAME_PRESS(curr, prev, button) ((curr.GameInput.button_##button == 1 && prev.GameInput.button_##button == 0))
-#define SDLX_GAME_RELEASE(curr, prev, button) ((curr.GameInput.button_##button == 0 && prev.GameInput.button_##button == 1))
+#define SDLX_GAME_PRESS(curr, prev, button) ((curr.GameInput.button_##button != 0 && prev.GameInput.button_##button == 0))
+#define SDLX_GAME_RELEASE(curr, prev, button) ((curr.GameInput.button_##button == 0 && prev.GameInput.button_##button != 0))
 #define SDLX_INPUT_CONSUME(curr, prev, button) {curr.GameInput.button_##button = 0; prev.GameInput.button_##button = 0;}
 
 enum	SDLX_DIR

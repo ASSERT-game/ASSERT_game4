@@ -90,6 +90,8 @@ int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no)
 			(*dst) = &(sprite_arr[which + 4 + 1]); return (EXIT_SUCCESS);
 		}
 		else
+		{
 			(*dst) = &(sprite_arr[which + 4]); return (EXIT_SUCCESS);
+		}
 	}
 }

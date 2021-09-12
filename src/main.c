@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/28 05:25:37 by home             ###   ########.fr       */
+/*   Updated: 2021/09/11 18:00:00 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	blaster_start(t_context *context)
 
 	context->mainhand = laser_cannon();
 
-	context->mainhand = laser_yellow_cannon();
-	context->shield = laser_green_cannon();
-	context->heal = heal_cannon();
+	// context->mainhand = laser_yellow_cannon();
+	// context->shield = laser_green_cannon();
+	// context->heal = heal_cannon();
 
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
 
