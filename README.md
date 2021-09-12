@@ -52,6 +52,6 @@ I created all of the assets using [Aseprite](https://www.aseprite.org/). For som
 ### [Emscripten](https://emscripten.org/)
 Emscripten allows you to magically compile C code to run on browsers. Once set up it is very easy to port the project to the web. Thanks to only using SDL the project simply just works with Emscripten and is already supported. However SDL2_ttf will fail unless you use `emmc version 2.0.10` (ttf was imlemented later on in development and was on the fence with just manually creating text to PNGs). [Emscripten](https://emscripten.org/) allows me to share a [runable](https://mrcolour.github.io/blaster/) version of my code to many people without them having to worry about the problems of compiling, linking, installing etc. For that I am very thankful. 
 
-# Comtact
+# Contact
 
 Got a burning question? Some feedback, maybe a bug? I'm figuring out how to do contacts. You can raise an issue on the repo and I will be sure to read it though haha! You can go [here](https://mrcolour.github.io/contact/) and send a message in the ***right hand side box*** and it will automagically make its way to my inbox!
