@@ -33,10 +33,6 @@ void	*death_level_init(t_context *context, void *vp_scene);
 void	*death_level_close(t_context *context, void *vp_scene);
 void	*death_level_update(t_context *context, void *vp_scene);
 
-void	*inventory_init(t_context *context, void *vp_scene);
-void	*inventory_close(t_context *context, void *vp_scene);
-void	*inventory_update(t_context *context, void *vp_scene);
-
 void	level_init(t_context *context, t_wave_m waves);
 
 t_wave_m	level_01(void);
