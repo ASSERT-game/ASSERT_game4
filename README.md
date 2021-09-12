@@ -28,7 +28,7 @@ https://user-images.githubusercontent.com/41839667/132979861-ea342277-8f59-4a27-
 </p>
 
 ## Controls
-The game was devloped to be playable on phone and offers simple controls for just tapping and clicking. But it can also be controlled with a mouse and keyboard. Use the number keys or A,S,D,F to switch abilities. You can use your ability by left clicking or spacebar. Aim with your mouse. Controls are easy, but the game lacks a tutorial. 
+The game was devloped to be playable on phone and offers simple controls for just tapping and clicking. But it can also be controlled with a mouse and keyboard. Use the number keys (1,2,3,4) or A,S,D,F to switch abilities. You can use your ability by left clicking or spacebar. Aim with your mouse. Controls are easy, but the game lacks a tutorial. 
 
 ## More
 If you are looking for a challenge, I have beaten each level without losing health (although with some update changes I have to reverify this, but I think most of them are). You can also try to get the best times for the levels. I haven't fully made the scoring system, and it doens't do anything (it is determined by a constant multiplied by the total combo at the moment).
@@ -52,6 +52,6 @@ I created all of the assets using [Aseprite](https://www.aseprite.org/). For som
 ### [Emscripten](https://emscripten.org/)
 Emscripten allows you to magically compile C code to run on browsers. Once set up it is very easy to port the project to the web. Thanks to only using SDL the project simply just works with Emscripten and is already supported. However SDL2_ttf will fail unless you use `emmc version 2.0.10` (ttf was imlemented later on in development and was on the fence with just manually creating text to PNGs). [Emscripten](https://emscripten.org/) allows me to share a [runable](https://mrcolour.github.io/blaster/) version of my code to many people without them having to worry about the problems of compiling, linking, installing etc. For that I am very thankful. 
 
-# Comtact
+# Contact
 
 Got a burning question? Some feedback, maybe a bug? I'm figuring out how to do contacts. You can raise an issue on the repo and I will be sure to read it though haha! You can go [here](https://mrcolour.github.io/contact/) and send a message in the ***right hand side box*** and it will automagically make its way to my inbox!
