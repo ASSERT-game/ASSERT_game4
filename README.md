@@ -28,7 +28,7 @@ https://user-images.githubusercontent.com/41839667/132979861-ea342277-8f59-4a27-
 </p>
 
 ## Controls
-The game was devloped to be playable on phone and offers simple controls for just tapping and clicking. But it can also be controlled with a mouse and keyboard. Use the number keys or A,S,D,F to switch abilities. You can use your ability by left clicking or spacebar. Aim with your mouse. Controls are easy, but the game lacks a tutorial. 
+The game was devloped to be playable on phone and offers simple controls for just tapping and clicking. But it can also be controlled with a mouse and keyboard. Use the number keys (1,2,3,4) or A,S,D,F to switch abilities. You can use your ability by left clicking or spacebar. Aim with your mouse. Controls are easy, but the game lacks a tutorial. 
 
 ## More
 If you are looking for a challenge, I have beaten each level without losing health (although with some update changes I have to reverify this, but I think most of them are). You can also try to get the best times for the levels. I haven't fully made the scoring system, and it doens't do anything (it is determined by a constant multiplied by the total combo at the moment).
