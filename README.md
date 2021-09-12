@@ -1,6 +1,10 @@
+<p align="center">
+  <img height="200" src="https://github.com/ASSERT-game/ASSERT_game4/blob/main/assets/tittle_c.png" />
+</p>
+
 # Summary
 
-Fourth repo in the ASSERT_game line, where I try bring to existence an entire game. This one is the most complete in terms of being a fully fledged game (you can find the other games I have tried to make [here](https://github.com/ASSERT-game)). I coded all the game and created all the assets myself using [Aseprite](https://www.aseprite.org/), you can find more about the development in the [Technology Section](#Technology Used).
+Fourth repo in the ASSERT_game line, where I try bring to existence an entire game. This one is the most complete in terms of being a fully fledged game (you can find the other games I have tried to make [here](https://github.com/ASSERT-game)). I coded all the game and created all the assets myself using [Aseprite](https://www.aseprite.org/), you can find more about the development in the [Technology Section](#technology-used). 
 
 # Installation
 
@@ -15,7 +19,7 @@ If you are computer savy you can also build the sources if you want. My method o
 If you build the sources it may or may work with gamepad controllers such as Xbox controllers. I had it working with Xbox controllers on MacOs using [360Controller](https://github.com/360Controller/360Controller) ([download link](https://github.com/360Controller/360Controller/releases/tag/v1.0.0-alpha.6)). It is substainally more difficult but I did it mainly out of curiosity and on a whim because I simply could (coded the controller code because [this](https://github.com/ASSERT-game/pacman_v2))
 
 # Game
-Mympheus and the Dawnlit Grove is a click based game. Unlock new abilities giving you new ways to destroy enemy waves in increasing difficulty. Statagize in this wave shooter choosing the right ability but be quick to switch and continue destroying slimes. But be warned the enemy will also throw at you new enemy types and make it hard for you to manage the action. Will you be able beat all the levels and collect the gems?
+_Mympheus and the Dawnlit Grotto_ is a click based game. Unlock new abilities giving you new ways to destroy enemy waves in increasing difficulty. Statagize in this wave shooter choosing the right ability but be quick to switch and continue destroying slimes. But be warned the enemy will also throw at you new enemy types and make it hard for you to manage the action. Will you be able beat all the levels and collect the gems?
 
 ## Controls
 The game was devloped to be playable on phone and offers simple controls for just tapping and clicking. But it can also be controlled with a mouse and keyboard. Use the number keys or A,S,D,F to switch abilities. You can use your ability by left clicking or spacebar. Aim with your mouse. Controls are easy, but the game lacks a tutorial. 
@@ -23,7 +27,7 @@ The game was devloped to be playable on phone and offers simple controls for jus
 ## More
 If you are looking for a challenge, I have beaten each level without losing health (although with some update changes I have to reverify this, but I think most of them are). You can also try to get the best times for the levels. I haven't fully made the scoring system, and it doens't do anything (it is determined by a constant multiplied by the total combo at the moment).
 
-At the moment I am trying to wrap up the project and am looking for feedback to see if anyone finds glaring issues. I won't be adding too much, but I did once have an inventory system and a few other abilities (pierce, whirlwind, heal) that I could add. Depending on what others think I might add some way to support the project that would be enough incentive to continue developing the game.
+At the moment I am trying to wrap up the project and am looking for feedback to see if anyone finds glaring issues. I won't be adding too much, but I did once have an inventory system and a few other abilities (pierce, whirlwind, heal) that I could add. Depending on what others think I might add some way to support the project. That would be enough incentive to continue developing the game.
 
 # Technology Used
 
