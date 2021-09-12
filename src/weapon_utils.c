@@ -84,14 +84,14 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	int			*keys[4] = {&(BMAP(button_num1)), &(BMAP(button_num2)), &(BMAP(button_num3)), &(BMAP(button_num4))};
 
 	ability_button_init(mainhand, player_weapon_addr, &(context->mainhand));
+	ability_button_init(defense, player_weapon_addr, &(context->defense));
 	ability_button_init(special, player_weapon_addr, &(context->special));
 	ability_button_init(offhand, player_weapon_addr, &(context->offhand));
-	ability_button_init(defense, player_weapon_addr, &(context->defense));
 
 	count = 0;
 	if (context->mainhand.isEnabled == SDL_TRUE) { line[count] = mainhand; weapon_load_cooldown(&(context->mainhand.cooldown_sprite)); mainhand->down = keys[count]; count++; }
-	if (context->offhand.isEnabled == SDL_TRUE) { line[count] = offhand;   weapon_load_cooldown(&(context->offhand.cooldown_sprite)); offhand->down = keys[count]; count++; }
 	if (context->defense.isEnabled == SDL_TRUE) { line[count] = defense;   weapon_load_cooldown(&(context->defense.cooldown_sprite)); defense->down = keys[count]; count++; }
+	if (context->offhand.isEnabled == SDL_TRUE) { line[count] = offhand;   weapon_load_cooldown(&(context->offhand.cooldown_sprite)); offhand->down = keys[count]; count++; }
 	if (context->special.isEnabled == SDL_TRUE) { line[count] = special;   weapon_load_cooldown(&(context->special.cooldown_sprite)); special->down = keys[count]; count++; }
 
 	if (count == 0)
@@ -122,8 +122,8 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	load_weapon_default_values(&(context->defense), defense->sprite._dst);
 
 	if (context->mainhand.isEnabled) { *player_weapon_addr = &(context->mainhand); }
-	else if (context->offhand.isEnabled) { *player_weapon_addr = &(context->offhand); }
 	else if (context->defense.isEnabled) { *player_weapon_addr = &(context->defense); }
+	else if (context->offhand.isEnabled) { *player_weapon_addr = &(context->offhand); }
 	else { *player_weapon_addr = &(context->special); }
 
 
