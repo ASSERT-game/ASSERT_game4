@@ -69,3 +69,6 @@ SDLX_Sprite		SDLX_Sprite_Static(char *path)
 
 	return (res);
 }
+
+double	SDLX_Degree_to_Radian(double degree) { return (degree * M_PI / 180 ); }
+double	SDLX_Radian_to_Degree(double degree) { return (degree * 180 / M_PI + 90); }

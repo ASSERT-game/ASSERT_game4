@@ -12,8 +12,9 @@
 ***************************************************************************/
 
 #include "SDLX_ticks.h"
+#include "SDLX.h"
 
-#define RENDER_TIME (3)
+#define RENDER_TIME (2)
 
 int		 SDLX_discrete_frames(int *ticks)
 {
@@ -32,6 +33,7 @@ int		 SDLX_discrete_frames(int *ticks)
 	else
 	{
 		SDL_Log("Frame exceeded the rate of consistent gameplay, could not take a rest");
+		SDLX_RenderQueue_Skip(NULL, NULL);
 		result = EXIT_FAILURE;
 	}
 

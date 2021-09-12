@@ -46,6 +46,8 @@ void			SDLX_RenderQueue_Add(SDLX_RenderQueue *dst, SDLX_Sprite *src);
 void			SDLX_RenderQueue_Flush(SDLX_RenderQueue *queue, SDL_Renderer *renderer, SDL_bool reverse);
 void			SDLX_RenderQueue_Flush_Direct(SDLX_RenderQueue *queue, SDL_Renderer *renderer, SDL_bool reverse);
 
+void			SDLX_RenderQueue_Skip(SDLX_RenderQueue *queue, SDL_Renderer *renderer);
+
 /*
 ** Input type functions.
 */
@@ -79,6 +81,7 @@ void			SDLX_Button_Update(SDLX_button *button);
 void			SDLX_Style_Button(SDLX_button *button, int norm, int hover);
 void			*SDLX_Button_NULL_fn(SDL_UNUSED SDLX_button *button, SDL_UNUSED void *meta, SDL_UNUSED size_t meta_length);
 SDL_bool		SDLX_Button_onHoverFocus(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t meta_length);
+SDL_bool		SDLX_Button_onHoverFocus_Mobile(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t meta_length);
 void			SDLX_Button_Set_UDLR(SDLX_button *button, void *up, void *down, void *left, void *right);
 void			SDLX_Button_Set_fn(SDLX_button *button,
 								SDL_bool (*get_focus_fn)(struct SDLX_button *, void *, size_t),
@@ -95,6 +98,8 @@ SDLX_direction	SDLX_reverse_dir(SDLX_direction direction);
 SDL_Texture		*SDLX_LoadTexture(char *path);
 SDLX_Sprite		SDLX_Sprite_Static(char *path);
 
+SDL_Point		SDLX_RotatePoint(SDL_Point *point, double angle);
+
 #define SDLX_MOUSE_MOVED (g_GameInput.GameInput.primary_delta.x != 0 || g_GameInput.GameInput.primary_delta.y != 0)
 
 /*
@@ -104,5 +109,31 @@ SDLX_Sprite		SDLX_Sprite_Static(char *path);
 int		SDLX_CollisionBucket_Init(SDLX_collision_bucket *dst, size_t type);
 void	SDLX_CollisionBucket_add(SDLX_collision_bucket *dst, SDLX_collision *body);
 void	SDLX_attempt_CollisionBucket(SDLX_collision *body, SDLX_collision_bucket *bucket);
+void	SDLX_CollisionBucket_Flush(SDLX_collision_bucket *bucket);
+
+SDL_bool	SDLX_Collide_RectToRect(SDLX_collision *hitbox1, SDLX_collision *hitbox2);
+SDL_bool	SDLX_Collide_RectToARect(SDLX_collision *hitbox1, SDLX_collision *angle_box);
+SDL_bool	SDLX_Collide_ARectToRect(SDLX_collision *angle_box, SDLX_collision *hitbox1);
+SDL_bool	SDLX_Collide_RectToCircle(SDLX_collision *hitbox, SDLX_collision *circle);
+SDL_bool	SDLX_Collide_CircleToRect(SDLX_collision *circle, SDLX_collision *hitbox);
+
+/*
+** Misc. Functions.
+*/
+
+double	SDLX_Degree_to_Radian(double degree);
+double	SDLX_Radian_to_Degree(double degree);
+
+#define SDLX_CALLOC_M(what, amount) (what = SDL_calloc(amount, sizeof(*(what))))
+
+/*
+** UtilityX Functions.
+*/
+
+void	SDLX_xIter(void *base, size_t nel, size_t width, void (*apply_fn)(void *));
+void	*SDLX_xLowest(void *base, size_t nel, size_t width, int (cmp)(const void *, const void *));
+void	*SDLX_xHighest(void *base, size_t nel, size_t width, int (cmp)(const void *, const void *));
+void	*SDLX_xFirst(void *base, size_t nel, size_t width, SDL_bool (key_fn)(const void *));
+void	*SDLX_xLast(void *base, size_t nel, size_t width, SDL_bool (key_fn)(const void *));
 
 #endif

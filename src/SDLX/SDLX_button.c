@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 01:10:16 by home              #+#    #+#             */
-/*   Updated: 2021/06/21 22:14:05 by home             ###   ########.fr       */
+/*   Updated: 2021/07/25 16:09:58 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,19 @@ int	SDLX_Button_Init(SDLX_button *dst, int (*sprite_fn)(SDLX_Sprite_Data **, int
 
 	dst->norm_no = -1;
 	dst->focus_no = -1;
+	dst->isLocked = SDL_FALSE;
 
-	dst->disabled = SDL_FALSE;
+	dst->isDisabled = SDL_FALSE;
 
-	dst->global_active = SDL_FALSE;
-	dst->focused = SDL_FALSE;
-	dst->triggered = SDL_FALSE;
+	dst->isGloballyActive = SDL_FALSE;
+	dst->isFocused = SDL_FALSE;
+	dst->isTriggered = SDL_FALSE;
 
 	dst->meta = NULL;
 	dst->meta1 = NULL;
 	dst->meta_length = 0;
 
-	dst->get_focus_fn = SDLX_Button_onHoverFocus;
+	dst->get_focus_fn = SDLX_Button_onHoverFocus_Mobile;
 
 	dst->focus_fn = SDLX_Button_NULL_fn;
 	dst->focus_once_fn = SDLX_Button_NULL_fn;
@@ -52,6 +53,30 @@ void	*SDLX_Button_NULL_fn(SDL_UNUSED SDLX_button *button, SDL_UNUSED void *meta,
 	return NULL;
 }
 
+/*
+** In a mobile application there is not a clear concept of mouse. It just teleports from spot to spot.
+*/
+SDL_bool	SDLX_Button_onHoverFocus_Mobile(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t meta_length)
+{
+	SDL_bool	result;
+	SDL_Point	*mouse;
+
+	// The below is the same as:
+	// result = SDL_FALSE;
+	// if (self->focused == SDL_TRUE)
+	// 	result = SDL_TRUE;
+	result = self->isFocused;
+
+	// If the mouse has moved then the result will be equal to whether the mouse intersects with the trigger box
+	if (g_GameInput.GameInput.primary.x != g_GameInput_prev.GameInput.primary.x || g_GameInput.GameInput.primary.y == g_GameInput_prev.GameInput.primary.y)
+	{
+		mouse = &(g_GameInput.GameInput.primary);
+		result = SDL_PointInRect(mouse, &(self->trigger_box));
+	}
+
+	return (result);
+}
+
 SDL_bool	SDLX_Button_onHoverFocus(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t meta_length)
 {
 	SDL_bool	result;
@@ -61,7 +86,7 @@ SDL_bool	SDLX_Button_onHoverFocus(SDLX_button *self, SDL_UNUSED void *meta, SDL_
 	// result = SDL_FALSE;
 	// if (self->focused == SDL_TRUE)
 	// 	result = SDL_TRUE;
-	result = self->focused;
+	result = self->isFocused;
 
 	// If the mouse has moved then the result will be equal to whether the mouse intersects with the trigger box
 	if (SDLX_MOUSE_MOVED)

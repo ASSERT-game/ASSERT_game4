@@ -102,6 +102,7 @@ SDL_bool	SDLX_poll(void)
 			return (exit);
 		}
 	}
+	g_GameInput.keystate = SDL_GetKeyboardState(NULL);
 	return (exit);
 }
 

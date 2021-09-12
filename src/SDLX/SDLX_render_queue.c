@@ -31,25 +31,36 @@ void	SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 	size_t		no;
 	SDL_Rect	draw_rect;
 	SDL_Rect	*ptr_rect;
+	SDL_Point	draw_cent;
+	SDL_Point	*ptr_cent;
 
 	// SDL_Log("ERROR %zu", animation->sprite_data->cycle);
 	no = animation->current % animation->sprite_data->cycle;
 
-	ptr_rect = NULL;
-	if (animation->dst == SDLX_NULL_SELF)
-		animation->dst = &(animation->_dst);
+	ptr_rect = animation->dst;
+	if (ptr_rect == SDLX_NULL_SELF)
+		ptr_rect = &(animation->_dst);
 
-	if (animation->center == SDLX_NULL_SELF)
-		animation->center = &(animation->_center);
+	ptr_cent = animation->center;
+	if (ptr_cent == SDLX_NULL_SELF)
+		ptr_cent = &(animation->_center);
 
 	if (animation->dst != NULL)
 	{
-		draw_rect = *(animation->dst);
+		draw_rect = *(ptr_rect);
 		draw_rect.h *= DISPLAY_SCALE;
 		draw_rect.w *= DISPLAY_SCALE;
 		draw_rect.x *= DISPLAY_SCALE;
 		draw_rect.y *= DISPLAY_SCALE;
 		ptr_rect = &draw_rect;
+	}
+
+	if (animation->center != NULL)
+	{
+		draw_cent = *(ptr_cent);
+		draw_cent.x *= DISPLAY_SCALE;
+		draw_cent.y *= DISPLAY_SCALE;
+		ptr_cent = &draw_cent;
 	}
 
 	SDL_RenderCopyEx(renderer,
@@ -58,7 +69,7 @@ void	SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 
 	ptr_rect,
 	animation->angle,
-	animation->center,
+	ptr_cent,
 	animation->flip);
 
 	animation->current += animation->sprite_data[no].skip;
@@ -108,7 +119,6 @@ void	SDLX_DrawAnimation_Direct(SDL_Renderer *renderer, SDLX_Sprite *animation)
 	animation->flip);
 
 	animation->current += animation->sprite_data[no].skip;
-
 }
 
 void	SDLX_RenderQueue_Flush_Direct(SDLX_RenderQueue *queue, SDL_Renderer *renderer, SDL_bool reverse)
@@ -137,7 +147,6 @@ void	SDLX_RenderQueue_Flush_Direct(SDLX_RenderQueue *queue, SDL_Renderer *render
 		}
 	}
 	queue->index = 0;
-	queue->index = 0;
 }
 
 void	SDLX_RenderQueue_Add(SDLX_RenderQueue *dst, SDLX_Sprite *src)
@@ -147,10 +156,30 @@ void	SDLX_RenderQueue_Add(SDLX_RenderQueue *dst, SDLX_Sprite *src)
 
 	if (dst->index + 1 >= dst->capacity)
 	{
-		dst->content = SDL_realloc(dst->content, sizeof(dst->content) * (dst->capacity * ALLOC_RATE));
 		dst->capacity = dst->capacity * ALLOC_RATE;
+		dst->content = SDL_realloc(dst->content, sizeof(dst->content) * (dst->capacity));
 	}
 
 	dst->content[dst->index] = src;
 	dst->index += 1;
+}
+
+void			SDLX_RenderQueue_Skip(SDLX_RenderQueue *queue, SDL_Renderer *renderer)
+{
+	size_t	i;
+	size_t	no;
+
+	i = 0;
+	if (queue == NULL)
+		queue = &(default_RenderQueue);
+	if (renderer == NULL)
+		renderer = SDLX_GetDisplay()->renderer;
+
+	while (i < queue->index)
+	{
+		no = queue->content[i]->current % queue->content[i]->sprite_data->cycle;
+		queue->content[i]->current += queue->content[i]->sprite_data[no].skip;
+		i++;
+	}
+	queue->index = 0;
 }

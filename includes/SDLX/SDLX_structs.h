@@ -79,6 +79,8 @@ typedef struct	SDLX_GameInput
 	SDLX_input_mapper	key_mapper;
 	SDLX_input_mapper	pad_mapper;
 
+	const Uint8			*keystate;
+
 	struct
 	{
 		int	button_A;
@@ -130,8 +132,8 @@ extern SDLX_GameInput	g_GameInput_prev;
 
 #define BMAP(button) (g_GameInput.GameInput.button)
 #define SDLX_GAME_PRESS(curr, prev, button) ((curr.GameInput.button_##button != 0 && prev.GameInput.button_##button == 0))
-#define SDLX_GAME_RELEASE(curr, prev, button) ((curr.GameInput.button_##button == 0 && prev.GameInput.button_##button != 0))
-#define SDLX_INPUT_CONSUME(curr, prev, button) {curr.GameInput.button_##button = 0; prev.GameInput.button_##button = 0;}
+#define SDLX_GAME_RELEASE(curr, prev, button) ((curr.GameInput.button_##button == 0 && prev.GameInput.button_##button >= 1))
+#define SDLX_INPUT_CONSUME(curr, prev, button) {curr.GameInput.button_##button = -1; prev.GameInput.button_##button = -1;}
 
 enum	SDLX_DIR
 {
@@ -175,12 +177,13 @@ typedef struct	SDLX_button
 
 	int			norm_no;
 	int			focus_no;
+	SDL_bool	isLocked;
 
-	SDL_bool	disabled;
+	SDL_bool	isDisabled;
 
-	SDL_bool	global_active;
-	SDL_bool	focused;
-	SDL_bool	triggered;
+	SDL_bool	isGloballyActive;
+	SDL_bool	isFocused;
+	SDL_bool	isTriggered;
 
 	void		*meta;
 	void		*meta1;
@@ -209,6 +212,11 @@ typedef struct	SDLX_button
 typedef struct	SDLX_collision
 {
 	size_t		type;
+	double		angle;
+	SDL_Rect	hitbox;
+	SDL_Rect	*hitbox_ptr;
+	SDL_Point	center;
+	SDL_Point	*center_ptr;
 
 	size_t		response_amount;
 	size_t		*response_type;

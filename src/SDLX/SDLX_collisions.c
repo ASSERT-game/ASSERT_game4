@@ -62,6 +62,22 @@ void	SDLX_attempt_CollisionBucket(SDLX_collision *body, SDLX_collision_bucket *b
 	}
 }
 
+void	SDLX_CollisionBucket_Flush(SDLX_collision_bucket *bucket)
+{
+	size_t	i;
+
+	if (bucket == NULL)
+		bucket = &(default_CollisionBucket);
+
+	i = 0;
+	while (i < bucket->index)
+	{
+		SDLX_attempt_CollisionBucket(bucket->content[i], bucket);
+		i++;
+	}
+	bucket->index = 0;
+}
+
 /*
 ** The buckets will need to be scanned to see if any new collision type buckets
 ** got created.

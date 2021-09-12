@@ -16,17 +16,17 @@
 void	SDLX_Button_ReFocus(SDLX_button *button)
 {
 	button->focus_once_fn(button, button->meta, button->meta_length);
-	if (button->focus_no != -1)
+	if (button->focus_no != -1 && button->isLocked == SDL_FALSE)
 	{
 		button->sprite_fn(&(button->sprite.sprite_data), button->focus_no);
 		button->sprite.current = 0;
 	}
-	button->focused = SDL_TRUE;
+	button->isFocused = SDL_TRUE;
 }
 
 void	SDLX_Button_Focus(SDLX_button *button)
 {
-	if (button->focused == SDL_FALSE) // This activates on-hover, aka once
+	if (button->isFocused == SDL_FALSE) // This activates on-hover, aka once
 		SDLX_Button_ReFocus(button);
 	else //This continues to activate on hover
 		button->focus_fn(button, button->meta, button->meta_length);
@@ -37,12 +37,12 @@ void	SDLX_Button_Focus(SDLX_button *button)
 
 void	SDLX_Button_Lose_Focus(SDLX_button *button)
 {
-	if (button->norm_no != -1)
+	if (button->norm_no != -1 && button->isLocked == SDL_FALSE)
 	{
 		button->sprite_fn(&(button->sprite.sprite_data), button->norm_no);
 		button->sprite.current = 0;
 	}
-	button->focused = SDL_FALSE;
+	button->isFocused = SDL_FALSE;
 	//button lose focus fn
 }
 
@@ -58,18 +58,18 @@ void	SDLX_Button_Update(SDLX_button *button)
 {
 	SDL_bool	get_focus;
 
-	if (button->disabled == SDL_TRUE)
+	if (button->isDisabled == SDL_TRUE)
 		return ;
 
 	get_focus = button->get_focus_fn(button, button->meta, button->meta_length);
 	if (get_focus == SDL_TRUE) //This could be 'in focus triggers'
 		SDLX_Button_Focus(button);
-	else if (button->focused == SDL_TRUE && get_focus == SDL_FALSE) // Was focused but no longer
+	else if (button->isFocused == SDL_TRUE && get_focus == SDL_FALSE) // Was focused but no longer
 		SDLX_Button_Lose_Focus(button);
 
 	button->update_fn(button, button->meta, button->meta_length);
 
-	if (button->global_active == SDL_TRUE)
+	if (button->isGloballyActive == SDL_TRUE)
 		button->trigger_fn(button, button->meta, button->meta_length);
 
 	SDLX_RenderQueue_Add(button->render_dst, &(button->sprite));
@@ -86,11 +86,19 @@ void	SDLX_Button_Update(SDLX_button *button)
 
 void	SDLX_Button_NoFocusUpdate(SDLX_button *button)
 {
-	if (button->disabled == SDL_TRUE)
+	if (button->isDisabled == SDL_TRUE)
 		return ;
 
 	button->trigger_fn(button, button->meta, button->meta_length);
 
 	SDLX_RenderQueue_Add(button->render_dst, &(button->sprite));
 	button->sprite.current++;
+}
+
+void	SDLX_Button_TriggerOnly(SDLX_button *button)
+{
+	if (button->isDisabled == SDL_TRUE)
+		return ;
+
+	button->trigger_fn(button, button->meta, button->meta_length);
 }

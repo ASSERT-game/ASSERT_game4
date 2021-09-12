@@ -15,139 +15,99 @@
 # define MAIN_STRUCTS_H
 
 # include "SDLX/SDLX.h"
+# include "waves.h"
+# include "entity.h"
 
 struct s_context;
-struct s_bullet;
 
 typedef void *(t_scene_fn)(struct s_context *, void *);
 
-typedef	struct	s_loot
-{
-	size_t		type;
-	void		*data;
-}				t_loot;
-
 typedef struct	s_level_progress
 {
-	SDL_bool	unlocked;
+	SDL_bool	isUnlocked;
+	SDL_bool	wasReceived;
 	t_scene_fn	*init_fn;
+
+	t_weapon	treasure_w;
 }				t_level_progress;
-
-typedef struct	s_weapon
-{
-	SDLX_Sprite		cooldown_sprite;
-
-	unsigned int	start;
-	unsigned int	cooldown;
-
-	unsigned int	curr;
-
-	SDL_bool		enabled;
-
-	void		(*factory)(struct s_bullet *, SDL_Point, double , void *);
-}				t_weapon;
 
 typedef struct	s_context
 {
-	SDL_bool	exit;
-	SDL_bool	scene;
-
-	int			ticks;
+	SDL_bool	shouldQuit;
+	SDL_bool	shouldChange;
 
 	void		*meta;
 
+	SDLX_Sprite	background;
 	SDL_Texture	*capture_texture;
 	t_scene_fn	*redo_init_fn;
-	t_loot		loot;
-
-	t_level_progress	levels[5][5];
-
-	SDLX_Sprite	background;
+	t_scene_fn	*next_init_fn;
+	size_t		wave_id;
 
 	t_scene_fn	*init_fn;
 	t_scene_fn	*update_fn;
 	t_scene_fn	*close_fn;
 
-	struct s_weapon	mainhand;
-	struct s_weapon	shield;
-	struct s_weapon	heal;
-	struct s_weapon	special;
+	t_weapon	mainhand;
+	t_weapon	offhand;
+	t_weapon	defense;
+	t_weapon	special;
+
+	TTF_Font	*font;
+	TTF_Font	*font_outline;
+
+	t_level_progress	levels[5][5];
+
+	int			level;
+	int			score;
+	int			time;
+	int			killed;
+	int			out_of;
 
 }				t_context;
 
-enum	BLASTER_UI_SPRITES
+typedef struct	s_pmenu
 {
-	LOCK_NORM,
-	LOCK_HOVER,
-	BACK_NORM,
-	BACK_HOVER,
+	SDLX_Sprite	background;
 
-	PLAY_NORM,
-	PLAY_HOVER,
-	CREDIT_NORM,
-	CREDIT_HOVER,
-	PAUSE_NORM,
+	SDLX_button	resume;
+	SDLX_button	redo;
+	SDLX_button	menu;
+}				t_pmenu;
 
-	ABILITY,
-	ABILITY_SEL,
-
-	EMPTY_UI,
-};
-
-enum	BLASTER_COLLISION_TYPES
+typedef struct	s_text
 {
-	E_NONE,
-	BULLETS,
-	SLIMES,
-	PLAYER,
-	HEAL,
-};
+	SDL_Color	color;
+	double		scale;
+	size_t		message_length;
+	char		*message;
+	char		*set;
+	SDLX_Sprite	sprite;
 
-typedef struct	s_bullet
+	TTF_Font	*set_font;
+}				t_text;
+
+typedef struct	s_level
 {
-	SDLX_Sprite		sprite;
+	SDLX_button			pause;
+	t_pmenu				pause_menu;
 
-	SDL_Point		vel;
-	SDL_bool		active;
+	SDLX_Sprite			bottom_ui;
+	SDLX_button			mainhand, offhand, defense, special;
 
-	void			*meta;
-	void			(*update)(void *, void *);
+	t_player			player;
+	SDLX_Sprite			crosshair;
 
-	SDLX_collision	hitbox;
-}				t_bullet;
+	t_wave_m			stage;
+	t_enemy_m			enemies;
 
-typedef struct	s_attacks
-{
-	size_t		index;
-	size_t		capacity;
+	SDL_Texture			*pbackground;
 
-	t_bullet	*attacks;
-
-}				t_attacks;
-
-typedef struct	s_enemy
-{
-	SDLX_Sprite		sprite;
-	SDLX_collision	enemy_hurtbox;
-
-	int				hp;
-
-	void			*meta;
-}				t_enemy;
-
-typedef struct	s_player
-{
-	SDLX_Sprite		sprite;
-
-	int				hp;
-
-	t_weapon		*weapon_equip;
-
-	SDLX_collision	player_hurtbox;
-
-	//These are not permanent.
-	t_attacks			attacks;
-	void				*meta;
-}				t_player;
+	size_t				score;
+	size_t				time;
+	t_text				enemies_killed_text;
+	t_text				enemies_killed_text_outline;
+	int					enemy_count;
+}				t_level;
 
 #endif
