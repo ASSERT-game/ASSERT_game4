@@ -21,6 +21,12 @@ If you build the sources it may or may work with gamepad controllers such as Xbo
 # Game
 _Mympheus and the Dawnlit Grotto_ is a click based game. Unlock new abilities giving you new ways to destroy enemy waves in increasing difficulty. Statagize in this wave shooter choosing the right ability but be quick to switch and continue destroying slimes. But be warned the enemy will also throw at you new enemy types and make it hard for you to manage the action. Will you be able beat all the levels and collect the gems?
 
+<p align="center">
+	
+https://user-images.githubusercontent.com/41839667/132979861-ea342277-8f59-4a27-9eee-6a8c5a887fd3.mp4
+	
+</p>
+
 ## Controls
 The game was devloped to be playable on phone and offers simple controls for just tapping and clicking. But it can also be controlled with a mouse and keyboard. Use the number keys or A,S,D,F to switch abilities. You can use your ability by left clicking or spacebar. Aim with your mouse. Controls are easy, but the game lacks a tutorial. 
 
