@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/12 04:33:32 by home             ###   ########.fr       */
+/*   Updated: 2021/09/13 02:38:17 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #ifdef EMCC
 	#include <emscripten.h>
 #endif
-
-TTF_Font *font;
 
 void	blaster_start(t_context *context)
 {
@@ -131,9 +129,6 @@ int	main(void)
 
 	SDLX_GetDisplay();
 	blaster_start(&context);
-
-	TTF_Init();
-	font = TTF_OpenFont(ASSETS"8bitlim.ttf", 100);
 
 	#ifdef EMCC
 		emscripten_set_main_loop_arg(main_loop, (void *)&(context), 0, SDL_TRUE);
