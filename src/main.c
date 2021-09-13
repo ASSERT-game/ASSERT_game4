@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/13 02:38:17 by home             ###   ########.fr       */
+/*   Updated: 2021/09/13 02:41:26 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,20 @@ void	main_loop(void *context_addr)
 	SDLX_KeyMap(&(g_GameInput.key_mapper), g_GameInput.keystate);
 	SDLX_GameInput_Mouse_Fill(&(g_GameInput), SDL_TRUE);
 
-// #ifndef EMCC
-// 	SDL_GameController	*controller;
-// 	controller = NULL;
-// 	controller = SDLX_XboxController_link(0);
-// 	if (controller != NULL)
-// 	{
-// 		SDLX_ControllerMap(&(g_GameInput.pad_mapper), controller);
-// 		SDLX_FillXbox_Axis(&(g_GameInput), controller);
+#ifndef EMCC
+	SDL_GameController	*controller;
+	controller = NULL;
+	controller = SDLX_XboxController_link(0);
+	if (controller != NULL)
+	{
+		SDLX_ControllerMap(&(g_GameInput.pad_mapper), controller);
+		SDLX_FillXbox_Axis(&(g_GameInput), controller);
 
-// 		int trigger = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
-// 		if (trigger > 100)
-// 			g_GameInput.GameInput.button_primleft = 1;
-// 	}
-// #endif
+		int trigger = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+		if (trigger > 100)
+			g_GameInput.GameInput.button_primleft = 1;
+	}
+#endif
 
 	context->update_fn(context, context->meta);
 
