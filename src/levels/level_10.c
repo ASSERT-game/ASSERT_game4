@@ -10,9 +10,9 @@ t_wave_m	level_10(void)
 
 		.win_kill_count = 0,
 		.win_wave_no = 0,
-		.win_wave = 7,
+		.win_wave = 6,
 
-		.size = 8,
+		.size = 7,
 	};
 
 	level_10.waves = SDL_malloc(sizeof(*(level_10.waves)) * level_10.size);
@@ -133,15 +133,6 @@ t_wave_m	level_10(void)
 	level_10.waves[6].wave_array[20] = (t_wave_elem){E_SLIME_BLUE, 0, t * 20, SDL_TRUE, {0, 336}, 0};
 	level_10.waves[6].wave_array[21] = (t_wave_elem){E_SLIME_BLUE, 0, t * 21, SDL_TRUE, {0, 62}, 0};
 	level_10.waves[6].wave_array[22] = (t_wave_elem){E_SLIME_BLUE, 0, t * 22, SDL_TRUE, {0, 240}, 0};
-
-	level_10.waves[7] = (t_wave){0, WAVE_PREV_DEFEAT, 0, SDL_FALSE, SDL_FALSE, 5, SDL_FALSE, NULL};
-	level_10.waves[7].wave_array = SDL_malloc(sizeof(*(level_10.waves[7].wave_array)) * level_10.waves[7].size);
-
-	level_10.waves[7].wave_array[0] = (t_wave_elem){E_SLIME_PURP, 0, 0, SDL_TRUE, {0, 90 + 0}, 0};
-	level_10.waves[7].wave_array[1] = (t_wave_elem){E_SLIME_PURP, 0, 0, SDL_TRUE, {0, 90 + 72}, 0};
-	level_10.waves[7].wave_array[2] = (t_wave_elem){E_SLIME_PURP, 0, 0, SDL_TRUE, {0, 90 + 144}, 0};
-	level_10.waves[7].wave_array[3] = (t_wave_elem){E_SLIME_PURP, 0, 0, SDL_TRUE, {0, 90 + 216}, 0};
-	level_10.waves[7].wave_array[4] = (t_wave_elem){E_SLIME_PURP, 0, 0, SDL_TRUE, {0, 90 + 288}, 0};
 
 	return (level_10);
 }

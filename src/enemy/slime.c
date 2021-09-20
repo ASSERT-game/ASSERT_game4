@@ -29,7 +29,7 @@ void		slime_cyan_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 	if (mod >> 8 > 0)
 		dst->speed = 1.5;
 
-	dst->enemy_hurtbox.engage_meta1 = (void *)15;
+	dst->enemy_hurtbox.engage_meta1 = (void *)10;
 	dst->enemy_hurtbox.detect = slime_detect_collision_once;
 
 	dst->delta.x = loc.x - (dst->sprite._dst.w / 2);
@@ -71,7 +71,7 @@ void		slime_inv_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 	dst->delta.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->delta.y = loc.y - (dst->sprite._dst.h / 2);
 	dst->speed = 1.5;
-	dst->enemy_hurtbox.engage_meta1 = (void *)20;
+	dst->enemy_hurtbox.engage_meta1 = (void *)15;
 }
 
 void		slime_blue_init(t_enemy *dst, SDL_Point loc, int mod)
@@ -83,7 +83,7 @@ void		slime_blue_init(t_enemy *dst, SDL_Point loc, int mod)
 	circle_spawn(&(loc.x), &(loc.y), SPAWN_RAD, angle);
 	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
-	dst->enemy_hurtbox.engage_meta1 = (void *)10;
+	dst->enemy_hurtbox.engage_meta1 = (void *)6;
 	dst->speed = 1.5;
 
 	fetch_slime_sprite(&(dst->sprite.sprite_data), 0);
