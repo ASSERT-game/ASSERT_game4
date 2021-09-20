@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/19 22:23:44 by home             ###   ########.fr       */
+/*   Updated: 2021/09/20 01:17:25 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ void	main_loop(void *context_addr)
 	if (context->shouldQuit != SDL_TRUE && SDLX_discrete_frames(NULL) != EXIT_FAILURE)
 	{
 		static int angle = 0;
-		if (SDLX_GetBackground() != NULL)
-			SDLX_DrawAnimation(SDLX_GetDisplay()->renderer, SDLX_GetBackground());
 		SDLX_RenderQueue_Flush(NULL, NULL, SDL_TRUE);
 
 		SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, NULL);
@@ -136,6 +134,9 @@ void	main_loop(void *context_addr)
 
 		SDL_RenderPresent(SDLX_GetDisplay()->renderer);
 		SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, context->post_process);
+
+		if (SDLX_GetBackground() != NULL)
+			SDLX_DrawAnimation(SDLX_GetDisplay()->renderer, SDLX_GetBackground());
 	}
 
 	if (context->shouldChange == SDL_TRUE)

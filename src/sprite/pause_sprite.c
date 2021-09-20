@@ -26,24 +26,24 @@ SDLX_Sprite_Data *carve_pause_sprite(void)
 
 	/* The Menu Button */
 	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){0, 0, 16, 16};
+	result[i]._src = (SDL_Rect){0, 0, 32, 32};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;
 	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){16, 0, 16, 16};
+	result[i]._src = (SDL_Rect){32, 0, 32, 32};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;
 
 	/* The Restart Button */
 	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){0, 16, 16, 16};
+	result[i]._src = (SDL_Rect){64, 0, 32, 32};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;
 	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){16, 16, 16, 16};
+	result[i]._src = (SDL_Rect){64 + 32, 0, 32, 32};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;
