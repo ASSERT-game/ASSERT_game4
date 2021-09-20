@@ -19,42 +19,48 @@ SDLX_Sprite_Data *carve_loot_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(10, sizeof(*result));
+	result = SDL_calloc(16, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"loot_scene.png");
 
 	i = 0;
 	/* The Menu Button */
 	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){0, 0, 16, 16};
+	result[i]._src = (SDL_Rect){0, 0, 32, 32};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;
 	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){16, 0, 16, 16};
+	result[i]._src = (SDL_Rect){32, 0, 32, 32};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;
 
 	/* The Back Button */
 	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){0, 16, 16, 16};
+	result[i]._src = (SDL_Rect){0, 32, 32, 32};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;
 	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){16, 16, 16, 16};
+	result[i]._src = (SDL_Rect){32, 32, 32, 32};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;
 
 	/* The Next Button */
+	size_t jx = 0;
+	while (jx < 6)
+	{
+		result[i].texture = texture;
+		result[i]._src = (SDL_Rect){64 + jx * 32, 0, 32, 32};
+		result[i].src = &(result[i]._src);
+		result[i].cycle = 6;
+		i++;
+		jx++;
+	}
+
 	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){0, 32, 16, 16};
-	result[i].src = &(result[i]._src);
-	result[i].cycle = 1;
-	i++;
-	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){16, 32, 16, 16};
+	result[i]._src = (SDL_Rect){64, 32, 32, 32};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;
@@ -100,8 +106,8 @@ int		fetch_loot_sprite(SDLX_Sprite_Data **dst, int no)
 	else if (no == LREDO_NORM)	{ (*dst) = &(sprite_arr[2]); return (EXIT_SUCCESS); }
 	else if (no == LREDO_HOVER)	{ (*dst) = &(sprite_arr[3]); return (EXIT_SUCCESS); }
 	else if (no == LNEXT_NORM)	{ (*dst) = &(sprite_arr[4]); return (EXIT_SUCCESS); }
-	else if (no == LNEXT_HOVER)	{ (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
-	else if (no == LBACK_UI)	{ (*dst) = &(sprite_arr[8]); return (EXIT_SUCCESS); }
-	else if (no == DBACK_UI)	{ (*dst) = &(sprite_arr[9]); return (EXIT_SUCCESS); }
+	else if (no == LNEXT_HOVER)	{ (*dst) = &(sprite_arr[5 + 5]); return (EXIT_SUCCESS); }
+	else if (no == LBACK_UI)	{ (*dst) = &(sprite_arr[8 + 5]); return (EXIT_SUCCESS); }
+	else if (no == DBACK_UI)	{ (*dst) = &(sprite_arr[9 + 5]); return (EXIT_SUCCESS); }
 	else { return (EXIT_FAILURE); }
 }

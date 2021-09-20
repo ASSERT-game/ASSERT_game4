@@ -123,6 +123,8 @@ typedef struct	s_player
 	t_weapon		*weapon_equip;
 	t_attacks		attacks;
 	int				score;
+
+	SDL_bool		*hit;
 }				t_player;
 
 #endif

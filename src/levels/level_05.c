@@ -8,9 +8,9 @@ t_wave_m	level_05(void)
 		.tick = 0,
 		.completed_no = 0,
 
-		.win_kill_count = 0,
+		.win_kill_count = 3,
 		.win_wave_no = 0,
-		.win_wave = 1,
+		.win_wave = 0,
 
 		.size = 2,
 	};

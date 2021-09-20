@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/19 17:23:45 by home             ###   ########.fr       */
+/*   Updated: 2021/09/19 22:23:44 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,12 @@ void	blaster_start(t_context *context)
 
 	// context->mainhand = faser_cannon();
 	// context->offhand = ghostfire_cannon();
-	context->defense = shield_cannon();
+	// context->defense = shield_cannon();
 	// context->special = emp_cannon();
+
+	context->post_process = SDL_CreateTexture(SDLX_GetDisplay()->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIN_WIDTH, WIN_HEIGHT);
+	context->hit = SDL_FALSE;
+	context->timer = 0;
 }
 
 void	main_loop(void *context_addr)
@@ -110,12 +114,34 @@ void	main_loop(void *context_addr)
 
 	if (context->shouldQuit != SDL_TRUE && SDLX_discrete_frames(NULL) != EXIT_FAILURE)
 	{
+		static int angle = 0;
+		if (SDLX_GetBackground() != NULL)
+			SDLX_DrawAnimation(SDLX_GetDisplay()->renderer, SDLX_GetBackground());
 		SDLX_RenderQueue_Flush(NULL, NULL, SDL_TRUE);
-		SDLX_ScreenReset(SDLX_GetDisplay()->renderer, NULL);
+
+		SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, NULL);
+		if (context->hit && context->timer < 5)
+		{
+			SDL_RenderCopyEx(SDLX_GetDisplay()->renderer, context->post_process, NULL, NULL, SDL_sin(angle * 2) * .5, NULL, SDL_FLIP_NONE);
+			context->timer++;
+			angle++;
+		}
+		else
+		{
+			SDL_RenderCopyEx(SDLX_GetDisplay()->renderer, context->post_process, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
+			angle = 0;
+			context->timer = 0;
+			context->hit = SDL_FALSE;
+		}
+
+		SDL_RenderPresent(SDLX_GetDisplay()->renderer);
+		SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, context->post_process);
 	}
 
 	if (context->shouldChange == SDL_TRUE)
 	{
+		context->timer = 0;
+		context->hit = SDL_FALSE;
 		SDLX_CollisionBucket_Flush(NULL);
 		SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);
 

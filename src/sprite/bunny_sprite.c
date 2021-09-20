@@ -19,7 +19,7 @@ SDLX_Sprite_Data *carve_bunny_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(14, sizeof(*result));
+	result = SDL_calloc(22, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"bunny_m.png");
 
 	i = 0;
@@ -43,6 +43,20 @@ SDLX_Sprite_Data *carve_bunny_sprite(void)
 	}
 	result[i - 1].skip = -11;
 
+	size_t	jx;
+
+	jx = 0;
+	while (jx < 8)
+	{
+		result[i].texture = texture;
+		result[i]._src = (SDL_Rect){32 * (jx), 64, 32, 32};
+		result[i].src = &(result[i]._src);
+		result[i].cycle = 8;
+		i++;
+		jx++;
+	}
+	result[i - 1].skip = -11 - 8;
+
 	return (result);
 }
 
@@ -55,8 +69,10 @@ int		fetch_bunny_sprite(SDLX_Sprite_Data **dst, int no)
 
 	if (no == 0)
 		*dst = &(sprite_arr[0]);
-	else
+	else if (no == 1)
 		*dst = &(sprite_arr[8]);
+	else if (no == 2)
+		*dst = &(sprite_arr[14]);
 
 
 	return (EXIT_SUCCESS);

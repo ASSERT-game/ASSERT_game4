@@ -19,11 +19,11 @@ SDLX_Sprite_Data *carve_chest_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(14, sizeof(*result));
+	result = SDL_calloc(20, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"chest.png");
 
 	i = 0;
-	while (i < 14)
+	while (i < 19)
 	{
 		result[i].texture = texture;
 		result[i]._src = (SDL_Rect){32 * i, 0, 32, 32};
@@ -32,10 +32,10 @@ SDLX_Sprite_Data *carve_chest_sprite(void)
 		// result[i].skip = 1;
 		i++;
 	}
-	result[0].cycle = 1;
-	result[1].cycle = 1;
+	result[0].cycle = 6;
+	result[7].cycle = 1;
 
-	result[13].skip = -6;
+	result[13 + 5].skip = -6;
 
 	return (result);
 }
@@ -50,9 +50,9 @@ int		fetch_chest_sprite(SDLX_Sprite_Data **dst, int no)
 	if (no == 0)
 		*dst = &(sprite_arr[0]);
 	else if (no == 1)
-		*dst = &(sprite_arr[1]);
+		*dst = &(sprite_arr[7]);
 	else
-		*dst = &(sprite_arr[2]);
+		*dst = &(sprite_arr[2 + 6]);
 
 	return (EXIT_SUCCESS);
 }

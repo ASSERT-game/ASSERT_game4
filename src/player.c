@@ -50,7 +50,12 @@ SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SD
 	if (hitbox->type & player->player_hurtbox.response_amount)
 	{
 		if (SDLX_Collide_RectToRect(hitbox, &(player->player_hurtbox)))
+		{
+			// fetch_bunny_sprite(&(player->sprite.sprite_data), 2);
+			player->sprite.current = 14;
+			*(player->hit) = SDL_TRUE;
 			return (SDL_TRUE);
+		}
 	}
 	return (SDL_FALSE);
 }

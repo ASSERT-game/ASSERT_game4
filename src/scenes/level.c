@@ -25,6 +25,7 @@ void	level_init(t_context *context, t_wave_m waves)
 	pause_menu_init(&(scene->pause_menu), &(scene->pause.isTriggered), &(scene->pbackground), context, context->init_fn);
 
 	player_init(&(scene->player));
+	scene->player.hit = &(context->hit);
 	crosshair_init(&(scene->crosshair));
 	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->offhand), &(scene->defense), &(scene->special));
 

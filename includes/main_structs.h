@@ -64,6 +64,9 @@ typedef struct	s_context
 	int			killed;
 	int			out_of;
 
+	SDL_Texture	*post_process;
+	SDL_bool	hit;
+	SDL_bool	timer;
 }				t_context;
 
 typedef struct	s_pmenu

@@ -44,8 +44,13 @@ SDL_Texture	*SDLX_CaptureScreen(SDLX_RenderQueue **Queues, size_t amount, SDL_bo
 	size_t	i;
 	size_t	render_object_amount;
 	SDL_Texture	*result;
+	SDL_Texture	*save;
 
 	result = SDL_CreateTexture(SDLX_GetDisplay()->renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, WIN_WIDTH, WIN_HEIGHT);
+
+	save = NULL;
+	save = SDL_GetRenderTarget(SDLX_GetDisplay()->renderer);
+
 	SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, result);
 	SDL_RenderClear(SDLX_GetDisplay()->renderer);
 
@@ -64,7 +69,7 @@ SDL_Texture	*SDLX_CaptureScreen(SDLX_RenderQueue **Queues, size_t amount, SDL_bo
 		i++;
 	}
 
-	SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, NULL);
+	SDL_SetRenderTarget(SDLX_GetDisplay()->renderer, save);
 
 	return (result);
 }
