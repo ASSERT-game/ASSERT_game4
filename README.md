@@ -10,7 +10,7 @@ Fourth repo in the ASSERT_game line, where I try bring to existence an entire ga
 
 The game can currently be exerperinced on most major browsers (Chrome, Safari, Firefox) and is being hosted on one of my own [GitHub Pages](https://pages.github.com/). The game was made to be [playable](https://mrcolour.github.io/blaster/) on the phone and so I encourage you to also try it on the phone. Most of the development was play tested on desktop however and I found it to be more challanging and fun with ***mouse and keyboard***. 
 
-[[Play the game](https://mrcolour.github.io/blaster/)]<br>
+[[Play the game](https://mrcolour.github.io/Mympheus/)]<br>
 [[GitHub Page Repo](https://github.com/MrColour/mrcolour.github.io)]
 
 ### From Source files
